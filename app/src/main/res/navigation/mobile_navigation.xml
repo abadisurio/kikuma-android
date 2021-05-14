@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.kikuma.kikumaapp.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_detailArticleInfoActivity"
+            app:destination="@id/detailArticleInfoActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_camera"
+        android:name="com.kikuma.kikumaapp.ui.dashboard.CameraFragment"
+        android:label="@string/title_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_navigation_camera_to_diseaseResultFragment2"
+            app:destination="@id/diseaseResultFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.kikuma.kikumaapp.ui.notifications.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/detailArticleInfoActivity"
+        android:name="com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity"
+        android:label="activity_detail_article_info"
+        tools:layout="@layout/activity_detail_article_info" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.kikuma.kikumaapp.ui.signup.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.kikuma.kikumaapp.ui.signin.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/diseaseResultFragment2"
+        android:name="com.kikuma.kikumaapp.ui.result.DiseaseResultFragment"
+        android:label="fragment_disease_result"
+        tools:layout="@layout/fragment_disease_result" >
+        <action
+            android:id="@+id/action_diseaseResultFragment2_to_nearestHospitalFragment"
+            app:destination="@id/nearestHospitalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nearestHospitalFragment"
+        android:name="com.kikuma.kikumaapp.ui.hospital.NearestHospitalFragment"
+        android:label="fragment_nearest_hospital"
+        tools:layout="@layout/fragment_nearest_hospital" >
+        <action
+            android:id="@+id/action_nearestHospitalFragment_to_hospitalMapsFragment"
+            app:destination="@id/hospitalMapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hospitalMapsFragment"
+        android:name="com.kikuma.kikumaapp.ui.hospital.HospitalMapsFragment"
+        android:label="fragment_hospital_maps"
+        tools:layout="@layout/fragment_hospital_maps" >
+        <action
+            android:id="@+id/action_hospitalMapsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+</navigation>
