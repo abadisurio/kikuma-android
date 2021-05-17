@@ -25,4 +25,13 @@
     <string name="post">Posted Saturday, 8 May 2021 13:42</string>
     <string name="decsription">Description</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacus pretium sem magna. Adipiscing tincidunt nunc, et quis tempor, pretium ridiculus facilisi nisl. Non congue nulla phasellus adipiscing. Mi lacus sit fermentum, velit. Ut nibh in auctor tellus. Eu risus id ullamcorper urna auctor. Enim ut dignissim et ante turpis erat urna ornare. Aenean et elit aliquam ac massa. Feugiat eget semper nulla id nec vitae. Dignissim euismod elementum senectus hendrerit sagittis ultricies magna nulla. Luctus gravida id elementum pharetra ornare. Tellus leo morbi at imperdiet morbi congue sapien morbi. In augue platea adipiscing interdum vel, nisl turpis ornare sit. Et at nulla dui elit. Neque quam amet, vel amet tristique metus pretium non nulla. Odio neque, lacus ac enim augue aliquam vulputate purus. Varius sollicitudin imperdiet ac porttitor magna sapien egestas malesuada aenean. Proin egestas a pellentesque vitae. Cursus enim sit viverra quisque morbi. Sit eget in in id vulputate lorem mauris ac. Leo, diam ultrices vestibulum in id egestas dapibus purus. Diam donec euismod ac iaculis quam velit adipiscing. Viverra quis tempor, ut egestas. Sed eu, consectetur nec, convallis. Lacus, risus, maecenas felis aliquam iaculis a. Mus et integer donec morbi a adipiscing. Dis odio aliquam cursus faucibus integer tempus ac in. Ultrices lectus enim sit hac. Eu ornare sit aenean in hac nunc.</string>
+    <string name="result">Result</string>
+    <string name="date_result">Saturday, 8 May 2021</string>
+    <string name="disease_name">Jerawat</string>
+    <string name="image">Image</string>
+    <string name="tips">Handling Tips</string>
+    <string name="lorem2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="btn_rs">Nearest Hospital</string>
+    <string name="rs">Nearest Hospital</string>
+    <string name="hospital">Hospital</string>
 </resources>
