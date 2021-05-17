@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KikumaApp">
-        <activity android:name=".ui.detailarticle.DetailArticleInfoActivity"></activity>
+        <activity android:name=".ui.detailarticle.DetailArticleInfoActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
