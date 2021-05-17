@@ -86,4 +86,9 @@
             android:id="@+id/action_hospitalMapsFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.kikuma.kikumaapp.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
 </navigation>
