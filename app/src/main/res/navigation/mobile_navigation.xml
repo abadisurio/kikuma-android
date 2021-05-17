@@ -74,17 +74,8 @@
         android:label="fragment_nearest_hospital"
         tools:layout="@layout/fragment_nearest_hospital" >
         <action
-            android:id="@+id/action_nearestHospitalFragment_to_hospitalMapsFragment"
-            app:destination="@id/hospitalMapsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/hospitalMapsFragment"
-        android:name="com.kikuma.kikumaapp.ui.hospital.HospitalMapsFragment"
-        android:label="fragment_hospital_maps"
-        tools:layout="@layout/fragment_hospital_maps" >
-        <action
-            android:id="@+id/action_hospitalMapsFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            android:id="@+id/action_nearestHospitalFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <activity
         android:id="@+id/mapsActivity"

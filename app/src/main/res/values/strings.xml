@@ -14,7 +14,7 @@
     <string name="password">Password</string>
     <string name="forgot">Forgot Password?</string>
     <string name="signin">Sign In</string>
-    <string name="account" tools:ignore="StringEscaping">Don't have an account? Go to </string>
+    <string name="account">Do not have an account? Go to </string>
     <string name="signup">Sign Up</string>
     <string name="name">Name</string>
     <string name="age">Age</string>
@@ -34,4 +34,9 @@
     <string name="btn_rs">Nearest Hospital</string>
     <string name="rs">Nearest Hospital</string>
     <string name="hospital">Hospital</string>
+    <string name="hello">Hey $name</string>
+    <string name="welcome_message1">Welcome to Kikuma!</string>
+    <string name="view">View More</string>
+    <string name="profile">My Profile</string>
+    <string name="history">History</string>
 </resources>
