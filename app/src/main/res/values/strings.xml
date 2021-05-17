@@ -1,8 +1,19 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">KikumaApp</string>
     <string name="title_home">Home</string>
     <string name="title_camera">Camera</string>
     <string name="title_profile">Profile</string>
+    <string name="sign_in">Sign In Picture</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_message">Welcome to Kikuma Mobile Apps. Please fill in
+        the field below to sign in.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="forgot">Forgot Password?</string>
+    <string name="signin">Sign In</string>
+    <string name="account" tools:ignore="StringEscaping">Don't have an account? Go to </string>
+    <string name="signup">Sign Up</string>
 </resources>
