@@ -84,7 +84,7 @@
         tools:layout="@layout/activity_maps" />
     <activity
         android:id="@+id/confirmImageActivity"
-        android:name="com.kikuma.kikumaapp.ui.dashboard.ConfirmImageActivity"
+        android:name="com.kikuma.kikumaapp.ui.confirmimage.ConfirmImageActivity"
         android:label="activity_confirm_image"
         tools:layout="@layout/activity_confirm_image" />
 </navigation>

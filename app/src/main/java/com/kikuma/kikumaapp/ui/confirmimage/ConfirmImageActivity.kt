@@ -1,14 +1,9 @@
-package com.kikuma.kikumaapp.ui.dashboard
+package com.kikuma.kikumaapp.ui.confirmimage
 
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import com.kikuma.kikumaapp.MainActivity
-import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.ActivityConfirmImageBinding
 
 
