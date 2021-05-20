@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "11430556217",
+    "project_id": "kikuma-a0ee2",
+    "storage_bucket": "kikuma-a0ee2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11430556217:android:101c82dff3f793241e93e8",
+        "android_client_info": {
+          "package_name": "com.kikuma.kikumaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11430556217-i2r47qjldo0s88k1mf2tvf0lh06ie56g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kikuma.kikumaapp",
+            "certificate_hash": "1ce0d27a6845089d2713c236a72f9bed5d3fa6a4"
+          }
+        },
+        {
+          "client_id": "11430556217-jjrt4j4ppk1kad8q0mq2fhtmns13v3nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKI8xz7E86yBDJFUNh7gpRX2XO3RF2bhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11430556217-jjrt4j4ppk1kad8q0mq2fhtmns13v3nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
