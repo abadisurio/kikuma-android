@@ -1,9 +1,9 @@
 package com.kikuma.kikumaapp.ui.dashboard
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -31,7 +31,8 @@ class CameraFragment : Fragment() {
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var fragmentCameraBinding: FragmentCameraBinding
-    private lateinit var cameraViewModel: CameraViewModel
+//    private lateinit var cameraViewModel: CameraViewModel
+    private lateinit var mFileUri: Uri
 
     companion object {
         private const val TAG = "CameraXBasic"
@@ -96,9 +97,16 @@ class CameraFragment : Fragment() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
+                    mFileUri = savedUri
                     val msg = "Photo capture succeeded: $savedUri"
                     Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+                    Log.d("filepathwkwk", savedUri.toString())
+                    val intent = Intent(activity, ConfirmImageActivity::class.java)
+                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri.toString())
+                    startActivity(intent)
+//                    requireActivity().finish()
+
                 }
             })
     }
@@ -172,4 +180,24 @@ class CameraFragment : Fragment() {
             }
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE_PERMISSIONS && resultCode == Activity.RESULT_OK){
+            if(data != null){
+                val filePath = data.data
+                Log.d("filepathwkwk", filePath.toString())
+                val intent = Intent(activity, ConfirmImageActivity::class.java)
+                intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, filePath.toString())
+                startActivity(intent)
+            }
+//            val photo: Bitmap = data?.extras?.get("data") as Bitmap
+
+
+//            val intent = Intent(requireContext(), ConfirmImageActivity::class.java)
+//            intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri)
+//            requireContext().startActivity(intent)
+        }
+    }
+
 }
