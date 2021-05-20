@@ -21,8 +21,8 @@
         android:label="@string/title_camera"
         tools:layout="@layout/fragment_camera" >
         <action
-            android:id="@+id/action_navigation_camera_to_diseaseResultFragment2"
-            app:destination="@id/diseaseResultFragment2" />
+            android:id="@+id/action_navigation_camera_to_confirmImageActivity"
+            app:destination="@id/confirmImageActivity" />
     </fragment>
 
     <fragment
@@ -82,4 +82,9 @@
         android:name="com.kikuma.kikumaapp.MapsActivity"
         android:label="activity_maps"
         tools:layout="@layout/activity_maps" />
+    <activity
+        android:id="@+id/confirmImageActivity"
+        android:name="com.kikuma.kikumaapp.ui.dashboard.ConfirmImageActivity"
+        android:label="activity_confirm_image"
+        tools:layout="@layout/activity_confirm_image" />
 </navigation>
