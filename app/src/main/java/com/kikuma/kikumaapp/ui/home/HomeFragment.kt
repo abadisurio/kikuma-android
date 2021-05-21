@@ -8,13 +8,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.FragmentHomeBinding
+import com.kikuma.kikumaapp.utils.DataDummy
+import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var fragmentHomeBinding: FragmentHomeBinding
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -22,9 +24,30 @@ class HomeFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+    ): View {
+        fragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        return fragmentHomeBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+        val homeAdapter = HomeAdapter()
+
+        fragmentHomeBinding.progressBar.visibility = View.VISIBLE
+        viewModel.getAllArticle().observe(viewLifecycleOwner, { article ->
+            fragmentHomeBinding.progressBar.visibility = View.GONE
+            homeAdapter.setArticles(article)
+            homeAdapter.notifyDataSetChanged()
+        })
+
+        with(fragmentHomeBinding.rvArticle) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = homeAdapter
+        }
     }
 }

@@ -8,10 +8,16 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kikuma.kikumaapp.R
+import com.kikuma.kikumaapp.databinding.FragmentProfileBinding
+import com.kikuma.kikumaapp.ui.home.HomeAdapter
+import com.kikuma.kikumaapp.utils.DataDummy
+import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var fragmentProfileBinding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreateView(
@@ -19,15 +25,30 @@ class ProfileFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        profileViewModel =
-                ViewModelProvider(this).get(ProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        /*
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        profileViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        fragmentProfileBinding = FragmentProfileBinding.inflate(layoutInflater)
+        return fragmentProfileBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        val viewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
+        val history = viewModel.getAllHistory()
+
+        val profileAdapter = ProfileAdapter()
+
+        fragmentProfileBinding.progressBar.visibility = View.VISIBLE
+        viewModel.getAllHistory().observe(viewLifecycleOwner, { history ->
+            fragmentProfileBinding.progressBar.visibility = View.GONE
+            profileAdapter.setHistory(history)
+            profileAdapter.notifyDataSetChanged()
         })
-         */
-        return root
+
+        with(fragmentProfileBinding.rvHistory) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = profileAdapter
+        }
     }
 }

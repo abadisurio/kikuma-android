@@ -1,13 +1,12 @@
 package com.kikuma.kikumaapp.ui.home
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kikuma.kikumaapp.data.source.HomeRepository
+import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
+import com.kikuma.kikumaapp.utils.DataDummy
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun getAllArticle(): LiveData<List<ArticleEntity>> = homeRepository.getAllArticles()
 }
