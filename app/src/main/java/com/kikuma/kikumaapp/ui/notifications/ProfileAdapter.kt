@@ -2,18 +2,27 @@ package com.kikuma.kikumaapp.ui.notifications
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
 import com.kikuma.kikumaapp.databinding.ItemsHistoryBinding
 
-class ProfileAdapter : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
+class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileViewHolder>(DIFF_CALLBACK) {
 
-    private var listHistory = ArrayList<HistoryEntity>()
-
-    fun setHistory(history: List<HistoryEntity>?) {
-        if (history == null) return
-        this.listHistory.clear()
-        this.listHistory.addAll(history)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HistoryEntity>() {
+            override fun areItemsTheSame(oldItem: HistoryEntity, newItem: HistoryEntity): Boolean {
+                return oldItem.historyId == newItem.historyId
+            }
+            override fun areContentsTheSame(oldItem: HistoryEntity, newItem: HistoryEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
@@ -22,17 +31,18 @@ class ProfileAdapter : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
-        val history = listHistory[position]
-        holder.bind(history)
+        val history = getItem(position)
+        if (history != null) {
+            holder.bind(history)
+        }
     }
-
-    override fun getItemCount(): Int = listHistory.size
 
     class ProfileViewHolder(private val binding: ItemsHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(history: HistoryEntity) {
             with(binding) {
                 tvDiseaseName.text = history.disease
                 tvPost.text = history.posted
+
             }
         }
     }
