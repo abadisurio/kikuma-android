@@ -1,18 +1,23 @@
 package com.kikuma.kikumaapp.ui.detailarticle
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.kikuma.kikumaapp.data.source.HomeRepository
 import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
 import com.kikuma.kikumaapp.utils.DataDummy
+import com.kikuma.kikumaapp.vo.Resource
 
 class DetailArticleViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
-    private lateinit var articleId: String
+    val articleId = MutableLiveData<String>()
 
     fun setSelectedArticle(articleId: String) {
-        this.articleId = articleId
+        this.articleId.value = articleId
     }
 
-    fun getArticle(): LiveData<ArticleEntity> = homeRepository.getDetailArticle(articleId)
+    var detailArticle: LiveData<Resource<ArticleEntity>> = Transformations.switchMap(articleId) { mArticleId ->
+        homeRepository.getDetailArticle(mArticleId)
+    }
 }

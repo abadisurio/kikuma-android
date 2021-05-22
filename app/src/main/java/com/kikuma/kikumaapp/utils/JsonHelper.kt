@@ -57,16 +57,44 @@ class JsonHelper(private val context: Context) {
             for (i in 0 until listArray.length()) {
                 val history = listArray.getJSONObject(i)
 
+                val historyId = history.getString("historyId")
                 val disease = history.getString("disease")
                 val posted = history.getString("posted")
 
-                val historyResponse = HistoryResponse(disease, posted)
+                val historyResponse = HistoryResponse(historyId, disease, posted)
                 list.add(historyResponse)
             }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
 
+        return list
+    }
+
+    fun loadDetailArticle(articleId: String): List<ArticleResponse> {
+        val fileName = String.format("ArticleResponses.json", articleId)
+        val list = ArrayList<ArticleResponse>()
+        try {
+            val result = parsingFileToString(fileName)
+            if (result != null) {
+                val responseObject = JSONObject(result)
+                val listArray = responseObject.getJSONArray("articles")
+                for (i in 0 until listArray.length()) {
+                    val article = listArray.getJSONObject(i)
+
+                    val id = article.getString("articleId")
+                    val title = article.getString("title")
+                    val description = article.getString("description")
+                    val imagePath = article.getString("imagePath")
+                    val posted = article.getString("posted")
+
+                    val articleResponse = ArticleResponse(id, title,description, imagePath, posted)
+                    list.add(articleResponse)
+                }
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
         return list
     }
 }

@@ -44,10 +44,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="370dp"
-            android:layout_height="142dp"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
             android:layout_marginTop="19dp"
             android:src="@color/green_200"
+            android:contentDescription="@string/image"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_post" />
@@ -60,7 +61,7 @@
             android:fontFamily="@font/poppins_semi_bold"
             android:text="@string/decsription"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -69,11 +70,12 @@
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:textStyle="bold"
-            android:textSize="13sp"
             android:text="@string/lorem"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_desc"
             app:layout_constraintTop_toBottomOf="@id/tv_desc" />
 
         <ProgressBar

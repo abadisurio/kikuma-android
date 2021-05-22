@@ -3,18 +3,24 @@ package com.kikuma.kikumaapp.ui.home
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
 import com.kikuma.kikumaapp.databinding.ItemsArticleBinding
 import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
-    private var listArticles = ArrayList<ArticleEntity>()
+class HomeAdapter : PagedListAdapter<ArticleEntity, HomeAdapter.HomeViewHolder>(DIFF_CALLBACK) {
 
-    fun setArticles(article: List<ArticleEntity>?) {
-        if (article == null) return
-        this.listArticles.clear()
-        this.listArticles.addAll(article)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ArticleEntity>() {
+            override fun areItemsTheSame(oldItem: ArticleEntity, newItem: ArticleEntity): Boolean {
+                return oldItem.articleId == newItem.articleId
+            }
+            override fun areContentsTheSame(oldItem: ArticleEntity, newItem: ArticleEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -23,12 +29,11 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val article = listArticles[position]
-        holder.bind(article)
+        val article = getItem(position)
+        if (article != null) {
+            holder.bind(article)
+        }
     }
-
-    override fun getItemCount(): Int = listArticles.size
-
 
     class HomeViewHolder(private val binding: ItemsArticleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: ArticleEntity) {
@@ -41,14 +46,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
                     intent.putExtra(DetailArticleInfoActivity.EXTRA_ARTICLE, article.articleId)
                     itemView.context.startActivity(intent)
                 }
-/*
-                Glide.with(this)
-                    .load(article.imagePath)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error))
-                    .into(imgPoster)
 
- */
             }
         }
     }

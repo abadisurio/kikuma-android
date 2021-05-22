@@ -1,22 +1,27 @@
 {
   "history": [
     {
-      "disease": "Jerawat",
-      "posted": "Saturday, 8 May 2021 13:42"
-    },
-    {
-      "disease": "Cacar Air",
-      "posted": "Saturday, 8 May 2021 13:42"
-    },
-    {
+      "historyId": "h1",
       "disease": "Campak",
       "posted": "Saturday, 8 May 2021 13:42"
     },
     {
-      "disease": "Jerawat",
+      "historyId": "h2",
+      "disease": "Cacar Air",
       "posted": "Saturday, 8 May 2021 13:42"
     },
     {
+      "historyId": "h3",
+      "disease": "Campak",
+      "posted": "Saturday, 8 May 2021 13:42"
+    },
+    {
+      "historyId": "h4",
+      "disease": "Cacar Air",
+      "posted": "Saturday, 8 May 2021 13:42"
+    },
+    {
+      "historyId": "h5",
       "disease": "Kudis",
       "posted": "Saturday, 8 May 2021 13:42"
     }

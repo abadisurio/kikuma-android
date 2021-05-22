@@ -3,6 +3,7 @@ package com.kikuma.kikumaapp.ui.detailarticle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -11,6 +12,7 @@ import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
 import com.kikuma.kikumaapp.databinding.ActivityDetailArticleInfoBinding
 import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
+import com.kikuma.kikumaapp.vo.Status
 
 class DetailArticleInfoActivity : AppCompatActivity() {
 
@@ -34,13 +36,22 @@ class DetailArticleInfoActivity : AppCompatActivity() {
         if (extras != null) {
             val articleId = extras.getString(EXTRA_ARTICLE)
             if (articleId != null) {
-                detailArticleInfoBinding.progressBar.visibility = View.VISIBLE
-
                 viewModel.setSelectedArticle(articleId)
 
-                viewModel.getArticle().observe(this, { detail ->
-                    detailArticleInfoBinding.progressBar.visibility = View.GONE
-                    populateArticle(detail)
+                viewModel.detailArticle.observe(this, { detailArticle ->
+                    if (detailArticle != null) {
+                        when (detailArticle.status) {
+                            Status.LOADING -> detailArticleInfoBinding.progressBar.visibility = View.VISIBLE
+                            Status.SUCCESS -> if (detailArticle.data != null){
+                                detailArticleInfoBinding.progressBar.visibility = View.GONE
+                                populateArticle(detailArticle.data)
+                            }
+                            Status.ERROR -> {
+                                detailArticleInfoBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 })
             }
         }
