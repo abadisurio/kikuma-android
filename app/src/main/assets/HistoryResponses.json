@@ -3,26 +3,31 @@
     {
       "historyId": "h1",
       "disease": "Campak",
+      "imageData": "wkwk",
       "posted": "Saturday, 8 May 2021 13:42"
     },
     {
       "historyId": "h2",
       "disease": "Cacar Air",
+      "imageData":  "wkwk",
       "posted": "Saturday, 8 May 2021 13:42"
     },
     {
       "historyId": "h3",
       "disease": "Campak",
+      "imageData":  "wkwk",
       "posted": "Saturday, 8 May 2021 13:42"
     },
     {
       "historyId": "h4",
       "disease": "Cacar Air",
+      "imageData":  "wkwk",
       "posted": "Saturday, 8 May 2021 13:42"
     },
     {
       "historyId": "h5",
       "disease": "Kudis",
+      "imageData":  "wkwk",
       "posted": "Saturday, 8 May 2021 13:42"
     }
   ]

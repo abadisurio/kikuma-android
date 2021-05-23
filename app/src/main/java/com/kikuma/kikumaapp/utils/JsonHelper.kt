@@ -59,9 +59,10 @@ class JsonHelper(private val context: Context) {
 
                 val historyId = history.getString("historyId")
                 val disease = history.getString("disease")
+                val imageData = history.getString("imageData")
                 val posted = history.getString("posted")
 
-                val historyResponse = HistoryResponse(historyId, disease, posted)
+                val historyResponse = HistoryResponse(historyId, disease, imageData, posted)
                 list.add(historyResponse)
             }
         } catch (e: JSONException) {

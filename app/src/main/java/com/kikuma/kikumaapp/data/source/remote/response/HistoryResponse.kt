@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class HistoryResponse(
     var historyId: String,
     var disease: String,
+    var imageData: String,
     var posted: String
 ): Parcelable

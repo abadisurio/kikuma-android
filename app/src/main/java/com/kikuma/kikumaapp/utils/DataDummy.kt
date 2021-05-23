@@ -60,22 +60,27 @@ object DataDummy {
 
         history.add(HistoryEntity("h1",
         "Campak",
+            "wkwk",
         "Saturday, 8 May 2021 13:42"))
 
         history.add(HistoryEntity("h2",
             "Cacar Air",
+            "wkwk",
             "Saturday, 8 May 2021 13:42"))
 
         history.add(HistoryEntity("h3",
             "Campak",
+            "wkwk",
             "Saturday, 8 May 2021 13:42"))
 
         history.add(HistoryEntity("h4",
             "Cacar Air",
+            "wkwk",
             "Saturday, 8 May 2021 13:42"))
 
         history.add(HistoryEntity("h5",
             "Kudis",
+            "wkwk",
             "Saturday, 8 May 2021 13:42"))
 
         return history
