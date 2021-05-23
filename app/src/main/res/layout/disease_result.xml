@@ -11,15 +11,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="15dp"
         android:fontFamily="@font/poppins_semi_bold"
+        android:maxLines="2"
         android:text="@string/result"
         android:textColor="@color/black"
         android:textSize="25sp"
-        android:maxLines="2"
-        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,8 +39,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="370dp"
-        android:layout_height="142dp"
+        android:layout_width="300dp"
+        android:layout_height="170dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="20dp"
         android:src="@color/green_200"
@@ -53,10 +53,11 @@
         android:id="@+id/tv_disease_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/disease_name"
         android:textColor="@color/black"
-        android:layout_marginTop="5dp"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tv_result"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -65,34 +66,37 @@
         android:id="@+id/tv_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/decsription"
         android:textColor="@color/black_1"
         android:textSize="15sp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_result"
+        app:layout_constraintStart_toStartOf="@+id/tv_disease_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_disease_name" />
 
     <TextView
         android:id="@+id/tv_description"
-        android:layout_width="370dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:text="@string/lorem"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintEnd_toEndOf="@id/tv_result"
-        app:layout_constraintStart_toStartOf="@+id/tv_result"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_desc"
         app:layout_constraintTop_toBottomOf="@id/tv_desc" />
 
     <TextView
         android:id="@+id/tv_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/tips"
         android:textColor="@color/black_1"
         android:textSize="15sp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_result"
-        app:layout_constraintTop_toBottomOf="@id/tv_description"/>
+        app:layout_constraintStart_toStartOf="@+id/tv_disease_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tips"
@@ -105,7 +109,7 @@
         tools:listitem="@layout/items_tips_list" />
 
     <Button
-        android:id="@+id/btn_rs"
+        android:id="@+id/btn_hospital"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corners"
@@ -113,9 +117,19 @@
         android:text="@string/btn_rs"
         android:textAllCaps="false"
         android:textSize="20sp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_result"
         app:layout_constraintStart_toStartOf="@+id/tv_result"
         app:layout_constraintTop_toBottomOf="@+id/rv_tips" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
