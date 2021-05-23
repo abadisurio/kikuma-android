@@ -1,5 +1,6 @@
 package com.kikuma.kikumaapp.ui.notifications
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -11,6 +12,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
 import com.kikuma.kikumaapp.databinding.ItemsHistoryBinding
+import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity
+import com.kikuma.kikumaapp.ui.result.DiseaseResultActivity
 
 class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileViewHolder>(DIFF_CALLBACK) {
 
@@ -42,6 +45,12 @@ class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileVie
             with(binding) {
                 tvDiseaseName.text = history.disease
                 tvPost.text = history.posted
+
+                cvItemTips.setOnClickListener {
+                    val intent = Intent(itemView.context, DiseaseResultActivity::class.java)
+                    intent.putExtra(DiseaseResultActivity.EXTRA_HISTORY_ID, history.historyId)
+                    itemView.context.startActivity(intent)
+                }
 
             }
         }
