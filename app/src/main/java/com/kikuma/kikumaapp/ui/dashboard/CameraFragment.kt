@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.FragmentCameraBinding
 import com.kikuma.kikumaapp.ui.confirmimage.ConfirmImageActivity
+import com.kikuma.kikumaapp.ui.result.DiseaseResultActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -103,8 +104,8 @@ class CameraFragment : Fragment() {
                     Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                     Log.d("filepathwkwk", savedUri.toString())
-                    val intent = Intent(activity, ConfirmImageActivity::class.java)
-                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri.toString())
+                    val intent = Intent(activity, DiseaseResultActivity::class.java)
+                    intent.putExtra(DiseaseResultActivity.EXTRA_RESULT, savedUri.toString())
                     startActivity(intent)
 //                    requireActivity().finish()
 
@@ -188,7 +189,7 @@ class CameraFragment : Fragment() {
             if(data != null){
                 val filePath = data.data
                 Log.d("filepathwkwk", filePath.toString())
-                val intent = Intent(activity, ConfirmImageActivity::class.java)
+                val intent = Intent(activity, DiseaseResultActivity::class.java)
                 intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, filePath.toString())
                 startActivity(intent)
             }

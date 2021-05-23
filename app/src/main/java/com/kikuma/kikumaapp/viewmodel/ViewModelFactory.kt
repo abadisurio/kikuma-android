@@ -8,6 +8,7 @@ import com.kikuma.kikumaapp.di.Injection
 import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleViewModel
 import com.kikuma.kikumaapp.ui.home.HomeViewModel
 import com.kikuma.kikumaapp.ui.notifications.ProfileViewModel
+import com.kikuma.kikumaapp.ui.result.DiseaseResultViewModel
 
 class ViewModelFactory private constructor(private val mHomeRepository: HomeRepository) : ViewModelProvider.NewInstanceFactory(){
 
@@ -34,6 +35,9 @@ class ViewModelFactory private constructor(private val mHomeRepository: HomeRepo
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 return ProfileViewModel(mHomeRepository) as T
+            }
+            modelClass.isAssignableFrom(DiseaseResultViewModel::class.java) -> {
+                return DiseaseResultViewModel(mHomeRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -40,4 +40,5 @@
     <string name="profile">My Profile</string>
     <string name="history">History</string>
     <string name="detail_article">Detail Article</string>
+    <string name="icon_tips">tips icon</string>
 </resources>

@@ -1,0 +1,29 @@
+{
+  "tips": [
+    {
+      "tipsId": "r3t1",
+      "resultId": "r3",
+      "tips": "Hindari Menggaruk Ruam"
+    },
+    {
+      "tipsId": "r3t2",
+      "resultId": "r3",
+      "tips": "Berikan Obat Penurun Panas Demam"
+    },
+    {
+      "tipsId": "r3t3",
+      "resultId": "r3",
+      "tips": "Mandi Air Dingin"
+    },
+    {
+      "tipsId": "r3t4",
+      "resultId": "r3",
+      "tips": "Istirahat di Rumah"
+    },
+    {
+      "tipsId": "r3t5",
+      "resultId": "r3",
+      "tips": "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi"
+    }
+  ]
+}

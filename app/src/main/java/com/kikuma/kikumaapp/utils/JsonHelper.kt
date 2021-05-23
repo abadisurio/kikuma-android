@@ -2,7 +2,9 @@ package com.kikuma.kikumaapp.utils
 
 import android.content.Context
 import com.kikuma.kikumaapp.data.source.remote.response.ArticleResponse
+import com.kikuma.kikumaapp.data.source.remote.response.DiseaseResponse
 import com.kikuma.kikumaapp.data.source.remote.response.HistoryResponse
+import com.kikuma.kikumaapp.data.source.remote.response.TipsResponse
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -90,6 +92,52 @@ class JsonHelper(private val context: Context) {
 
                     val articleResponse = ArticleResponse(id, title,description, imagePath, posted)
                     list.add(articleResponse)
+                }
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return list
+    }
+
+    fun loadResult(): List<DiseaseResponse> {
+        val list = ArrayList<DiseaseResponse>()
+        try {
+            val responseObject = JSONObject(parsingFileToString("ResultResponses.json").toString())
+            val listArray = responseObject.getJSONArray("result")
+            for (i in 0 until listArray.length()) {
+                val result = listArray.getJSONObject(i)
+
+                val resultId = result.getString("resultId")
+                val disease = result.getString("disease")
+                val description = result.getString("description")
+
+                val resultResponse = DiseaseResponse(resultId, disease, description)
+                list.add(resultResponse)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return list
+    }
+
+    fun loadTips(resultId: String): List<TipsResponse> {
+        val fileName = String.format("Tips_r1.json", resultId)
+        val list = ArrayList<TipsResponse>()
+        try {
+            val result = parsingFileToString(fileName)
+            if (result != null) {
+                val responseObject = JSONObject(result)
+                val listArray = responseObject.getJSONArray("tips")
+                for (i in 0 until listArray.length()) {
+                    val tip = listArray.getJSONObject(i)
+
+                    val tipsId = tip.getString("tipsId")
+                    val tips = tip.getString("tips")
+
+                    val tipsResponse = TipsResponse(tipsId, resultId, tips)
+                    list.add(tipsResponse)
                 }
             }
         } catch (e: JSONException) {
