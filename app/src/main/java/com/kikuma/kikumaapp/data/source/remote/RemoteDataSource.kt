@@ -68,12 +68,34 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     fun getAllHistory(): LiveData<ApiResponse<List<HistoryResponse>>> {
-        EspressoIdlingResource.increment()
         val resultHistory = MutableLiveData<ApiResponse<List<HistoryResponse>>>()
-        handler.postDelayed({
-            resultHistory.value = ApiResponse.success(jsonHelper.loadHistory())
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
+        val historyRef = firestoreInstance()
+            .collection("scan-history")
+            .document("3wjrUo7Ak7pYGrSsAFHw")
+            .collection("history")
+        historyRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("ini history", " => " + task.result)
+                    val documents = task.result?.documents
+                    if(documents != null){
+                        val historyList = ArrayList<HistoryResponse>()
+                        for (response in documents) {
+                            Log.d("ini poster", response.id + " => " + response.data?.get("imageData"))
+                            val document = HistoryResponse(
+                                response.id,
+                                response.data?.get("disease").toString(),
+                                response.data?.get("imageData").toString(),
+                                response.data?.get("posted").toString(),
+                            )
+                            historyList.add(document)
+                        }
+                        resultHistory.value = ApiResponse.success(historyList)
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.exception)
+                }
+            }
         return resultHistory
     }
 
