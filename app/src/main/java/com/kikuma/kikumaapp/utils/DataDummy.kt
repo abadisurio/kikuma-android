@@ -1,7 +1,6 @@
 package com.kikuma.kikumaapp.utils
 
-import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
-import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
+import com.kikuma.kikumaapp.data.source.local.entity.*
 
 object DataDummy {
 
@@ -84,5 +83,77 @@ object DataDummy {
             "Saturday, 8 May 2021 13:42"))
 
         return history
+    }
+
+    fun generateDummyResult(): List<DiseaseEntity> {
+
+        val result = ArrayList<DiseaseEntity>()
+
+        result.add(
+            DiseaseEntity("r1",
+                    "Cacar Air",
+                    "Penyakit cacar air atau dalam istilah medis disebut varicella adalah infeksi yang disebabkan virus Varicella zoster. Penderita yang terinfeksi virus ini ditandai dengan munculnya ruam kemerahan berisi cairan yang sangat gatal di seluruh tubuh. Pada sebagian besar penderitanya, cacar air merupakan penyakit ringan, khususnya setelah digalakkan program vaksinasi cacar air pada pertengahan tahun 1990-an. Kendati demikian, cacar air tetap dapat menimbulkan komplikasi yang lebih serius pada penderita yang memiliki sistem kekebalan tubuh lemah, misalnya penderita HIV/AIDS.")
+        )
+
+        result.add(
+            DiseaseEntity("r2",
+                    "Campak",
+                    "Campak adalah munculnya ruam kemerahan di seluruh tubuh akibat infeksi virus. Campak merupakan penyakit menular dan dapat menyebabkan komplikasi serius, terutama pada bayi dan anak-anak. Campak disebabkan oleh virus, yang menular melalui percikan air liur yang dikeluarkan penderita saat batuk atau bersin. Penularan juga bisa terjadi bila seseorang menyentuh hidung atau mulut, setelah memegang benda yang terpercik air liur penderita.")
+        )
+
+        result.add(
+            DiseaseEntity("r3",
+                    "Kudis",
+                    "Kudis adalah kondisi yang ditandai dengan munculnya rasa sangat gatal di kulit, terutama pada malam hari, disertai dengan timbulnya ruam bintik-bintik menyerupai jerawat atau lepuhan kecil bersisik. Kondisi ini merupakan dampak dari adanya tungau yang hidup dan bersarang di kulit. Jumlah tungau yang terdapat di kulit penderita kudis berkisar 10-15 ekor, dan dapat berkembang biak hingga berjumlah jutaan, dan menyebar ke bagian tubuh lain, jika tidak mendapatkan penanganan tepat, tungau. Kudis merupakan penyakit yang mudah menular, baik secara kontak langsung atau tidak. Maka dari itu, jika telah merasakan gejala-gejala kudis, dianjurkan untuk segera menemui dokter.")
+        )
+
+        return result
+    }
+
+    fun generateDummyTips(resultId: String): List<TipsEntity> {
+
+        val tips = ArrayList<TipsEntity>()
+
+        tips.add(
+            TipsEntity(
+                "{$resultId}t1",
+                "r1",
+                "Hindari Menggaruk Ruam"
+            )
+        )
+
+        tips.add(
+            TipsEntity(
+                "{$resultId}t2",
+                "r1",
+                "Berikan Obat Penurun Panas Demam"
+            )
+        )
+
+        tips.add(
+            TipsEntity(
+                "{$resultId}t3",
+                "r1",
+                "Mandi Air Dingin"
+            )
+        )
+
+        tips.add(
+            TipsEntity(
+                "{$resultId}t4",
+                "r1",
+                "Istirahat di Rumah"
+            )
+        )
+
+        tips.add(
+            TipsEntity(
+                "{$resultId}t5",
+                "r1",
+                "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi"
+            )
+        )
+
+        return tips
     }
 }

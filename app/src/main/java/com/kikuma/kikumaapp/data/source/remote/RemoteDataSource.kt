@@ -9,7 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.kikuma.kikumaapp.data.source.remote.response.ArticleResponse
+import com.kikuma.kikumaapp.data.source.remote.response.DiseaseResponse
 import com.kikuma.kikumaapp.data.source.remote.response.HistoryResponse
+import com.kikuma.kikumaapp.data.source.remote.response.TipsResponse
 import com.kikuma.kikumaapp.utils.EspressoIdlingResource
 import com.kikuma.kikumaapp.utils.JsonHelper
 import kotlin.reflect.typeOf
@@ -107,5 +109,21 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
             EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
         return resultArticle
+    }
+
+    fun getResult(callback: LoadResultCallback) {
+        handler.postDelayed({ callback.onAllResultReceived(jsonHelper.loadResult()) }, SERVICE_LATENCY_IN_MILLIS)
+    }
+
+    interface LoadResultCallback {
+        fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>)
+    }
+
+    fun getTips(resultId: String, callback: LoadTipsCallback){
+        handler.postDelayed({ callback.onAllTipsReceived(jsonHelper.loadTips(resultId)) }, SERVICE_LATENCY_IN_MILLIS)
+    }
+
+    interface LoadTipsCallback {
+        fun onAllTipsReceived(tipsResponse: List<TipsResponse>)
     }
 }
