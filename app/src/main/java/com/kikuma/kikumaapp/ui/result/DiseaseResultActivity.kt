@@ -33,8 +33,9 @@ class DiseaseResultActivity : AppCompatActivity() {
         diseaseResultBinding = activityDiseaseResultBinding.diseaseResult
 
         setContentView(activityDiseaseResultBinding.root)
-
+        
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val adapter = ResultAdapter()
 
@@ -75,4 +76,10 @@ class DiseaseResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 }
