@@ -18,8 +18,9 @@ import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
 class DiseaseResultActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_RESULT = "extra_result"
+        const val EXTRA_HISTORY_ID = "extra_history_id"
     }
+    
 
     private lateinit var diseaseResultBinding: DiseaseResultBinding
 
@@ -40,7 +41,7 @@ class DiseaseResultActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            val resultId = extras.getString(EXTRA_RESULT)
+            val resultId = extras.getString(EXTRA_HISTORY_ID)
             if (resultId != null) {
                 diseaseResultBinding.progressBar.visibility = View.VISIBLE
 
