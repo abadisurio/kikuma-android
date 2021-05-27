@@ -21,6 +21,7 @@ class DiseaseResultFragment : Fragment() {
 
     companion object {
         const val EXTRA_RESULT = "extra_result"
+        const val EXTRA_HISTORY_ID = "extra_history_id"
     }
 
     private lateinit var diseaseResultBinding: DiseaseResultBinding

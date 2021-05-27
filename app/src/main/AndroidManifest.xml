@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KikumaApp">
-        <activity android:name=".ui.confirmimage.ContainerActivity"></activity>
+
+        <activity android:name=".ui.hospital.HospitalMapsActivity"/>
+        <activity android:name=".ui.confirmimage.ContainerActivity"/>
         <activity
             android:name=".ui.result.DiseaseResultActivity"
             android:label="@string/result"
