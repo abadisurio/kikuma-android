@@ -25,7 +25,7 @@ class HospitalMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(hospitalMapsBinding.root)
 
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map_hospital) as SupportMapFragment
+            .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
 
