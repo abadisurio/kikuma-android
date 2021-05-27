@@ -17,6 +17,10 @@ data class HistoryEntity(
     var disease: String,
 
     @NonNull
+    @ColumnInfo(name = "imageData")
+    var imageData: String,
+
+    @NonNull
     @ColumnInfo(name = "posted")
     var posted: String,
 )
