@@ -21,7 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KikumaApp">
 
-        <activity android:name=".ui.hospital.HospitalMapsActivity"/>
         <activity android:name=".ui.confirmimage.ContainerActivity"/>
         <activity
             android:name=".ui.result.DiseaseResultActivity"
@@ -61,9 +60,10 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+        <activity android:name=".ui.hospital.HospitalMapsActivity"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="${MAPS_API_KEY}" />
     </application>
 
 </manifest>
