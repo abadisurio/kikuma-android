@@ -1,6 +1,7 @@
 package com.kikuma.kikumaapp.ui.dashboard
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -20,7 +21,7 @@ import androidx.fragment.app.Fragment
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.FragmentCameraBinding
 import com.kikuma.kikumaapp.ui.confirmimage.ConfirmImageActivity
-import com.kikuma.kikumaapp.ui.result.DiseaseResultActivity
+import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -97,6 +98,7 @@ class CameraFragment : Fragment() {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                 }
 
+                @SuppressLint("ResourceType")
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     mFileUri = savedUri
@@ -104,8 +106,9 @@ class CameraFragment : Fragment() {
                     Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                     Log.d("filepathwkwk", savedUri.toString())
-                    val intent = Intent(activity, DiseaseResultActivity::class.java)
-                    intent.putExtra(DiseaseResultActivity.EXTRA_RESULT, savedUri.toString())
+
+                    val intent = Intent(activity, ConfirmImageActivity::class.java)
+                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri.toString())
                     startActivity(intent)
 //                    requireActivity().finish()
 
@@ -183,13 +186,15 @@ class CameraFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceType")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQUEST_CODE_PERMISSIONS && resultCode == Activity.RESULT_OK){
             if(data != null){
                 val filePath = data.data
                 Log.d("filepathwkwk", filePath.toString())
-                val intent = Intent(activity, DiseaseResultActivity::class.java)
+
+                val intent = Intent(activity, ConfirmImageActivity::class.java)
                 intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, filePath.toString())
                 startActivity(intent)
             }

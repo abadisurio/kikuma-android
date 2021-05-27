@@ -1,10 +1,7 @@
 package com.kikuma.kikumaapp.utils
 
 import android.content.Context
-import com.kikuma.kikumaapp.data.source.remote.response.ArticleResponse
-import com.kikuma.kikumaapp.data.source.remote.response.DiseaseResponse
-import com.kikuma.kikumaapp.data.source.remote.response.HistoryResponse
-import com.kikuma.kikumaapp.data.source.remote.response.TipsResponse
+import com.kikuma.kikumaapp.data.source.remote.response.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -100,7 +97,7 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadResult(): List<DiseaseResponse> {
+    fun loadAllResult(): List<DiseaseResponse> {
         val list = ArrayList<DiseaseResponse>()
         try {
             val responseObject = JSONObject(parsingFileToString("ResultResponses.json").toString())
@@ -108,12 +105,13 @@ class JsonHelper(private val context: Context) {
             for (i in 0 until listArray.length()) {
                 val result = listArray.getJSONObject(i)
 
-                val resultId = result.getString("resultId")
+                val id = result.getString("resultId")
                 val disease = result.getString("disease")
                 val description = result.getString("description")
+                val percentage = result.getString("percentage")
 
-                val resultResponse = DiseaseResponse(resultId, disease, description)
-                list.add(resultResponse)
+                val diseaseResponse = DiseaseResponse(id, disease, description, percentage)
+                list.add(diseaseResponse)
             }
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -122,11 +120,37 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
+    fun loadResult(resultId: String): List<DiseaseResponse> {
+        val fileName = String.format("ResultResponses.json", resultId)
+        val list = ArrayList<DiseaseResponse>()
+        try {
+            val result = parsingFileToString(fileName)
+            if (result != null) {
+                val responseObject = JSONObject(result)
+                val listArray = responseObject.getJSONArray("result")
+                for (i in 0 until listArray.length()) {
+                    val resultDisease = listArray.getJSONObject(i)
+
+                    //val id = resultDisease.getString("resultId")
+                    val disease = resultDisease.getString("disease")
+                    val description = resultDisease.getString("description")
+                    val percentage = resultDisease.getString("percentage")
+
+                    val diseaseResponse = DiseaseResponse(resultId, disease, description, percentage)
+                    list.add(diseaseResponse)
+                }
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return list
+    }
+
     fun loadTips(resultId: String): List<TipsResponse> {
         val fileName = String.format("Tips_r1.json", resultId)
         val list = ArrayList<TipsResponse>()
         try {
-            val result = parsingFileToString(fileName)
+            val result = parsingFileToString(fileName = fileName)
             if (result != null) {
                 val responseObject = JSONObject(result)
                 val listArray = responseObject.getJSONArray("tips")
@@ -143,6 +167,30 @@ class JsonHelper(private val context: Context) {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+        return list
+    }
+
+    fun loadHospital(): List<HospitalResponse> {
+        val list = ArrayList<HospitalResponse>()
+        try {
+            val responseObject = JSONObject(parsingFileToString("HospitalResponses.json").toString())
+            val listArray = responseObject.getJSONArray("hospital")
+            for (i in 0 until listArray.length()) {
+                val hospital = listArray.getJSONObject(i)
+
+                val hospitalId = hospital.getString("hospitalId")
+                val hospitalName = hospital.getString("hospital")
+                val address = hospital.getString("address")
+                val rate = hospital.getDouble("rate")
+                val imagePath = hospital.getString("imagePath")
+
+                val hospitalResponse = HospitalResponse(hospitalId, hospitalName, address, rate, imagePath)
+                list.add(hospitalResponse)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
         return list
     }
 }

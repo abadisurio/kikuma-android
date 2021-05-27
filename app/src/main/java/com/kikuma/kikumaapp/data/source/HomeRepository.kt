@@ -6,16 +6,10 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.kikuma.kikumaapp.data.NetworkBoundResource
 import com.kikuma.kikumaapp.data.source.local.LocalDataSource
-import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
-import com.kikuma.kikumaapp.data.source.local.entity.DiseaseEntity
-import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
-import com.kikuma.kikumaapp.data.source.local.entity.TipsEntity
+import com.kikuma.kikumaapp.data.source.local.entity.*
 import com.kikuma.kikumaapp.data.source.remote.ApiResponse
 import com.kikuma.kikumaapp.data.source.remote.RemoteDataSource
-import com.kikuma.kikumaapp.data.source.remote.response.ArticleResponse
-import com.kikuma.kikumaapp.data.source.remote.response.DiseaseResponse
-import com.kikuma.kikumaapp.data.source.remote.response.HistoryResponse
-import com.kikuma.kikumaapp.data.source.remote.response.TipsResponse
+import com.kikuma.kikumaapp.data.source.remote.response.*
 import com.kikuma.kikumaapp.utils.AppExecutors
 import com.kikuma.kikumaapp.vo.Resource
 
@@ -127,48 +121,92 @@ class HomeRepository private constructor(
             }
         }.asLiveData()
     }
-/*
+
     override fun getAllResult(): LiveData<List<DiseaseEntity>> {
-        val diseaseResults = MutableLiveData<List<DiseaseEntity>>()
-        remoteDataSource.getResult(object : RemoteDataSource.LoadResultCallback {
+        val allResults = MutableLiveData<List<DiseaseEntity>>()
+        remoteDataSource.getAllResult(object : RemoteDataSource.LoadAllResultCallback {
             override fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>) {
                 val resultList = ArrayList<DiseaseEntity>()
                 for (response in diseaseResponse) {
                     val result = DiseaseEntity(response.resultId,
                             response.disease,
-                            response.description)
+                            response.description,
+                            response.percentage)
                     resultList.add(result)
                 }
-                diseaseResults.postValue(resultList)
+                allResults.postValue(resultList)
             }
         })
 
-        return diseaseResults
+        return allResults
     }
- */
+
+    override fun getHospital(): LiveData<List<HospitalEntity>> {
+        val hospitalResults = MutableLiveData<List<HospitalEntity>>()
+        remoteDataSource.getHospital(object : RemoteDataSource.LoadHospitalCallback {
+            override fun onAllHospitalReceived(hospitalResponse: List<HospitalResponse>) {
+                val hospitalList = ArrayList<HospitalEntity>()
+                for (response in hospitalResponse) {
+                    val hospital = HospitalEntity(response.hospitalId,
+                            response.hospital,
+                            response.address,
+                            response.rate,
+                            response.imagePath)
+                    hospitalList.add(hospital)
+                }
+                hospitalResults.postValue(hospitalList)
+            }
+        })
+
+        return hospitalResults
+    }
 
     override fun getResultWithTips(resultId: String): LiveData<DiseaseEntity> {
+        //ini belum bener, soalnya kalo kaya gini result yg tampil selalu id yg terakhir
         val diseaseResult = MutableLiveData<DiseaseEntity>()
-        remoteDataSource.getResult(object : RemoteDataSource.LoadResultCallback {
+
+        remoteDataSource.getAllResult(object : RemoteDataSource.LoadAllResultCallback {
             override fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>) {
-                lateinit var result: DiseaseEntity
+                lateinit var disease: DiseaseEntity
                 for (response in diseaseResponse) {
-                    result = DiseaseEntity(response.resultId,
+                    disease = DiseaseEntity(response.resultId,
                             response.disease,
-                            response.description)
+                            response.description,
+                            response.percentage)
                 }
-                diseaseResult.postValue(result)
+                diseaseResult.postValue(disease)
             }
         })
         return diseaseResult
+
+        //Harusnya gini, tp entah knp selalu disease has not been initialized
+        /*
+        val diseaseResult = MutableLiveData<DiseaseEntity>()
+
+        remoteDataSource.getAllResult(object : RemoteDataSource.LoadAllResultCallback {
+            override fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>) {
+                lateinit var disease: DiseaseEntity
+                for (response in diseaseResponse) {
+                    if (response.resultId == resultId) {
+                        disease = DiseaseEntity(response.resultId,
+                                response.disease,
+                                response.description,
+                                response.percentage)
+                    }
+                }
+                diseaseResult.postValue(disease)
+            }
+        })
+        return diseaseResult
+         */
     }
 
     override fun getAllTipsByResult(resultId: String): LiveData<List<TipsEntity>> {
         val tipsResults = MutableLiveData<List<TipsEntity>>()
         remoteDataSource.getTips(resultId, object : RemoteDataSource.LoadTipsCallback {
-            override fun onAllTipsReceived(tipsResponses: List<TipsResponse>) {
+            override fun onAllTipsReceived(tipsResponse: List<TipsResponse>) {
                 val tipsList = ArrayList<TipsEntity>()
-                for(response in tipsResponses) {
+                for(response in tipsResponse) {
                     val tips = TipsEntity(response.tipsId,
                             response.resultId,
                             response.tips)

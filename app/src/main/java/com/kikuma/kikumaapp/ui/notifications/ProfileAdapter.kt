@@ -43,6 +43,9 @@ class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileVie
                 tvDiseaseName.text = history.disease
                 tvPost.text = history.posted
 
+                itemView.setOnClickListener {
+
+                }
             }
         }
     }

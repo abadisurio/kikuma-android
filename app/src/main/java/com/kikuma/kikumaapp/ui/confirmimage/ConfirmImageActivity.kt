@@ -1,10 +1,14 @@
 package com.kikuma.kikumaapp.ui.confirmimage
 
+import android.R
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.kikuma.kikumaapp.databinding.ActivityConfirmImageBinding
+import com.kikuma.kikumaapp.ui.result.list.ListResultFragment
 
 
 class ConfirmImageActivity : AppCompatActivity() {
@@ -31,6 +35,17 @@ class ConfirmImageActivity : AppCompatActivity() {
             if(imageUri != null){
                 imageView.setImageURI(Uri.parse(imageUri))
             }
+        }
+
+        activityConfirmImageBinding.btnNext.setOnClickListener{
+            val intent = Intent(this, ContainerActivity::class.java)
+            startActivity(intent)
+            /*
+            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.content, ListResultFragment())
+            transaction.commit()
+
+             */
         }
     }
     override fun onSupportNavigateUp(): Boolean {
