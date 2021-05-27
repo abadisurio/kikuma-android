@@ -113,6 +113,7 @@ class HomeRepository private constructor(
                 for (response in data) {
                     val history = HistoryEntity(response.historyId,
                     response.disease,
+                    response.imageData,
                     response.posted)
                     historyList.add(history)
                 }
