@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".ui.hospital.NearestHospitalFragment">
+    android:id="@+id/fragment_list_result"
+    tools:context=".ui.result.list.ListResultFragment">
 
     <TextView
-        android:id="@+id/tv_rs"
+        android:id="@+id/tv_list_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:fontFamily="@font/poppins_semi_bold"
-        android:text="@string/rs"
+        android:text="@string/list_result"
+        android:layout_marginTop="25dp"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:layout_marginStart="30dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_rs"
+        android:id="@+id/rv_list_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        tools:listitem="@layout/items_hospital" />
+        tools:listitem="@layout/items_list_result" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

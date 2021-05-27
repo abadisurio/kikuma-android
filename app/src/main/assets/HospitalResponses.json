@@ -1,0 +1,25 @@
+{
+  "hospital": [
+    {
+      "hospitalId": "h1",
+      "hospital": "Jasper Skincare Depok",
+      "address": "Jl. Margonda Raya Blk. C No.18, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
+      "rate": 4.9,
+      "imagePath": "https://lh3.googleusercontent.com/p/AF1QipPGQ2iAdEqMu9R_FeuLnP35aTe8Rd2KAhdMSGqO=s1600-h380"
+    },
+    {
+      "hospitalId": "h2",
+      "hospital": "Erha Clinic Depok",
+      "address": "Jl. Kartini No.22, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
+      "rate": 4.1,
+      "imagePath": ""
+    },
+    {
+      "hospitalId": "h3",
+      "hospital": "Natasha Skin Clinic Center Depok",
+      "address": "Jl. Margonda Raya No.5, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
+      "rate": 3.9,
+      "imagePath": ""
+    }
+  ]
+}

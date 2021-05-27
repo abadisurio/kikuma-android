@@ -6,6 +6,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.kikuma.kikumaapp.data.source.remote.response.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.kikuma.kikumaapp.data.source.remote.response.ArticleResponse
@@ -111,19 +112,41 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
         return resultArticle
     }
 
-    fun getResult(callback: LoadResultCallback) {
-        handler.postDelayed({ callback.onAllResultReceived(jsonHelper.loadResult()) }, SERVICE_LATENCY_IN_MILLIS)
+    //all result
+    fun getAllResult(callback: LoadAllResultCallback) {
+        handler.postDelayed({ callback.onAllResultReceived(jsonHelper.loadAllResult()) }, SERVICE_LATENCY_IN_MILLIS)
     }
 
-    interface LoadResultCallback {
+    interface LoadAllResultCallback {
         fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>)
     }
 
+    //detail result
+    /*
+    fun getResult(callback: LoadResultCallback, resultId: String) {
+        handler.postDelayed({ callback.onResultReceived(jsonHelper.loadResult(resultId)) }, SERVICE_LATENCY_IN_MILLIS)
+    }
+
+    interface LoadResultCallback {
+        fun onResultReceived(diseaseResponse: List<DiseaseResponse>)
+    }
+     */
+
+    //tips
     fun getTips(resultId: String, callback: LoadTipsCallback){
         handler.postDelayed({ callback.onAllTipsReceived(jsonHelper.loadTips(resultId)) }, SERVICE_LATENCY_IN_MILLIS)
     }
 
     interface LoadTipsCallback {
         fun onAllTipsReceived(tipsResponse: List<TipsResponse>)
+    }
+
+    //hospital
+    fun getHospital(callback: LoadHospitalCallback) {
+        handler.postDelayed({ callback.onAllHospitalReceived(jsonHelper.loadHospital()) }, SERVICE_LATENCY_IN_MILLIS)
+    }
+
+    interface LoadHospitalCallback {
+        fun onAllHospitalReceived(hospitalResponse: List<HospitalResponse>)
     }
 }

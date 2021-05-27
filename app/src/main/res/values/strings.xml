@@ -41,4 +41,11 @@
     <string name="history">History</string>
     <string name="detail_article">Detail Article</string>
     <string name="icon_tips">tips icon</string>
+    <string name="rating">4.8</string>
+    <string name="confirm_image">Confirm Image</string>
+    <string name="next">Next</string>
+    <string name="list_result">Possible Result</string>
+    <string name="percentage">85%</string>
+    <string name="detail">Detail Result</string>
+    <string name="icon_star">Rating</string>
 </resources>

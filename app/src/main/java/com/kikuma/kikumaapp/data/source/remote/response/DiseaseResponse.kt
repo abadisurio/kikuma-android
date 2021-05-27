@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class DiseaseResponse(
         var resultId: String,
         var disease: String,
-        var description: String
+        var description: String,
+        var percentage: String
 ): Parcelable

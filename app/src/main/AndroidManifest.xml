@@ -20,10 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KikumaApp">
+
+        <activity android:name=".ui.confirmimage.ContainerActivity"></activity>
+
         <activity android:name=".ui.hospital.HospitalMapsActivity"/>
-        <activity android:name=".ui.result.DiseaseResultActivity"
-            android:label="@string/result"
-            android:parentActivityName=".MainActivity"/>
+
         <activity android:name=".ui.signup.SignUpActivity" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
@@ -44,7 +45,9 @@
             android:name=".ui.detailarticle.DetailArticleInfoActivity"
             android:label="@string/detail_article"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ui.confirmimage.ConfirmImageActivity" />
+        <activity
+            android:name=".ui.confirmimage.ConfirmImageActivity"
+            android:label="@string/confirm_image" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />

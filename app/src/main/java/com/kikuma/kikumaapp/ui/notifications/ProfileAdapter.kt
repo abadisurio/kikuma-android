@@ -51,7 +51,6 @@ class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileVie
                     intent.putExtra(DiseaseResultActivity.EXTRA_HISTORY_ID, history.historyId)
                     itemView.context.startActivity(intent)
                 }
-
             }
         }
     }

@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.FragmentCameraBinding
 import com.kikuma.kikumaapp.ui.confirmimage.ConfirmImageActivity
-import com.kikuma.kikumaapp.ui.result.DiseaseResultActivity
+import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -117,6 +117,7 @@ class CameraFragment : Fragment() {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                 }
 
+                @SuppressLint("ResourceType")
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     mFileUri = savedUri
@@ -124,8 +125,9 @@ class CameraFragment : Fragment() {
                     Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                     Log.d("filepathwkwk", savedUri.toString())
-                    val intent = Intent(activity, DiseaseResultActivity::class.java)
-                    intent.putExtra(DiseaseResultActivity.EXTRA_HISTORY_ID, savedUri.toString())
+
+                    val intent = Intent(activity, ConfirmImageActivity::class.java)
+                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri.toString())
                     startActivity(intent)
 //                    requireActivity().finish()
 

@@ -91,20 +91,23 @@ object DataDummy {
 
         result.add(
             DiseaseEntity("r1",
-                    "Cacar Air",
-                    "Penyakit cacar air atau dalam istilah medis disebut varicella adalah infeksi yang disebabkan virus Varicella zoster. Penderita yang terinfeksi virus ini ditandai dengan munculnya ruam kemerahan berisi cairan yang sangat gatal di seluruh tubuh. Pada sebagian besar penderitanya, cacar air merupakan penyakit ringan, khususnya setelah digalakkan program vaksinasi cacar air pada pertengahan tahun 1990-an. Kendati demikian, cacar air tetap dapat menimbulkan komplikasi yang lebih serius pada penderita yang memiliki sistem kekebalan tubuh lemah, misalnya penderita HIV/AIDS.")
+                    "Jerawat",
+                    "Penyakit cacar air atau dalam istilah medis disebut varicella adalah infeksi yang disebabkan virus Varicella zoster. Penderita yang terinfeksi virus ini ditandai dengan munculnya ruam kemerahan berisi cairan yang sangat gatal di seluruh tubuh. Pada sebagian besar penderitanya, cacar air merupakan penyakit ringan, khususnya setelah digalakkan program vaksinasi cacar air pada pertengahan tahun 1990-an. Kendati demikian, cacar air tetap dapat menimbulkan komplikasi yang lebih serius pada penderita yang memiliki sistem kekebalan tubuh lemah, misalnya penderita HIV/AIDS.",
+                    "84%")
         )
 
         result.add(
             DiseaseEntity("r2",
                     "Campak",
-                    "Campak adalah munculnya ruam kemerahan di seluruh tubuh akibat infeksi virus. Campak merupakan penyakit menular dan dapat menyebabkan komplikasi serius, terutama pada bayi dan anak-anak. Campak disebabkan oleh virus, yang menular melalui percikan air liur yang dikeluarkan penderita saat batuk atau bersin. Penularan juga bisa terjadi bila seseorang menyentuh hidung atau mulut, setelah memegang benda yang terpercik air liur penderita.")
+                    "Campak adalah munculnya ruam kemerahan di seluruh tubuh akibat infeksi virus. Campak merupakan penyakit menular dan dapat menyebabkan komplikasi serius, terutama pada bayi dan anak-anak. Campak disebabkan oleh virus, yang menular melalui percikan air liur yang dikeluarkan penderita saat batuk atau bersin. Penularan juga bisa terjadi bila seseorang menyentuh hidung atau mulut, setelah memegang benda yang terpercik air liur penderita.",
+                    "70%")
         )
 
         result.add(
             DiseaseEntity("r3",
                     "Kudis",
-                    "Kudis adalah kondisi yang ditandai dengan munculnya rasa sangat gatal di kulit, terutama pada malam hari, disertai dengan timbulnya ruam bintik-bintik menyerupai jerawat atau lepuhan kecil bersisik. Kondisi ini merupakan dampak dari adanya tungau yang hidup dan bersarang di kulit. Jumlah tungau yang terdapat di kulit penderita kudis berkisar 10-15 ekor, dan dapat berkembang biak hingga berjumlah jutaan, dan menyebar ke bagian tubuh lain, jika tidak mendapatkan penanganan tepat, tungau. Kudis merupakan penyakit yang mudah menular, baik secara kontak langsung atau tidak. Maka dari itu, jika telah merasakan gejala-gejala kudis, dianjurkan untuk segera menemui dokter.")
+                    "Kudis adalah kondisi yang ditandai dengan munculnya rasa sangat gatal di kulit, terutama pada malam hari, disertai dengan timbulnya ruam bintik-bintik menyerupai jerawat atau lepuhan kecil bersisik. Kondisi ini merupakan dampak dari adanya tungau yang hidup dan bersarang di kulit. Jumlah tungau yang terdapat di kulit penderita kudis berkisar 10-15 ekor, dan dapat berkembang biak hingga berjumlah jutaan, dan menyebar ke bagian tubuh lain, jika tidak mendapatkan penanganan tepat, tungau. Kudis merupakan penyakit yang mudah menular, baik secara kontak langsung atau tidak. Maka dari itu, jika telah merasakan gejala-gejala kudis, dianjurkan untuk segera menemui dokter.",
+                    "80%")
         )
 
         return result
@@ -117,7 +120,7 @@ object DataDummy {
         tips.add(
             TipsEntity(
                 "{$resultId}t1",
-                "r1",
+                resultId,
                 "Hindari Menggaruk Ruam"
             )
         )
@@ -125,7 +128,7 @@ object DataDummy {
         tips.add(
             TipsEntity(
                 "{$resultId}t2",
-                "r1",
+                resultId,
                 "Berikan Obat Penurun Panas Demam"
             )
         )
@@ -133,7 +136,7 @@ object DataDummy {
         tips.add(
             TipsEntity(
                 "{$resultId}t3",
-                "r1",
+                resultId,
                 "Mandi Air Dingin"
             )
         )
@@ -141,7 +144,7 @@ object DataDummy {
         tips.add(
             TipsEntity(
                 "{$resultId}t4",
-                "r1",
+                resultId,
                 "Istirahat di Rumah"
             )
         )
@@ -149,11 +152,35 @@ object DataDummy {
         tips.add(
             TipsEntity(
                 "{$resultId}t5",
-                "r1",
+                resultId,
                 "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi"
             )
         )
 
         return tips
+    }
+
+    fun generateDummyHospitals(): List<HospitalEntity> {
+        val hospital = ArrayList<HospitalEntity>()
+
+        hospital.add(HospitalEntity("h3",
+        "Jasper Skincare Depok",
+        "Jl. Margonda Raya Blk. C No.18, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
+        4.9,
+        "https://lh3.googleusercontent.com/p/AF1QipPGQ2iAdEqMu9R_FeuLnP35aTe8Rd2KAhdMSGqO=s1600-h380"))
+
+        hospital.add(HospitalEntity("h1",
+        "Erha Clinic Depok",
+        "Jl. Kartini No.22, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
+        4.1,
+        ""))
+
+        hospital.add(HospitalEntity("h2",
+        "Natasha Skin Clinic Center Depok",
+        "Jl. Margonda Raya No.5, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
+        3.9,
+        ""))
+
+        return hospital
     }
 }
