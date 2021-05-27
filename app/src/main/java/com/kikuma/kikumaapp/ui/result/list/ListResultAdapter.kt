@@ -54,7 +54,7 @@ class ListResultAdapter() : RecyclerView.Adapter<ListResultAdapter.ListResultVie
                 tvDiseaseName.text = results.disease
                 tvPercentage.text = results.percentage
 
-                itemView.setOnClickListener {
+                cvItemDisease.setOnClickListener {
                     onItemClickCallback?.onItemClicked(results) }
             }
         }

@@ -1,5 +1,6 @@
 package com.kikuma.kikumaapp.ui.hospital
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,12 @@ class NearestHospitalAdapter : RecyclerView.Adapter<NearestHospitalAdapter.Hospi
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error))
                     .into(binding.imagePoster)
+
+                cvItemHospital.setOnClickListener {
+                    val intent = Intent(itemView.context, HospitalMapsActivity::class.java)
+                    //intent.putExtra(DiseaseResultActivity.EXTRA_HISTORY_ID, history.historyId)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }
