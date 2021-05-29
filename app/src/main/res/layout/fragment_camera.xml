@@ -40,6 +40,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/camera_capture_button"
         app:layout_constraintStart_toStartOf="parent" />
+    <ImageButton
+        android:id="@+id/camera_flip_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_baseline_flip_camera"
+        app:layout_constraintTop_toTopOf="@+id/camera_capture_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/camera_capture_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

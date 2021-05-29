@@ -35,6 +35,10 @@ class CameraFragment : Fragment() {
     private lateinit var fragmentCameraBinding: FragmentCameraBinding
     private lateinit var preview: Preview
     private lateinit var cameraProvider: ProcessCameraProvider
+    private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var isRearCamera = false
+
+
 //    private lateinit var cameraViewModel: CameraViewModel
     private lateinit var mFileUri: Uri
 
@@ -80,6 +84,10 @@ class CameraFragment : Fragment() {
         // Set up the listener for take photo button
         fragmentCameraBinding.cameraCaptureButton.setOnClickListener {
             takePhoto()
+        }
+
+        fragmentCameraBinding.cameraFlipButton.setOnClickListener {
+            flipCamera()
         }
 
         outputDirectory = getOutputDirectory()
@@ -135,6 +143,15 @@ class CameraFragment : Fragment() {
             })
     }
 
+    private fun flipCamera() {
+        cameraSelector = when(isRearCamera){
+            true -> CameraSelector.DEFAULT_BACK_CAMERA
+            false -> CameraSelector.DEFAULT_FRONT_CAMERA
+        }
+        isRearCamera = !isRearCamera
+        startCamera()
+    }
+
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         val viewFinder: PreviewView = fragmentCameraBinding.viewFinder
@@ -155,10 +172,6 @@ class CameraFragment : Fragment() {
                 .also {
                     it.setSurfaceProvider(viewFinder.surfaceProvider)
                 }
-
-            // Select back camera as a default
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
 
             try {
 
