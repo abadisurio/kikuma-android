@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.KikumaApp" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.KikumaApp" parent="Theme.MaterialComponents.Light">
+        <!-- Disable Night Mode. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q"> false </item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green_500</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>

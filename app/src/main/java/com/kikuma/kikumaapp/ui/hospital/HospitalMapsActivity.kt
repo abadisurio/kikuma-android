@@ -8,14 +8,15 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.Places
+import com.kikuma.kikumaapp.BuildConfig
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.ActivityHospitalMapsBinding
 
 class HospitalMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var mPlaces: Place
+    private lateinit var mPlaces: Unit
 
     private lateinit var hospitalMapsBinding: ActivityHospitalMapsBinding
 
@@ -28,6 +29,7 @@ class HospitalMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        mPlaces = Places.initialize(this, BuildConfig.MAPS_API_KEY)
 
     }
 

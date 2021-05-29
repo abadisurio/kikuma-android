@@ -1,9 +1,9 @@
 package com.kikuma.kikumaapp.ui.detailarticle
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -28,6 +28,7 @@ class DetailArticleInfoActivity : AppCompatActivity() {
         setContentView(detailArticleInfoBinding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[DetailArticleViewModel::class.java]
@@ -42,7 +43,7 @@ class DetailArticleInfoActivity : AppCompatActivity() {
                     if (detailArticle != null) {
                         when (detailArticle.status) {
                             Status.LOADING -> detailArticleInfoBinding.progressBar.visibility = View.VISIBLE
-                            Status.SUCCESS -> if (detailArticle.data != null){
+                            Status.SUCCESS -> if (detailArticle.data != null) {
                                 detailArticleInfoBinding.progressBar.visibility = View.GONE
                                 populateArticle(detailArticle.data)
                             }
@@ -66,8 +67,14 @@ class DetailArticleInfoActivity : AppCompatActivity() {
             .load(articleEntity.imagePath)
             .transform(RoundedCorners(20))
             .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_loading)
-                .error(R.drawable.ic_error))
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                            .error(R.drawable.ic_error))
             .into(detailArticleInfoBinding.imageView)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 }

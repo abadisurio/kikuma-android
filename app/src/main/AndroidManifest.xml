@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kikuma.kikumaapp">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -11,6 +12,7 @@
     <uses-feature android:name="android.hardware.camera.any" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove"/>
 
     <application
         android:allowBackup="true"
@@ -22,10 +24,6 @@
         android:theme="@style/Theme.KikumaApp">
 
         <activity android:name=".ui.confirmimage.ContainerActivity"/>
-        <activity
-            android:name=".ui.result.DiseaseResultActivity"
-            android:label="@string/result"
-            android:parentActivityName=".MainActivity" />
         <activity android:name=".ui.signup.SignUpActivity" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"

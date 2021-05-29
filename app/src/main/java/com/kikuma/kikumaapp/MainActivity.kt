@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         val activityMainBinding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         val navView: BottomNavigationView = activityMainBinding.navView
         setContentView(activityMainBinding.root)
-//
+
+        supportActionBar?.hide()
+
 //        val viewTreeObserver: ViewTreeObserver = navView.viewTreeObserver
 //        if(viewTreeObserver.isAlive){
 //            viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
