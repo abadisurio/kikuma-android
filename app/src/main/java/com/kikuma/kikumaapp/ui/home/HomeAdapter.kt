@@ -6,6 +6,10 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
 import com.kikuma.kikumaapp.databinding.ItemsArticleBinding
 import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity
@@ -41,7 +45,17 @@ class HomeAdapter : PagedListAdapter<ArticleEntity, HomeAdapter.HomeViewHolder>(
                 tvTitle.text = article.title
                 tvDesc.text = article.description
 
-                btnViewMore.setOnClickListener {
+                Glide.with(itemView)
+                        .load(article.imagePath)
+                        .transform(RoundedCorners(40))
+                        .apply(
+                            RequestOptions
+                                .placeholderOf(R.drawable.ic_loading)
+                                .centerCrop()
+                                .error(R.drawable.ic_error))
+                        .into(imageHome)
+
+                cvItemMovies.setOnClickListener {
                     val intent = Intent(itemView.context, DetailArticleInfoActivity::class.java)
                     intent.putExtra(DetailArticleInfoActivity.EXTRA_ARTICLE, article.articleId)
                     itemView.context.startActivity(intent)

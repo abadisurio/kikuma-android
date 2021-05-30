@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kikuma.kikumaapp.MainActivity
@@ -47,9 +48,9 @@ class SignUpActivity : AppCompatActivity() {
         hideKeyboard(activitySignUpBinding.root)
         activitySignUpBinding.loading.layoutLoading.visibility = View.VISIBLE
 
-
         val emailField = activitySignUpBinding.edEmail.text.toString()
         val passwordField = activitySignUpBinding.edPassword.text.toString()
+        val nameField = activitySignUpBinding.edName.text.toString()
 
         auth.createUserWithEmailAndPassword(emailField, passwordField)
             .addOnCompleteListener(this) {
@@ -58,8 +59,18 @@ class SignUpActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithEmail:success")
                     val user: FirebaseUser? = auth.currentUser
                     updateUI(user)
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+
+                    val profileUpdate = UserProfileChangeRequest
+                            .Builder()
+                            .setDisplayName(nameField)
+                            .build()
+                    user?.updateProfile(profileUpdate)?.addOnCompleteListener {updateName ->
+                        if(updateName.isSuccessful){
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+                    }
+
                 }else{
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", it.exception)
