@@ -113,43 +113,30 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     //all result
-    fun getAllResult(callback: LoadAllResultCallback) {
-        handler.postDelayed({ callback.onAllResultReceived(jsonHelper.loadAllResult()) }, SERVICE_LATENCY_IN_MILLIS)
-    }
-
-    interface LoadAllResultCallback {
-        fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>)
+    fun getAllResult(): LiveData<ApiResponse<List<DiseaseResponse>>> {
+        val resultDisease = MutableLiveData<ApiResponse<List<DiseaseResponse>>>()
+        resultDisease.value = ApiResponse.success(jsonHelper.loadAllResult())
+        return resultDisease
     }
 
     //detail result
-    /*
-    fun getResult(callback: LoadResultCallback, resultId: String) {
-        handler.postDelayed({ callback.onResultReceived(jsonHelper.loadResult(resultId)) }, SERVICE_LATENCY_IN_MILLIS)
+    fun getDetailResult(resultId: String): LiveData<ApiResponse<List<DiseaseResponse>>> {
+        val resultArticle = MutableLiveData<ApiResponse<List<DiseaseResponse>>>()
+        resultArticle.value = ApiResponse.success(jsonHelper.loadResult(resultId))
+        return resultArticle
     }
-
-    interface LoadResultCallback {
-        fun onResultReceived(diseaseResponse: List<DiseaseResponse>)
-    }
-     */
 
     //tips
-    fun getTips(resultId: String, callback: LoadTipsCallback){
-        handler.postDelayed({ callback.onAllTipsReceived(jsonHelper.loadTips(resultId)) }, SERVICE_LATENCY_IN_MILLIS)
-    }
-
-    interface LoadTipsCallback {
-        fun onAllTipsReceived(tipsResponse: List<TipsResponse>)
+    fun getTips(resultId: String): LiveData<ApiResponse<List<TipsResponse>>> {
+        val resultTips = MutableLiveData<ApiResponse<List<TipsResponse>>>()
+        resultTips.value = ApiResponse.success(jsonHelper.loadTips(resultId))
+        return resultTips
     }
 
     //hospital
     fun getAllHospital(): LiveData<ApiResponse<List<HospitalResponse>>> {
         val resultHospital = MutableLiveData<ApiResponse<List<HospitalResponse>>>()
         resultHospital.value = ApiResponse.success(jsonHelper.loadHospital())
-        /*
-        handler.postDelayed({
-            resultHospital.value = ApiResponse.success(jsonHelper.loadHospital())
-        })
-         */
         return resultHospital
     }
 }

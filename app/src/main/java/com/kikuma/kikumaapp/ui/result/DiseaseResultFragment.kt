@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,11 +17,14 @@ import com.kikuma.kikumaapp.databinding.FragmentDiseaseResultBinding
 import com.kikuma.kikumaapp.ui.hospital.NearestHospitalFragment
 import com.kikuma.kikumaapp.ui.result.list.ListResultFragment
 import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
+import com.kikuma.kikumaapp.vo.Resource
+import com.kikuma.kikumaapp.vo.Status
 
 class DiseaseResultFragment : Fragment() {
 
     companion object {
         const val EXTRA_RESULT = "extra_result"
+        const val EXTRA_DISEASE = "extra_disease"
         const val EXTRA_HISTORY_ID = "extra_history_id"
     }
 
@@ -47,17 +51,56 @@ class DiseaseResultFragment : Fragment() {
         val bundle = this.arguments
         if (bundle != null) {
             val resultId = bundle.getString(EXTRA_RESULT)
-            if (resultId != null) {
+            val forDisease = bundle.getString(EXTRA_DISEASE)
+            if (resultId != null && forDisease != null) {
+                viewModel.setResultDisease(resultId, forDisease)
+
+                viewModel.getResult.observe(viewLifecycleOwner, { result ->
+                    if (result != null) {
+                        when (result.status) {
+                            Status.LOADING -> diseaseResultBinding.progressBar.visibility = View.VISIBLE
+                            Status.SUCCESS -> if (result.data != null) {
+                                diseaseResultBinding.progressBar.visibility = View.GONE
+                                populateResult(result.data)
+                            }
+                            Status.ERROR -> {
+                                diseaseResultBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                })
+
+                viewModel.getTips.observe(viewLifecycleOwner, { tips ->
+                    if (tips != null) {
+                        when (tips.status) {
+                            Status.LOADING -> diseaseResultBinding.progressBar.visibility = View.VISIBLE
+                            Status.SUCCESS -> if (tips.data != null) {
+                                diseaseResultBinding.progressBar.visibility = View.GONE
+
+                                adapter.setTips(tips.data)
+                                adapter.notifyDataSetChanged()
+                            }
+                            Status.ERROR -> {
+                                diseaseResultBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                })
+                    /*
                 diseaseResultBinding.progressBar.visibility = View.VISIBLE
 
-                viewModel.setResultCourse(resultId)
-                viewModel.getTips().observe(viewLifecycleOwner, { tips ->
+                viewModel.setResultDisease(resultId, forDisease)
+                viewModel.getTips.observe(viewLifecycleOwner, { tips ->
                     diseaseResultBinding.progressBar.visibility = View.GONE
-                    adapter.setTips(tips)
+                    adapter.setTips(tips.data)
                     adapter.notifyDataSetChanged()
                 })
 
-                viewModel.getResult().observe(viewLifecycleOwner, { result -> populateResult(result) })
+                viewModel.getResult.observe(viewLifecycleOwner, { result -> result.data?.let { populateResult(it) } })
+
+                     */
             }
         }
 
@@ -90,18 +133,6 @@ class DiseaseResultFragment : Fragment() {
                 addToBackStack(null)
                 commit()
             }
-            /*
-            val mFragmentManager = fragmentManager
-            val mNearHospitalFragment = NearestHospitalFragment()
-            val fragment = mFragmentManager?.findFragmentByTag(NearestHospitalFragment::class.java.simpleName)
-            if (fragment !is ListResultFragment) {
-                Log.d("MyFlexibleFragment", "Fragment Name :" + NearestHospitalFragment::class.java.simpleName)
-                mFragmentManager?.beginTransaction()
-                    ?.add(R.id.frame_container, mNearHospitalFragment, NearestHospitalFragment::class.java.simpleName)
-                    ?.commit()
-            }
-
-             */
         }
     }
 }

@@ -7,17 +7,22 @@ import com.kikuma.kikumaapp.vo.Resource
 
 interface HomeDataSource {
 
+    //article
     fun getAllArticles(): LiveData<Resource<PagedList<ArticleEntity>>>
 
     fun getDetailArticle(articleId: String): LiveData<Resource<ArticleEntity>>
 
+    //history
     fun getAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>>
 
-    fun getAllResult(): LiveData<List<DiseaseEntity>>
-
+    //clinic
     fun getAllHospital(): LiveData<Resource<List<HospitalEntity>>>
 
-    fun getResultWithTips(resultId: String): LiveData<DiseaseEntity>
+    //result
+    fun getAllResult(): LiveData<Resource<List<DiseaseEntity>>>
 
-    fun getAllTipsByResult(resultId: String): LiveData<List<TipsEntity>>
+    fun getDetailResult(resultId: String): LiveData<Resource<DiseaseEntity>>
+
+    //tips
+    fun getTipsForDisease(forDisease: String): LiveData<Resource<List<TipsEntity>>>
 }

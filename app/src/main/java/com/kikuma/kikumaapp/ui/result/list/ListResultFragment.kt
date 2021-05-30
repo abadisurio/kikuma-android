@@ -33,7 +33,7 @@ class ListResultFragment : Fragment(){
         fragmentListResultBinding.progressBar.visibility = View.VISIBLE
         viewModel.getListResult().observe(viewLifecycleOwner, { listResult ->
             fragmentListResultBinding.progressBar.visibility = View.GONE
-            listAdapter.setResult(listResult)
+            listAdapter.setResult(listResult.data)
             listAdapter.notifyDataSetChanged()
 
         })
