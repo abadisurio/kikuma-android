@@ -196,7 +196,7 @@ object DataDummy {
                 "Jl. Hang Lekir I No.2-36, RT.5/RW.8, Grogol Sel., Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12220",
                 3.4,
                 "Start From 350000",
-                ""))
+                "https://lh3.googleusercontent.com/p/AF1QipM7l9R-o725QeRHNPKOTp-00F45le1lIvIKMo7h=s1600-w400"))
 
         return hospital
     }
