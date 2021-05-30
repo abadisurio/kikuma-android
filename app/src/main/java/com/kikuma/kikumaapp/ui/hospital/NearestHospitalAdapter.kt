@@ -42,6 +42,7 @@ class NearestHospitalAdapter : RecyclerView.Adapter<NearestHospitalAdapter.Hospi
                 tvHospital.text = hospital.hospital
                 tvAddress.text = hospital.address
                 tvRating.text = hospital.rate.toString()
+                tvRange.text = hospital.price
 
                 Glide.with(itemView)
                     .load(hospital.imagePath)
