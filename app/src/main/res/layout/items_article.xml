@@ -6,12 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="5dp"
     app:cardCornerRadius="7dp"
     app:cardElevation="7dp"
     app:cardMaxElevation="7dp"
-    app:cardUseCompatPadding="true">
+    android:layout_margin="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_container"
@@ -21,58 +19,45 @@
 
         <ImageView
             android:id="@+id/image_home"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
             android:contentDescription="@string/image"
-            android:src="@drawable/home1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.01"
+            android:src="@color/quantum_grey100"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.134" />
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="270dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/poppins_regular"
-            android:maxLines="2"
-            android:text="@string/title"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
-            app:layout_constraintStart_toEndOf="@+id/image_home"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.103" />
+            app:layout_constraintVertical_bias="0.134" />
+        <LinearLayout
+            app:layout_constraintTop_toBottomOf="@+id/image_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="270dp"
-            android:layout_height="55dp"
-            android:text="@string/lorem"
-            android:layout_marginTop="3dp"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black_1"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"/>
-
-        <Button
-            android:id="@+id/btn_view_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/view"
-            android:textAllCaps="false"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/lato_regular"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
-
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="2"
+                android:textFontWeight="900"
+                android:text="@string/title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintVertical_bias="0.103" />
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem"
+                android:maxLines="3"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black_1"
+                android:textSize="14sp"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

@@ -49,4 +49,10 @@
     <string name="detail">Detail Result</string>
     <string name="icon_star">Rating</string>
     <string name="range">Rp 100000 - Rp 300000</string>
+    <string name="intro">Intro</string>
+    <string name="loading">Preparing something great for you</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="ok">OK</string>
+    <string name="sign_out_confirmation">Are you sure?</string>
+    <string name="cancel">Cancel</string>
 </resources>
