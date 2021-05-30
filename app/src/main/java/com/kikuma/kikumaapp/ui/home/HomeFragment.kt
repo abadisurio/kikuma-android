@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
             this.adapter = homeAdapter
         }
 
-        fragmentHomeBinding.tvName.text = resources.getString(R.string.hello , auth.currentUser?.displayName)
+        fragmentHomeBinding.toolbar.title = resources.getString(R.string.hello , auth.currentUser?.displayName)
 
     }
 }

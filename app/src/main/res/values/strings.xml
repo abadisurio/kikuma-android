@@ -55,4 +55,5 @@
     <string name="ok">OK</string>
     <string name="sign_out_confirmation">Are you sure?</string>
     <string name="cancel">Cancel</string>
+    <string name="description">Description</string>
 </resources>

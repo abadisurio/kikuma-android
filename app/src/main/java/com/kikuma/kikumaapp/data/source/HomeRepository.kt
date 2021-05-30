@@ -199,7 +199,6 @@ class HomeRepository private constructor(
             }
         }.asLiveData()
     }
-
     override fun getAllHospital(): LiveData<Resource<List<HospitalEntity>>> {
         return object : NetworkBoundResource<List<HospitalEntity>, List<HospitalResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<HospitalEntity>> =

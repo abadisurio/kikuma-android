@@ -45,6 +45,5 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
             mHomeDao.getTipsForDisease(forDisease)
 
     //fun getAllTips(): LiveData<List<TipsEntity>> = mHomeDao.getTips()
-
     fun insertTips(tips: List<TipsEntity>) = mHomeDao.insertTips(tips)
 }

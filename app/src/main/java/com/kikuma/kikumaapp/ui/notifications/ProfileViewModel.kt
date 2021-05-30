@@ -3,6 +3,8 @@ package com.kikuma.kikumaapp.ui.notifications
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.kikuma.kikumaapp.data.source.HomeRepository
 import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
 import com.kikuma.kikumaapp.utils.DataDummy
