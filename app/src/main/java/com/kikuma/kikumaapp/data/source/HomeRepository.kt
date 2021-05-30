@@ -142,24 +142,32 @@ class HomeRepository private constructor(
         return allResults
     }
 
-    override fun getHospital(): LiveData<List<HospitalEntity>> {
-        val hospitalResults = MutableLiveData<List<HospitalEntity>>()
-        remoteDataSource.getHospital(object : RemoteDataSource.LoadHospitalCallback {
-            override fun onAllHospitalReceived(hospitalResponse: List<HospitalResponse>) {
+    override fun getAllHospital(): LiveData<Resource<List<HospitalEntity>>> {
+        return object : NetworkBoundResource<List<HospitalEntity>, List<HospitalResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<HospitalEntity>> =
+                    localDataSource.getAllHospitals()
+
+            override fun shouldFetch(data: List<HospitalEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            public override fun createCall(): LiveData<ApiResponse<List<HospitalResponse>>> =
+                    remoteDataSource.getAllHospital()
+
+            public override fun saveCallResult(hospitalResponse: List<HospitalResponse>) {
                 val hospitalList = ArrayList<HospitalEntity>()
                 for (response in hospitalResponse) {
                     val hospital = HospitalEntity(response.hospitalId,
                             response.hospital,
                             response.address,
                             response.rate,
+                            response.price,
                             response.imagePath)
                     hospitalList.add(hospital)
                 }
-                hospitalResults.postValue(hospitalList)
-            }
-        })
 
-        return hospitalResults
+                localDataSource.insertHospital(hospitalList)
+            }
+        }.asLiveData()
     }
 
     override fun getResultWithTips(resultId: String): LiveData<DiseaseEntity> {

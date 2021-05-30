@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
 import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
+import com.kikuma.kikumaapp.data.source.local.entity.HospitalEntity
 import com.kikuma.kikumaapp.data.source.local.room.HomeDao
 
 class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
@@ -15,6 +16,7 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
             INSTANCE ?: LocalDataSource(homeDao)
     }
 
+    //article
     fun getAllArticles(): DataSource.Factory<Int, ArticleEntity> = mHomeDao.getAllArticles()
 
     fun getDetailArticle(articleId: String): LiveData<ArticleEntity> =
@@ -22,7 +24,13 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
 
     fun insertArticle(article: List<ArticleEntity>) = mHomeDao.insertArticle(article)
 
+    //history
     fun getAllHistory(): DataSource.Factory<Int, HistoryEntity> = mHomeDao.getAllHistory()
 
     fun insertHistory(history: List<HistoryEntity>) = mHomeDao.insertHistory(history)
+
+    //clinic
+    fun getAllHospitals(): LiveData<List<HospitalEntity>> = mHomeDao.getAllHospitals()
+
+    fun insertHospital(hospital: List<HospitalEntity>) = mHomeDao.insertHospitals(hospital)
 }

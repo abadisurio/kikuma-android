@@ -183,9 +183,10 @@ class JsonHelper(private val context: Context) {
                 val hospitalName = hospital.getString("hospital")
                 val address = hospital.getString("address")
                 val rate = hospital.getDouble("rate")
+                val price = hospital.getString("price")
                 val imagePath = hospital.getString("imagePath")
 
-                val hospitalResponse = HospitalResponse(hospitalId, hospitalName, address, rate, imagePath)
+                val hospitalResponse = HospitalResponse(hospitalId, hospitalName, address, rate, price, imagePath)
                 list.add(hospitalResponse)
             }
         } catch (e: JSONException) {

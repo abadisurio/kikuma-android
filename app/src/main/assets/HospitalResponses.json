@@ -2,23 +2,42 @@
   "hospital": [
     {
       "hospitalId": "h1",
-      "hospital": "Jasper Skincare Depok",
-      "address": "Jl. Margonda Raya Blk. C No.18, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
-      "rate": 4.9,
-      "imagePath": "https://lh3.googleusercontent.com/p/AF1QipPGQ2iAdEqMu9R_FeuLnP35aTe8Rd2KAhdMSGqO=s1600-h380"
+      "hospital": "Erha Clinic Kemang",
+      "address": "Jl. Kemang Raya No.93, RT.2/RW.2, Kemang, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730",
+      "rate": 4.1,
+      "price": "Start From Rp200000",
+      "imagePath": "https://istiana.sutanti.com/wp-content/uploads/2018/06/Erha-Clinic-Kemang.jpg"
     },
     {
       "hospitalId": "h2",
-      "hospital": "Erha Clinic Depok",
-      "address": "Jl. Kartini No.22, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
-      "rate": 4.1,
-      "imagePath": ""
+      "hospital": "Natasha Skin Clinic Center - Jakarta Kebayoran Baru",
+      "address": "Jl. Wijaya II No.48, RT.5/RW.7, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+      "rate": 4.0,
+      "price": "Start From Rp100000",
+      "imagePath": "https://res.cloudinary.com/dk0z4ums3/image/upload/w_360,h_240,c_fill,dpr_2.0,f_auto/v1548138725/hospital_image/cfaa90a32045_kebayoranwijaya.png.png"
     },
     {
       "hospitalId": "h3",
-      "hospital": "Natasha Skin Clinic Center Depok",
-      "address": "Jl. Margonda Raya No.5, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
-      "rate": 3.9,
+      "hospital": "NMW Skin Care",
+      "address": "Jl. Petogogan II No.29, RT.8/RW.6, Pulo, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+      "rate": 4.0,
+      "price": "Start From Rp100000",
+      "imagePath": "https://images.weddingku.com/images/upload/articles/images/xdtf8jivu5w641720181523.jpg"
+    },
+    {
+      "hospitalId": "h4",
+      "hospital": "Ms Glow Aesthetic Clinic Jakarta",
+      "address": "Jl. Kemang Raya No.27, RT.6/RW.1, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730",
+      "rate": 3.8,
+      "price": "Start From Rp150000",
+      "imagePath": "https://soc-phoenix.s3-ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/28141038/msglow-clinic.jpg"
+    },
+    {
+      "hospitalId": "h5",
+      "hospital": "Klinik Utama DR.Med. Kun Jayanata, SPKK K",
+      "address": "Jl. Hang Lekir I No.2-36, RT.5/RW.8, Grogol Sel., Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12220",
+      "rate": 3.4,
+      "price": "Start From Rp350000",
       "imagePath": ""
     }
   ]

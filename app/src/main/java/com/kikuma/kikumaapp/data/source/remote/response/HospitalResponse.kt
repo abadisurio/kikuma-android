@@ -9,5 +9,6 @@ data class HospitalResponse(
     var hospital: String,
     var address: String,
     var rate: Double,
+    var price: String,
     var imagePath: String
 ): Parcelable

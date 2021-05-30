@@ -79,6 +79,22 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
+            android:id="@+id/tv_range"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_regular"
+            android:text="@string/range"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rating"
+            app:layout_constraintEnd_toEndOf="@+id/tv_hospital"
+            app:layout_constraintHorizontal_bias="0.98"
+            app:layout_constraintStart_toEndOf="@+id/tv_rating"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hospital"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <TextView
             android:id="@+id/tv_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

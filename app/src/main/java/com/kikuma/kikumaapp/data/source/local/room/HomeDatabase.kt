@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
 import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
+import com.kikuma.kikumaapp.data.source.local.entity.HospitalEntity
 
-@Database(entities = [ArticleEntity::class, HistoryEntity::class],
+@Database(entities = [ArticleEntity::class, HistoryEntity::class, HospitalEntity::class],
     version = 1,
     exportSchema = false)
 abstract class HomeDatabase : RoomDatabase() {

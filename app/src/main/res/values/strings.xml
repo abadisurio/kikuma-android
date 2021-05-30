@@ -32,7 +32,7 @@
     <string name="tips">Handling Tips</string>
     <string name="lorem2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="btn_rs">Nearest Hospital</string>
-    <string name="rs">Nearest Hospital</string>
+    <string name="rs">Clinic Recommendation</string>
     <string name="hospital">Hospital</string>
     <string name="hello">Hey %s</string>
     <string name="welcome_message1">Welcome to Kikuma!</string>
@@ -48,4 +48,5 @@
     <string name="percentage">85%</string>
     <string name="detail">Detail Result</string>
     <string name="icon_star">Rating</string>
+    <string name="range">Rp 100000 - Rp 300000</string>
 </resources>

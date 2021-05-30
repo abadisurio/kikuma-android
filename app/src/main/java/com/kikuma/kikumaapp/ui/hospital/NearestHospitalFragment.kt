@@ -38,7 +38,7 @@ class NearestHospitalFragment : Fragment() {
         fragmentNearestHospitalBinding.progressBar.visibility = View.VISIBLE
         viewModel.getNearestHospital().observe(viewLifecycleOwner, { hospital ->
             fragmentNearestHospitalBinding.progressBar.visibility = View.GONE
-            hospitalAdapter.setHospitals(hospital)
+            hospitalAdapter.setHospitals(hospital.data)
             hospitalAdapter.notifyDataSetChanged()
         })
 

@@ -142,11 +142,14 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     //hospital
-    fun getHospital(callback: LoadHospitalCallback) {
-        handler.postDelayed({ callback.onAllHospitalReceived(jsonHelper.loadHospital()) }, SERVICE_LATENCY_IN_MILLIS)
-    }
-
-    interface LoadHospitalCallback {
-        fun onAllHospitalReceived(hospitalResponse: List<HospitalResponse>)
+    fun getAllHospital(): LiveData<ApiResponse<List<HospitalResponse>>> {
+        val resultHospital = MutableLiveData<ApiResponse<List<HospitalResponse>>>()
+        resultHospital.value = ApiResponse.success(jsonHelper.loadHospital())
+        /*
+        handler.postDelayed({
+            resultHospital.value = ApiResponse.success(jsonHelper.loadHospital())
+        })
+         */
+        return resultHospital
     }
 }

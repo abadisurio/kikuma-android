@@ -15,7 +15,7 @@ interface HomeDataSource {
 
     fun getAllResult(): LiveData<List<DiseaseEntity>>
 
-    fun getHospital(): LiveData<List<HospitalEntity>>
+    fun getAllHospital(): LiveData<Resource<List<HospitalEntity>>>
 
     fun getResultWithTips(resultId: String): LiveData<DiseaseEntity>
 

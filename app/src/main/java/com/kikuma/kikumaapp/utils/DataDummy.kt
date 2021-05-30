@@ -163,23 +163,40 @@ object DataDummy {
     fun generateDummyHospitals(): List<HospitalEntity> {
         val hospital = ArrayList<HospitalEntity>()
 
-        hospital.add(HospitalEntity("h3",
-        "Jasper Skincare Depok",
-        "Jl. Margonda Raya Blk. C No.18, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
-        4.9,
-        "https://lh3.googleusercontent.com/p/AF1QipPGQ2iAdEqMu9R_FeuLnP35aTe8Rd2KAhdMSGqO=s1600-h380"))
-
         hospital.add(HospitalEntity("h1",
-        "Erha Clinic Depok",
-        "Jl. Kartini No.22, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
-        4.1,
-        ""))
+                "Erha Clinic Kemang",
+                "Jl. Kemang Raya No.93, RT.2/RW.2, Kemang, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730",
+                4.1,
+                "Start From Rp200000",
+                "https://istiana.sutanti.com/wp-content/uploads/2018/06/Erha-Clinic-Kemang.jpg"))
 
         hospital.add(HospitalEntity("h2",
-        "Natasha Skin Clinic Center Depok",
-        "Jl. Margonda Raya No.5, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431",
-        3.9,
-        ""))
+                "Natasha Skin Clinic Center - Jakarta Kebayoran Baru",
+                "Jl. Wijaya II No.48, RT.5/RW.7, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+                4.0,
+                "Start From Rp100000",
+                "https://res.cloudinary.com/dk0z4ums3/image/upload/w_360,h_240,c_fill,dpr_2.0,f_auto/v1548138725/hospital_image/cfaa90a32045_kebayoranwijaya.png.png"))
+
+        hospital.add(HospitalEntity("h3",
+                "NMW Skin Care",
+                "Jl. Petogogan II No.29, RT.8/RW.6, Pulo, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+                4.0,
+                "Start From Rp100000",
+                "https://images.weddingku.com/images/upload/articles/images/xdtf8jivu5w641720181523.jpg"))
+
+        hospital.add(HospitalEntity("h4",
+                "Ms Glow Aesthetic Clinic Jakarta",
+                "Jl. Kemang Raya No.27, RT.6/RW.1, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730",
+                3.8,
+                "Start From Rp150000",
+                "https://soc-phoenix.s3-ap-southeast-1.amazonaws.com/wp-content/uploads/2019/02/28141038/msglow-clinic.jpg"))
+
+        hospital.add(HospitalEntity("h5",
+                "Klinik Utama DR.Med. Kun Jayanata, SPKK K",
+                "Jl. Hang Lekir I No.2-36, RT.5/RW.8, Grogol Sel., Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12220",
+                3.4,
+                "Start From 350000",
+                ""))
 
         return hospital
     }
