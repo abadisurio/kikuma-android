@@ -6,14 +6,9 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
 import com.kikuma.kikumaapp.databinding.ItemsHistoryBinding
-import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity
-import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
+import com.kikuma.kikumaapp.ui.confirmimage.ContainerActivity
 
 class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileViewHolder>(DIFF_CALLBACK) {
 
@@ -47,12 +42,12 @@ class ProfileAdapter : PagedListAdapter<HistoryEntity, ProfileAdapter.ProfileVie
                 tvPost.text = history.posted
 
                 cvItemHistory.setOnClickListener {
-                    /*
-                    val intent = Intent(itemView.context, DiseaseResultFragment::class.java)
-                    intent.putExtra(DiseaseResultFragment.EXTRA_HISTORY_ID, history.historyId)
+
+                    val intent = Intent(itemView.context, ContainerActivity::class.java)
+                    intent.putExtra(ContainerActivity.EXTRA_HISTORY_ID, history.historyId)
                     itemView.context.startActivity(intent)
 
-                     */
+
                 }
             }
         }

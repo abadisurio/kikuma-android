@@ -7,6 +7,12 @@ import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.ui.result.list.ListResultFragment
 
 class ContainerActivity : AppCompatActivity() {
+
+    companion object {
+        const val EXTRA_RESULT = "extra_result"
+        const val EXTRA_HISTORY_ID = "extra_history_id"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
