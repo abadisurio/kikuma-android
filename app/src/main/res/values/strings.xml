@@ -50,4 +50,5 @@
     <string name="icon_star">Rating</string>
     <string name="range">Rp 100000 - Rp 300000</string>
     <string name="intro">Intro</string>
+    <string name="loading">Preparing something great for you</string>
 </resources>

@@ -20,18 +20,21 @@ class IntroActivity :  AppIntro2() {
                 title = "Welcome...",
                 description = "This is the first slide of the example",
                 imageDrawable = R.drawable.loading,
+                backgroundColor = Color.WHITE,
                 titleColor = Color.BLACK, descriptionColor = Color.BLACK
         ))
         addSlide(AppIntroFragment.newInstance(
                 title = "...Let's get started!",
                 description = "This is the last slide, I won't annoy you more :)",
                 imageDrawable = R.drawable.loading,
+                backgroundColor = Color.WHITE,
                 titleColor = Color.BLACK, descriptionColor = Color.BLACK
         ))
         addSlide(AppIntroFragment.newInstance(
                 title = "...Let's get started!",
                 description = "This is the last slide, I won't annoy you more :)",
                 imageDrawable = R.drawable.loading,
+                backgroundColor = Color.WHITE,
                 titleColor = Color.BLACK, descriptionColor = Color.BLACK
         ))
     }

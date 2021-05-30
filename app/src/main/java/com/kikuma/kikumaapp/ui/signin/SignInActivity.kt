@@ -1,8 +1,12 @@
 package com.kikuma.kikumaapp.ui.signin
 
+import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -43,7 +47,8 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun startSignIn() {
-
+        hideKeyboard(activitySignInBinding.root)
+        activitySignInBinding.loading.layoutLoading.visibility = View.VISIBLE
 
         val emailField = activitySignInBinding.edEmail.text.toString()
         val passwordField = activitySignInBinding.edPassword.text.toString()
@@ -60,8 +65,10 @@ class SignInActivity : AppCompatActivity() {
                 }else{
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", it.exception)
-                    Toast.makeText(this, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    val reason = it.exception?.message
+                    Toast.makeText(this, "Authentication failed. $reason",
+                            Toast.LENGTH_SHORT).show()
+                    activitySignInBinding.loading.layoutLoading.visibility = View.GONE
                     updateUI(null)
                 }
             }
@@ -69,6 +76,13 @@ class SignInActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
 
+    }
+
+    private fun hideKeyboard(view: View) {
+        view.apply {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     companion object {
