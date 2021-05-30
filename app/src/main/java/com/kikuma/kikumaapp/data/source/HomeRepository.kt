@@ -123,23 +123,81 @@ class HomeRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getAllResult(): LiveData<List<DiseaseEntity>> {
-        val allResults = MutableLiveData<List<DiseaseEntity>>()
-        remoteDataSource.getAllResult(object : RemoteDataSource.LoadAllResultCallback {
-            override fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>) {
-                val resultList = ArrayList<DiseaseEntity>()
+    override fun getAllResult(): LiveData<Resource<List<DiseaseEntity>>> {
+        return object : NetworkBoundResource<List<DiseaseEntity>, List<DiseaseResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<DiseaseEntity>> =
+                    localDataSource.getAllResult()
+
+            override fun shouldFetch(data: List<DiseaseEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            public override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
+                    remoteDataSource.getAllResult()
+
+            public override fun saveCallResult(diseaseResponse: List<DiseaseResponse>) {
+                val diseaseList = ArrayList<DiseaseEntity>()
                 for (response in diseaseResponse) {
-                    val result = DiseaseEntity(response.resultId,
+                    val disease = DiseaseEntity(response.resultId,
                             response.disease,
                             response.description,
                             response.percentage)
-                    resultList.add(result)
+                    diseaseList.add(disease)
                 }
-                allResults.postValue(resultList)
-            }
-        })
 
-        return allResults
+                localDataSource.insertResult(diseaseList)
+            }
+        }.asLiveData()
+    }
+
+    override fun getDetailResult(resultId: String): LiveData<Resource<DiseaseEntity>> {
+        return object : NetworkBoundResource<DiseaseEntity, List<DiseaseResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<DiseaseEntity> =
+                    localDataSource.getDetailResult(resultId)
+
+            override fun shouldFetch(diseaseEntity: DiseaseEntity?): Boolean =
+                    diseaseEntity == null
+
+            override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
+                    remoteDataSource.getDetailResult(resultId)
+
+            override fun saveCallResult(diseaseResponses: List<DiseaseResponse>) {
+                val diseaseList = ArrayList<DiseaseEntity>()
+                for (response in diseaseResponses) {
+                    val disease = DiseaseEntity(response.resultId,
+                            response.disease,
+                            response.description,
+                            response.percentage)
+                    diseaseList.add(disease)
+                }
+                localDataSource.insertResult(diseaseList)
+            }
+        }.asLiveData()
+    }
+
+    override fun getTipsForDisease(forDisease: String): LiveData<Resource<List<TipsEntity>>> {
+        return object : NetworkBoundResource<List<TipsEntity>, List<TipsResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<TipsEntity>> =
+                    localDataSource.getTipsForDisease(forDisease)
+
+            override fun shouldFetch(data: List<TipsEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            public override fun createCall(): LiveData<ApiResponse<List<TipsResponse>>> =
+                    remoteDataSource.getTips(forDisease)
+
+            public override fun saveCallResult(tipsResponse: List<TipsResponse>) {
+                val tipsList = ArrayList<TipsEntity>()
+                for (response in tipsResponse) {
+                    val tips = TipsEntity(response.tipsId,
+                            response.resultId,
+                            response.tips,
+                            response.forDisease)
+                    tipsList.add(tips)
+                }
+
+                localDataSource.insertTips(tipsList)
+            }
+        }.asLiveData()
     }
 
     override fun getAllHospital(): LiveData<Resource<List<HospitalEntity>>> {
@@ -169,7 +227,7 @@ class HomeRepository private constructor(
             }
         }.asLiveData()
     }
-
+/*
     override fun getResultWithTips(resultId: String): LiveData<DiseaseEntity> {
         //ini belum bener, soalnya kalo kaya gini result yg tampil selalu id yg terakhir
         val diseaseResult = MutableLiveData<DiseaseEntity>()
@@ -210,21 +268,32 @@ class HomeRepository private constructor(
          */
     }
 
-    override fun getAllTipsByResult(resultId: String): LiveData<List<TipsEntity>> {
-        val tipsResults = MutableLiveData<List<TipsEntity>>()
-        remoteDataSource.getTips(resultId, object : RemoteDataSource.LoadTipsCallback {
-            override fun onAllTipsReceived(tipsResponse: List<TipsResponse>) {
+ */
+/*
+    override fun getAllTipsByResult(resultId: String): LiveData<Resource<List<TipsEntity>>> {
+        return object : NetworkBoundResource<List<TipsEntity>, List<TipsResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<TipsEntity>> =
+                    localDataSource.getAllTips()
+
+            override fun shouldFetch(data: List<TipsEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            public override fun createCall(): LiveData<ApiResponse<List<TipsResponse>>> =
+                    remoteDataSource.getTips(resultId)
+
+            public override fun saveCallResult(tipsResponse: List<TipsResponse>) {
                 val tipsList = ArrayList<TipsEntity>()
-                for(response in tipsResponse) {
+                for (response in tipsResponse) {
                     val tips = TipsEntity(response.tipsId,
                             response.resultId,
                             response.tips)
-
                     tipsList.add(tips)
                 }
-                tipsResults.postValue(tipsList)
+
+                localDataSource.insertTips(tipsList)
             }
-        })
-        return tipsResults
+        }.asLiveData()
     }
+
+ */
 }

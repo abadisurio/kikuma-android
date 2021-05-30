@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class TipsResponse(
         var tipsId: String,
         var resultId: String,
-        var tips: String
+        var tips: String,
+        var forDisease: String
 ): Parcelable

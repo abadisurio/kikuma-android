@@ -2,9 +2,7 @@ package com.kikuma.kikumaapp.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
-import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
-import com.kikuma.kikumaapp.data.source.local.entity.HospitalEntity
+import com.kikuma.kikumaapp.data.source.local.entity.*
 import com.kikuma.kikumaapp.data.source.local.room.HomeDao
 
 class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
@@ -33,4 +31,20 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
     fun getAllHospitals(): LiveData<List<HospitalEntity>> = mHomeDao.getAllHospitals()
 
     fun insertHospital(hospital: List<HospitalEntity>) = mHomeDao.insertHospitals(hospital)
+
+    //disease
+    fun getAllResult(): LiveData<List<DiseaseEntity>> = mHomeDao.getAllResultDisease()
+
+    fun insertResult(disease: List<DiseaseEntity>) = mHomeDao.insertResult(disease)
+
+    fun getDetailResult(resultId: String): LiveData<DiseaseEntity> =
+            mHomeDao.getDetailResult(resultId)
+
+    //tips
+    fun getTipsForDisease(forDisease: String): LiveData<List<TipsEntity>> =
+            mHomeDao.getTipsForDisease(forDisease)
+
+    //fun getAllTips(): LiveData<List<TipsEntity>> = mHomeDao.getTips()
+
+    fun insertTips(tips: List<TipsEntity>) = mHomeDao.insertTips(tips)
 }

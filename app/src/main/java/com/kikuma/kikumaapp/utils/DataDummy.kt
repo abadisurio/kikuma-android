@@ -121,7 +121,8 @@ object DataDummy {
             TipsEntity(
                 "{$resultId}t1",
                 resultId,
-                "Hindari Menggaruk Ruam"
+                "Hindari Menggaruk Ruam",
+                    "Jerawat"
             )
         )
 
@@ -129,7 +130,8 @@ object DataDummy {
             TipsEntity(
                 "{$resultId}t2",
                 resultId,
-                "Berikan Obat Penurun Panas Demam"
+                "Berikan Obat Penurun Panas Demam",
+                    "Cacar Air"
             )
         )
 
@@ -137,7 +139,8 @@ object DataDummy {
             TipsEntity(
                 "{$resultId}t3",
                 resultId,
-                "Mandi Air Dingin"
+                "Mandi Air Dingin",
+                    "Cacar Air"
             )
         )
 
@@ -145,7 +148,8 @@ object DataDummy {
             TipsEntity(
                 "{$resultId}t4",
                 resultId,
-                "Istirahat di Rumah"
+                "Istirahat di Rumah",
+                    "Campak"
             )
         )
 
@@ -153,7 +157,8 @@ object DataDummy {
             TipsEntity(
                 "{$resultId}t5",
                 resultId,
-                "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi"
+                "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi",
+                    "Kudis"
             )
         )
 

@@ -3,9 +3,7 @@ package com.kikuma.kikumaapp.data.source.local.room
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import com.kikuma.kikumaapp.data.source.local.entity.ArticleEntity
-import com.kikuma.kikumaapp.data.source.local.entity.HistoryEntity
-import com.kikuma.kikumaapp.data.source.local.entity.HospitalEntity
+import com.kikuma.kikumaapp.data.source.local.entity.*
 
 @Dao
 interface HomeDao {
@@ -37,4 +35,35 @@ interface HomeDao {
 
     @Update
     fun updateHospital(hospital: HospitalEntity)
+
+    //disease
+    @Query("SELECT * FROM diseaseentities")
+    fun getAllResultDisease(): LiveData<List<DiseaseEntity>>
+
+    @Transaction
+    @Query("SELECT * FROM diseaseentities WHERE resultId = :resultId")
+    fun getDetailResult(resultId: String): LiveData<DiseaseEntity>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertResult(disease: List<DiseaseEntity>)
+
+    @Update
+    fun updateResult(disease: DiseaseEntity)
+
+    //tips
+    /*
+    @Query("SELECT * FROM tipsentities")
+    fun getTips(): LiveData<List<TipsEntity>>
+
+     */
+
+    @Transaction
+    @Query("SELECT * FROM tipsentities WHERE forDisease = :forDisease")
+    fun getTipsForDisease(forDisease: String): LiveData<List<TipsEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertTips(tips: List<TipsEntity>)
+
+    @Update
+    fun updateTips(tips: TipsEntity)
 }

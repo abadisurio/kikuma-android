@@ -3,27 +3,32 @@
     {
       "tipsId": "r1t1",
       "resultId": "r1",
-      "tips": "Hindari Menggaruk Ruam"
+      "tips": "Hindari Menggaruk Ruam",
+      "forDisease": "Jerawat"
     },
     {
       "tipsId": "r1t2",
       "resultId": "r1",
-      "tips": "Berikan Obat Penurun Panas Demam"
+      "tips": "Berikan Obat Penurun Panas Demam",
+      "forDisease": "Cacar Air"
     },
     {
       "tipsId": "r1t3",
       "resultId": "r1",
-      "tips": "Mandi Air Dingin"
+      "tips": "Mandi Air Dingin",
+      "forDisease": "Cacar Air"
     },
     {
       "tipsId": "r1t4",
       "resultId": "r1",
-      "tips": "Istirahat di Rumah"
+      "tips": "Istirahat di Rumah",
+      "forDisease": "Campak"
     },
     {
       "tipsId": "r1t5",
       "resultId": "r1",
-      "tips": "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi"
+      "tips": "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi",
+      "forDisease": "Kudis"
     }
   ]
 }
