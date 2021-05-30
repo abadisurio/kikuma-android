@@ -25,4 +25,5 @@ interface HomeDataSource {
 
     //tips
     fun getTipsForDisease(forDisease: String): LiveData<Resource<List<TipsEntity>>>
+
 }

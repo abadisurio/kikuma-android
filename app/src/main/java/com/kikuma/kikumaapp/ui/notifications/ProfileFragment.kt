@@ -1,33 +1,26 @@
 package com.kikuma.kikumaapp.ui.notifications
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.datatransport.runtime.backends.BackendResponse.ok
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.FragmentProfileBinding
-import com.kikuma.kikumaapp.ui.confirmimage.ContainerActivity
-import com.kikuma.kikumaapp.ui.home.HomeAdapter
+import com.kikuma.kikumaapp.ui.result.DiseaseResultViewModel
 import com.kikuma.kikumaapp.ui.splashscreen.SplashScreenActivity
-import com.kikuma.kikumaapp.utils.DataDummy
-import com.kikuma.kikumaapp.utils.signOut
+import com.kikuma.kikumaapp.utils.SignOut
 import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
 import com.kikuma.kikumaapp.vo.Status
 
@@ -63,7 +56,10 @@ class ProfileFragment : Fragment() {
                             AlertDialog.Builder(requireContext())
                                 .setMessage(getString(R.string.sign_out_confirmation))
                                 .setPositiveButton(getString(R.string.ok)) { _, _ ->
-                                    signOut(requireActivity()).doSignOut()
+                                    SignOut(requireActivity()).doSignOut()
+                                    activity?.finish()
+                                    startActivity(Intent(activity, SplashScreenActivity::class.java))
+
                                 }
                                 .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
                                 .show()
