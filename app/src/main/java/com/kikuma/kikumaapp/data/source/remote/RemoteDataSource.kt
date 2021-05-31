@@ -122,14 +122,14 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     //detail result
     fun getDetailResult(resultId: String): LiveData<ApiResponse<List<DiseaseResponse>>> {
         val resultArticle = MutableLiveData<ApiResponse<List<DiseaseResponse>>>()
-        resultArticle.value = ApiResponse.success(jsonHelper.loadResult(resultId))
+        resultArticle.value = ApiResponse.success(jsonHelper.loadDetailResult(resultId))
         return resultArticle
     }
 
     //tips
-    fun getTips(resultId: String): LiveData<ApiResponse<List<TipsResponse>>> {
+    fun getTipsForDisease(forDisease: String): LiveData<ApiResponse<List<TipsResponse>>> {
         val resultTips = MutableLiveData<ApiResponse<List<TipsResponse>>>()
-        resultTips.value = ApiResponse.success(jsonHelper.loadTips(resultId))
+        resultTips.value = ApiResponse.success(jsonHelper.loadTips(forDisease))
         return resultTips
     }
 

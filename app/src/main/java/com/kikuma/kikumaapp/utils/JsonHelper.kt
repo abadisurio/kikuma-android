@@ -1,6 +1,7 @@
 package com.kikuma.kikumaapp.utils
 
 import android.content.Context
+import android.util.Log
 import com.kikuma.kikumaapp.data.source.remote.response.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -121,18 +122,18 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadResult(resultId: String): List<DiseaseResponse> {
+    fun loadDetailResult(resultId: String): List<DiseaseResponse> {
         val fileName = String.format("ResultResponses.json", resultId)
         val list = ArrayList<DiseaseResponse>()
         try {
             val result = parsingFileToString(fileName)
+            Log.d("HASILNYA ADALAH", result.toString())
             if (result != null) {
                 val responseObject = JSONObject(result)
                 val listArray = responseObject.getJSONArray("result")
                 for (i in 0 until listArray.length()) {
                     val result = listArray.getJSONObject(i)
 
-                    //val id = disease.getString("articleId")
                     val disease = result.getString("disease")
                     val description = result.getString("description")
                     val percentage = result.getString("percentage")

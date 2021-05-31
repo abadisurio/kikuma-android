@@ -51,11 +51,8 @@ interface HomeDao {
     fun updateResult(disease: DiseaseEntity)
 
     //tips
-    /*
     @Query("SELECT * FROM tipsentities")
     fun getTips(): LiveData<List<TipsEntity>>
-
-     */
 
     @Transaction
     @Query("SELECT * FROM tipsentities WHERE forDisease = :forDisease")
