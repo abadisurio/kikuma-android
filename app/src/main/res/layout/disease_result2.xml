@@ -37,20 +37,9 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_semi_bold"
             android:maxLines="2"
-            android:text="@string/result"
+            android:text="@string/title"
             android:textColor="@color/black"
             android:textSize="25sp"/>
-
-        <TextView
-            android:id="@+id/tv_disease_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/disease_name"
-            android:textColor="@color/black"
-            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_date_result"
@@ -64,53 +53,64 @@
             android:maxLines="2"/>
 
         <TextView
-            android:id="@+id/tv_desc"
+            android:id="@+id/tv_disease_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/decsription"
-            android:textColor="@color/black_1"
-            android:textSize="15sp"/>
+            android:text="@string/disease_name"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
 
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/lorem"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/decsription"
+        android:textColor="@color/black_1"
+        android:textSize="15sp"/>
 
-        <TextView
-            android:id="@+id/tv_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/tips"
-            android:textColor="@color/black_1"
-            android:textSize="15sp" />
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/lorem"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/tips"
+        android:textColor="@color/black_1"
+        android:textSize="15sp" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:listitem="@layout/items_tips_list" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:listitem="@layout/items_tips_list" />
 
-        <Button
-            android:id="@+id/btn_hospital"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corners"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/btn_rs"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            android:layout_margin="16dp"/>
+    <Button
+        android:id="@+id/btn_hospital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/btn_rs"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_margin="16dp"/>
 
     </LinearLayout>
 </ScrollView>
