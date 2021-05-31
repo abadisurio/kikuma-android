@@ -4,16 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_item_tips"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:orientation="vertical"
-    android:layout_marginStart="20dp"
     app:cardCornerRadius="7dp"
     app:cardElevation="7dp"
-    app:cardMaxElevation="7dp"
-    app:cardUseCompatPadding="true">
+    app:cardMaxElevation="7dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="8dp"
         android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
