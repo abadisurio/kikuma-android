@@ -123,6 +123,10 @@ class HomeRepository private constructor(
         }.asLiveData()
     }
 
+    override fun insertHistory(): LiveData<Boolean> {
+        TODO("Not yet implemented")
+    }
+
     override fun getAllResult(): LiveData<Resource<List<DiseaseEntity>>> {
         return object : NetworkBoundResource<List<DiseaseEntity>, List<DiseaseResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<DiseaseEntity>> =
@@ -200,6 +204,23 @@ class HomeRepository private constructor(
                 localDataSource.insertModelResult(modelResultList)
             }
         }.asLiveData()
+    }
+
+    override fun setModelResults(imageBase64: String): LiveData<String> {
+        Log.d("ini diseaseId2", imageBase64)
+        return remoteDataSource.setModelResult(imageBase64)
+    }
+
+    override fun insertModelResult(diseaseResponse: List<ModelResultResponse>) {
+        val modelResultList = ArrayList<ModelResultEntity>()
+        for (response in diseaseResponse) {
+            val disease = ModelResultEntity(response.resultId,
+                response.historyParent,
+                response.disease,
+                response.percentage)
+            modelResultList.add(disease)
+        }
+        localDataSource.insertModelResult(modelResultList)
     }
 
 

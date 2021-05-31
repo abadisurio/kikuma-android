@@ -6,6 +6,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.load.engine.Resource
 import com.kikuma.kikumaapp.data.source.remote.response.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -126,11 +127,32 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
         resultArticle.value = ApiResponse.success(jsonHelper.loadDetailResult(resultId))
         return resultArticle
     }
-    //detail result
+    //model result
     fun getModelResult(resultId: String): LiveData<ApiResponse<List<ModelResultResponse>>> {
         val resultArticle = MutableLiveData<ApiResponse<List<ModelResultResponse>>>()
         resultArticle.value = ApiResponse.success(jsonHelper.loadModelResult(resultId))
         return resultArticle
+    }
+    fun setModelResult(imageBase64: String): LiveData<String>{
+        val documentId = MutableLiveData<String>()
+        val historyRef = firestoreInstance()
+            .collection("scan-history")
+            .document("3wjrUo7Ak7pYGrSsAFHw")
+            .collection("history")
+        val data = hashMapOf(
+            "disease" to "Tokyo",
+            "imageData" to imageBase64,
+            "posted" to "Saturday, 8 May 2021 13:42"
+        )
+        historyRef
+            .add(data)
+            .addOnSuccessListener { documentReference ->
+                documentId.value = documentReference.id
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+        return documentId
     }
 
     //tips
