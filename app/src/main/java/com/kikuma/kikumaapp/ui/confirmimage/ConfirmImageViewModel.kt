@@ -16,10 +16,12 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.internal.format
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.math.BigDecimal
 import kotlin.reflect.full.memberProperties
 
 class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewModel() {
@@ -122,14 +124,15 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
         )
 
         if(modelResult.value != null){
+
             RawApiResponse::class.memberProperties.forEach { member ->
                 Log.d("ini nama", member.name)
+                val percentage = member.get(modelResult.value!!)
                 val data = hashMapOf(
                     "resultId" to FieldValue.increment(1),
                     "historyParent" to historyId,
-                    "imageData" to imageBase64.value,
                     "disease" to acneName[member.name],
-                    "percentage" to "64%"
+                    "percentage" to "%.0f%%".format(percentage)
                 )
                 val docRef = firestoreInstance()
                     .collection("scan-history")

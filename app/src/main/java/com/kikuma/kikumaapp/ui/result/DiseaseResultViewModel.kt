@@ -13,7 +13,7 @@ import com.kikuma.kikumaapp.vo.Resource
 
 class DiseaseResultViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
-    val diseaseId = MutableLiveData<String>()
+    private val diseaseId = MutableLiveData<String>()
     val forDisease = MutableLiveData<String>()
 
     fun setResultDisease(diseaseId: String, forDisease: String) {
@@ -27,7 +27,7 @@ class DiseaseResultViewModel(private val homeRepository: HomeRepository) : ViewM
     }
 
     var getTips: LiveData<Resource<List<TipsEntity>>> = Transformations.switchMap(forDisease) { mTipsId ->
-        homeRepository.getTipsForDisease(mTipsId)
+        homeRepository.getTipsForDisease(diseaseId.value.toString())
     }
 
     //fun getResult(): LiveData<DiseaseEntity> = homeRepository.getResultWithTips(resultId)

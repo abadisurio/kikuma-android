@@ -128,10 +128,36 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
         return resultArticle
     }
     //model result
-    fun getModelResult(resultId: String): LiveData<ApiResponse<List<ModelResultResponse>>> {
-        val resultArticle = MutableLiveData<ApiResponse<List<ModelResultResponse>>>()
-        resultArticle.value = ApiResponse.success(jsonHelper.loadModelResult(resultId))
-        return resultArticle
+    fun getModelResult(): LiveData<ApiResponse<List<ModelResultResponse>>> {
+        val resultModelResult = MutableLiveData<ApiResponse<List<ModelResultResponse>>>()
+        val modelResultRef = firestoreInstance()
+            .collection("scan-history")
+            .document("3wjrUo7Ak7pYGrSsAFHw")
+            .collection("model-result")
+        modelResultRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("ini modelResult", " => " + task.result?.documents)
+                    val documents = task.result?.documents
+                    if(documents != null){
+                        val modelResultList = ArrayList<ModelResultResponse>()
+                        for (response in documents) {
+                            Log.d("ini poster", response.id + " => " + response.data?.get("imageData"))
+                            val document = ModelResultResponse(
+                                response.id,
+                                response.data?.get("historyParent").toString(),
+                                response.data?.get("disease").toString(),
+                                response.data?.get("percentage").toString(),
+                            )
+                            modelResultList.add(document)
+                        }
+                        resultModelResult.value = ApiResponse.success(modelResultList)
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.exception)
+                }
+            }
+        return resultModelResult
     }
     fun setModelResult(imageBase64: String): LiveData<String>{
         val documentId = MutableLiveData<String>()

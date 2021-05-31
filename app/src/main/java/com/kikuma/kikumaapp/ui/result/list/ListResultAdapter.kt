@@ -55,7 +55,7 @@ class ListResultAdapter : RecyclerView.Adapter<ListResultAdapter.ListResultViewH
             with(binding) {
                 Log.d("inidia", results.historyParent)
                 tvDiseaseName.text = results.disease
-//                tvPercentage.text = results.percentage
+                tvPercentage.text = results.percentage
 
                 cvItemDisease.setOnClickListener {
                     onItemClickCallback?.onItemClicked(results) }

@@ -122,6 +122,37 @@ class HomeRepository private constructor(
             }
         }.asLiveData()
     }
+    override fun refreshAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>> {
+        return object : NetworkBoundResource<PagedList<HistoryEntity>, List<HistoryResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<PagedList<HistoryEntity>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllHistory(), config).build()
+            }
+
+            override fun shouldFetch(data: PagedList<HistoryEntity>?): Boolean =
+                true
+
+            public override fun createCall(): LiveData<ApiResponse<List<HistoryResponse>>> =
+                remoteDataSource.getAllHistory()
+
+            public override fun saveCallResult(data: List<HistoryResponse>) {
+                val historyList = ArrayList<HistoryEntity>()
+                for (response in data) {
+                    val history = HistoryEntity(response.historyId,
+                    response.disease,
+                    response.imageData,
+                    response.posted)
+                    historyList.add(history)
+                }
+                localDataSource.deleteHistory()
+                localDataSource.insertHistory(historyList)
+            }
+        }.asLiveData()
+    }
 
     override fun insertHistory(): LiveData<Boolean> {
         TODO("Not yet implemented")
@@ -189,7 +220,7 @@ class HomeRepository private constructor(
                     data == null || data.isEmpty()
 
             public override fun createCall(): LiveData<ApiResponse<List<ModelResultResponse>>> =
-                    remoteDataSource.getModelResult(historyId)
+                    remoteDataSource.getModelResult()
 
             public override fun saveCallResult(diseaseResponse: List<ModelResultResponse>) {
                 val modelResultList = ArrayList<ModelResultEntity>()

@@ -23,6 +23,9 @@ interface HomeDao {
     @Query("SELECT * FROM historyentities")
     fun getAllHistory(): DataSource.Factory<Int, HistoryEntity>
 
+    @Query("DELETE FROM historyentities")
+    fun deleteHistory()
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertHistory(movies: List<HistoryEntity>)
 

@@ -23,9 +23,9 @@ import com.kikuma.kikumaapp.vo.Status
 class DiseaseResultFragment : Fragment() {
 
     companion object {
-        const val EXTRA_RESULT = "extra_result"
+//        const val EXTRA_RESULT = "extra_result"
         const val EXTRA_DISEASE = "extra_disease"
-        const val EXTRA_HISTORY_ID = "extra_history_id"
+//        const val EXTRA_HISTORY_ID = "extra_history_id"
     }
 
     private lateinit var diseaseResultBinding: DiseaseResultBinding
@@ -50,10 +50,9 @@ class DiseaseResultFragment : Fragment() {
         //val extras = intent.extras
         val bundle = this.arguments
         if (bundle != null) {
-            val diseaseId = bundle.getString(EXTRA_RESULT)
-            val forDisease = diseaseId
-            if (diseaseId != null && forDisease != null) {
-                viewModel.setResultDisease(diseaseId, forDisease)
+            val diseaseName = bundle.getString(EXTRA_DISEASE)
+            if (diseaseName != null) {
+                viewModel.setResultDisease(diseaseName, diseaseName)
 
                 viewModel.getDisease.observe(viewLifecycleOwner, { result ->
                     if (result != null) {

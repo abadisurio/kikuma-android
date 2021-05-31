@@ -46,13 +46,13 @@ class ListResultFragment : Fragment(){
             fragmentListResultBinding.progressBar.visibility = View.VISIBLE
 
             if(historyId != null){
-                viewModel.getListModelResult("h1").observe(viewLifecycleOwner, { listResult ->
-//                    Log.d("ini listResult", listResult.toString())
+                Log.d("ini historyId", historyId)
+                viewModel.getListModelResult(historyId).observe(viewLifecycleOwner, { listResult ->
                     if(listResult!=null){
                         when(listResult.status){
                             Status.LOADING -> fragmentListResultBinding.progressBar.visibility = View.VISIBLE
                             Status.SUCCESS -> {
-//                                Log.d("ini listResult", listResult.data.toString())
+                                Log.d("ini listResult", listResult.data.toString())
                                 fragmentListResultBinding.progressBar.visibility = View.GONE
                                 listAdapter.setResult(listResult.data)
                                 listAdapter.notifyDataSetChanged()
@@ -67,7 +67,6 @@ class ListResultFragment : Fragment(){
                                             val mDiseaseResultFragment = DiseaseResultFragment()
 
                                             val mBundle = Bundle()
-                                            mBundle.putString(DiseaseResultFragment.EXTRA_RESULT, result.disease)
                                             mBundle.putString(DiseaseResultFragment.EXTRA_DISEASE, result.disease)
                                             mDiseaseResultFragment.arguments = mBundle
 
