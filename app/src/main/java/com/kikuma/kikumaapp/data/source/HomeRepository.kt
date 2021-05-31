@@ -160,9 +160,9 @@ class HomeRepository private constructor(
             override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
                     remoteDataSource.getDetailResult(resultId)
 
-            override fun saveCallResult(diseaseResponses: List<DiseaseResponse>) {
+            override fun saveCallResult(diseaseResponse: List<DiseaseResponse>) {
                 val diseaseList = ArrayList<DiseaseEntity>()
-                for (response in diseaseResponses) {
+                for (response in diseaseResponse) {
                     val disease = DiseaseEntity(response.resultId,
                             response.disease,
                             response.description,
@@ -183,7 +183,7 @@ class HomeRepository private constructor(
                     data == null || data.isEmpty()
 
             public override fun createCall(): LiveData<ApiResponse<List<TipsResponse>>> =
-                    remoteDataSource.getTips(forDisease)
+                    remoteDataSource.getTipsForDisease(forDisease)
 
             public override fun saveCallResult(tipsResponse: List<TipsResponse>) {
                 val tipsList = ArrayList<TipsEntity>()
@@ -230,7 +230,6 @@ class HomeRepository private constructor(
     override fun getResultWithTips(resultId: String): LiveData<DiseaseEntity> {
         //ini belum bener, soalnya kalo kaya gini result yg tampil selalu id yg terakhir
         val diseaseResult = MutableLiveData<DiseaseEntity>()
-
         remoteDataSource.getAllResult(object : RemoteDataSource.LoadAllResultCallback {
             override fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>) {
                 lateinit var disease: DiseaseEntity
@@ -244,11 +243,9 @@ class HomeRepository private constructor(
             }
         })
         return diseaseResult
-
         //Harusnya gini, tp entah knp selalu disease has not been initialized
         /*
         val diseaseResult = MutableLiveData<DiseaseEntity>()
-
         remoteDataSource.getAllResult(object : RemoteDataSource.LoadAllResultCallback {
             override fun onAllResultReceived(diseaseResponse: List<DiseaseResponse>) {
                 lateinit var disease: DiseaseEntity
@@ -266,20 +263,16 @@ class HomeRepository private constructor(
         return diseaseResult
          */
     }
-
  */
 /*
     override fun getAllTipsByResult(resultId: String): LiveData<Resource<List<TipsEntity>>> {
         return object : NetworkBoundResource<List<TipsEntity>, List<TipsResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<TipsEntity>> =
                     localDataSource.getAllTips()
-
             override fun shouldFetch(data: List<TipsEntity>?): Boolean =
                     data == null || data.isEmpty()
-
             public override fun createCall(): LiveData<ApiResponse<List<TipsResponse>>> =
                     remoteDataSource.getTips(resultId)
-
             public override fun saveCallResult(tipsResponse: List<TipsResponse>) {
                 val tipsList = ArrayList<TipsEntity>()
                 for (response in tipsResponse) {
@@ -288,11 +281,9 @@ class HomeRepository private constructor(
                             response.tips)
                     tipsList.add(tips)
                 }
-
                 localDataSource.insertTips(tipsList)
             }
         }.asLiveData()
     }
-
  */
 }

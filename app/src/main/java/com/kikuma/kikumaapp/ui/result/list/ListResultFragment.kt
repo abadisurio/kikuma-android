@@ -49,6 +49,7 @@ class ListResultFragment : Fragment(){
 
                     val mBundle = Bundle()
                     mBundle.putString(DiseaseResultFragment.EXTRA_RESULT, result.toString())
+                    mBundle.putString(DiseaseResultFragment.EXTRA_DISEASE, result.toString())
                     mDiseaseResultFragment.arguments = mBundle
 
                     val mFragmentManager = fragmentManager
