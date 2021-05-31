@@ -26,6 +26,7 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
     fun getAllHistory(): DataSource.Factory<Int, HistoryEntity> = mHomeDao.getAllHistory()
 
     fun insertHistory(history: List<HistoryEntity>) = mHomeDao.insertHistory(history)
+    fun insertModelResult(history: List<ModelResultEntity>) = mHomeDao.insertModelResult(history)
 
     //clinic
     fun getAllHospitals(): LiveData<List<HospitalEntity>> = mHomeDao.getAllHospitals()
@@ -37,12 +38,16 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
 
     fun insertResult(disease: List<DiseaseEntity>) = mHomeDao.insertResult(disease)
 
-    fun getDetailResult(resultId: String): LiveData<DiseaseEntity> =
-            mHomeDao.getDetailResult(resultId)
+    fun getDetailDisease(resultId: String): LiveData<DiseaseEntity> =
+            mHomeDao.getDetailDisease(resultId)
 
     //tips
     fun getTipsForDisease(forDisease: String): LiveData<List<TipsEntity>> =
             mHomeDao.getTipsForDisease(forDisease)
+
+    //tips
+    fun getModelResults(historyId: String): LiveData<List<ModelResultEntity>> =
+            mHomeDao.getModelResults(historyId)
 
     fun getAllTips(): LiveData<List<TipsEntity>> = mHomeDao.getTips()
     fun insertTips(tips: List<TipsEntity>) = mHomeDao.insertTips(tips)

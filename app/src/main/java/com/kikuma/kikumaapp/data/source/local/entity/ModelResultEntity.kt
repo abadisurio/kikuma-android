@@ -5,19 +5,19 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "diseaseentities")
-data class DiseaseEntity(
+@Entity(tableName = "modelresultentities")
+data class ModelResultEntity(
         @PrimaryKey
         @NonNull
         @ColumnInfo(name = "resultId")
         var resultId: String,
 
+        @ColumnInfo(name = "historyParent")
+        var historyParent: String,
+
         @ColumnInfo(name = "disease")
         var disease: String,
 
-        @ColumnInfo(name = "description")
-        var description: String,
-
-        @ColumnInfo(name = "imagePath")
-        var imagePath: String
+        @ColumnInfo(name = "percentage")
+        var percentage: String,
 )

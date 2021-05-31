@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.kikuma.kikumaapp.data.source.remote.response.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.kikuma.kikumaapp.data.source.local.entity.ModelResultEntity
 import com.kikuma.kikumaapp.data.source.remote.response.ArticleResponse
 import com.kikuma.kikumaapp.data.source.remote.response.DiseaseResponse
 import com.kikuma.kikumaapp.data.source.remote.response.HistoryResponse
@@ -120,9 +121,15 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     //detail result
-    fun getDetailResult(resultId: String): LiveData<ApiResponse<List<DiseaseResponse>>> {
+    fun getDetailDisease(resultId: String): LiveData<ApiResponse<List<DiseaseResponse>>> {
         val resultArticle = MutableLiveData<ApiResponse<List<DiseaseResponse>>>()
         resultArticle.value = ApiResponse.success(jsonHelper.loadDetailResult(resultId))
+        return resultArticle
+    }
+    //detail result
+    fun getModelResult(resultId: String): LiveData<ApiResponse<List<ModelResultResponse>>> {
+        val resultArticle = MutableLiveData<ApiResponse<List<ModelResultResponse>>>()
+        resultArticle.value = ApiResponse.success(jsonHelper.loadModelResult(resultId))
         return resultArticle
     }
 

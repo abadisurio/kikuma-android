@@ -42,7 +42,7 @@ interface HomeDao {
 
     @Transaction
     @Query("SELECT * FROM diseaseentities WHERE resultId = :resultId")
-    fun getDetailResult(resultId: String): LiveData<DiseaseEntity>
+    fun getDetailDisease(resultId: String): LiveData<DiseaseEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertResult(disease: List<DiseaseEntity>)
@@ -63,4 +63,11 @@ interface HomeDao {
 
     @Update
     fun updateTips(tips: TipsEntity)
+
+    @Transaction
+    @Query("SELECT * FROM modelresultentities WHERE historyParent = :historyId")
+    fun getModelResults(historyId: String): LiveData<List<ModelResultEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertModelResult(modelResultList: List<ModelResultEntity>)
 }

@@ -21,7 +21,7 @@ class DiseaseResultViewModel(private val homeRepository: HomeRepository) : ViewM
     }
 
     var getResult: LiveData<Resource<DiseaseEntity>> = Transformations.switchMap(resultId) { mResultId ->
-        homeRepository.getDetailResult(mResultId)
+        homeRepository.getDetailDisease(mResultId)
     }
 
     var getTips: LiveData<Resource<List<TipsEntity>>> = Transformations.switchMap(forDisease) { mTipsId ->
