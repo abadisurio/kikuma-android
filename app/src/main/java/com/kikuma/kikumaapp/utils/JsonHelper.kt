@@ -127,16 +127,16 @@ class JsonHelper(private val context: Context) {
         val list = ArrayList<DiseaseResponse>()
         try {
             val result = parsingFileToString(fileName)
-            Log.d("HASILNYA ADALAH", result.toString())
             if (result != null) {
                 val responseObject = JSONObject(result)
                 val listArray = responseObject.getJSONArray("result")
                 for (i in 0 until listArray.length()) {
-                    val result = listArray.getJSONObject(i)
+                    val resultDisease = listArray.getJSONObject(i)
 
-                    val disease = result.getString("disease")
-                    val description = result.getString("description")
-                    val percentage = result.getString("percentage")
+                    val resultId = resultDisease.getString("resultId")
+                    val disease = resultDisease.getString("disease")
+                    val description = resultDisease.getString("description")
+                    val percentage = resultDisease.getString("percentage")
 
                     val diseaseResponse = DiseaseResponse(resultId, disease, description, percentage)
                     list.add(diseaseResponse)
@@ -148,8 +148,8 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadTips(forDisease: String): List<TipsResponse> {
-        val fileName = String.format("Tips_r1.json", forDisease)
+    fun loadTips(resultId: String): List<TipsResponse> {
+        val fileName = String.format("Tips_r1.json", resultId)
         val list = ArrayList<TipsResponse>()
         try {
             val result = parsingFileToString(fileName = fileName)
@@ -162,7 +162,7 @@ class JsonHelper(private val context: Context) {
                     val tipsId = tip.getString("tipsId")
                     val resultId = tip.getString("resultId")
                     val tips = tip.getString("tips")
-                    //val forDisease = tip.getString("forDisease")
+                    val forDisease = tip.getString("forDisease")
 
                     val tipsResponse = TipsResponse(tipsId, resultId, tips, forDisease)
                     list.add(tipsResponse)
