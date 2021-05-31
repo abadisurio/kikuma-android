@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class DiseaseResponse(
-        var resultId: String,
+        var diseaseId: String,
         var disease: String,
         var description: String,
         var imagePath: String

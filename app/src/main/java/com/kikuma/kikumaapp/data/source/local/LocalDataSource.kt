@@ -38,8 +38,8 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
 
     fun insertResult(disease: List<DiseaseEntity>) = mHomeDao.insertResult(disease)
 
-    fun getDetailDisease(resultId: String): LiveData<DiseaseEntity> =
-            mHomeDao.getDetailDisease(resultId)
+    fun getDetailDisease(diseaseName: String): LiveData<DiseaseEntity> =
+            mHomeDao.getDetailDisease(diseaseName)
 
     //tips
     fun getTipsForDisease(forDisease: String): LiveData<List<TipsEntity>> =

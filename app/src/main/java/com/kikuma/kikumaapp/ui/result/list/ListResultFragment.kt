@@ -28,7 +28,7 @@ class ListResultFragment : Fragment(){
 
     private lateinit var fragmentListResultBinding: FragmentListResultBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentListResultBinding = FragmentListResultBinding.inflate(layoutInflater, container, false)
         return fragmentListResultBinding.root
     }
@@ -67,8 +67,8 @@ class ListResultFragment : Fragment(){
                                             val mDiseaseResultFragment = DiseaseResultFragment()
 
                                             val mBundle = Bundle()
-                                            mBundle.putString(DiseaseResultFragment.EXTRA_RESULT, result.toString())
-                                            mBundle.putString(DiseaseResultFragment.EXTRA_DISEASE, result.toString())
+                                            mBundle.putString(DiseaseResultFragment.EXTRA_RESULT, result.disease)
+                                            mBundle.putString(DiseaseResultFragment.EXTRA_DISEASE, result.disease)
                                             mDiseaseResultFragment.arguments = mBundle
 
                                             val mFragmentManager = fragmentManager

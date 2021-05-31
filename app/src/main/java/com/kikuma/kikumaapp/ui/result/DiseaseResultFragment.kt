@@ -50,12 +50,12 @@ class DiseaseResultFragment : Fragment() {
         //val extras = intent.extras
         val bundle = this.arguments
         if (bundle != null) {
-            val resultId = bundle.getString(EXTRA_RESULT)
-            val forDisease = bundle.getString(EXTRA_DISEASE)
-            if (resultId != null && forDisease != null) {
-                viewModel.setResultDisease(resultId, forDisease)
+            val diseaseId = bundle.getString(EXTRA_RESULT)
+            val forDisease = diseaseId
+            if (diseaseId != null && forDisease != null) {
+                viewModel.setResultDisease(diseaseId, forDisease)
 
-                viewModel.getResult.observe(viewLifecycleOwner, { result ->
+                viewModel.getDisease.observe(viewLifecycleOwner, { result ->
                     if (result != null) {
                         when (result.status) {
                             Status.LOADING -> diseaseResultBinding.progressBar.visibility = View.VISIBLE

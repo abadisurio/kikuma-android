@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey
 data class DiseaseEntity(
         @PrimaryKey
         @NonNull
-        @ColumnInfo(name = "resultId")
-        var resultId: String,
+        @ColumnInfo(name = "diseaseId")
+        var diseaseId: String,
 
         @ColumnInfo(name = "disease")
         var disease: String,

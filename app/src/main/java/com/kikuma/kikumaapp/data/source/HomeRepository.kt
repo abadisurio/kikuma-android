@@ -1,7 +1,7 @@
 package com.kikuma.kikumaapp.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.kikuma.kikumaapp.data.NetworkBoundResource
@@ -134,10 +134,10 @@ class HomeRepository private constructor(
             public override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
                     remoteDataSource.getAllResult()
 
-            public override fun saveCallResult(diseaseResponse: List<DiseaseResponse>) {
+            public override fun saveCallResult(data: List<DiseaseResponse>) {
                 val diseaseList = ArrayList<DiseaseEntity>()
-                for (response in diseaseResponse) {
-                    val disease = DiseaseEntity(response.resultId,
+                for (response in data) {
+                    val disease = DiseaseEntity(response.diseaseId,
                             response.disease,
                             response.description,
                             response.imagePath)
@@ -149,21 +149,22 @@ class HomeRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getDetailDisease(resultId: String): LiveData<Resource<DiseaseEntity>> {
+    override fun getDetailDisease(diseaseId: String): LiveData<Resource<DiseaseEntity>> {
+        Log.d("ini diseaseId2", diseaseId)
         return object : NetworkBoundResource<DiseaseEntity, List<DiseaseResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<DiseaseEntity> =
-                    localDataSource.getDetailDisease(resultId)
+                    localDataSource.getDetailDisease(diseaseId)
 
-            override fun shouldFetch(diseaseEntity: DiseaseEntity?): Boolean =
-                    diseaseEntity == null
+            override fun shouldFetch(data: DiseaseEntity?): Boolean =
+                    data == null
 
             override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
-                    remoteDataSource.getDetailDisease(resultId)
+                    remoteDataSource.getDetailDisease(diseaseId)
 
-            override fun saveCallResult(diseaseResponse: List<DiseaseResponse>) {
+            override fun saveCallResult(data: List<DiseaseResponse>) {
                 val diseaseList = ArrayList<DiseaseEntity>()
-                for (response in diseaseResponse) {
-                    val disease = DiseaseEntity(response.resultId,
+                for (response in data) {
+                    val disease = DiseaseEntity(response.diseaseId,
                             response.disease,
                             response.description,
                             response.imagePath)

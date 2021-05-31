@@ -41,8 +41,8 @@ interface HomeDao {
     fun getAllResultDisease(): LiveData<List<DiseaseEntity>>
 
     @Transaction
-    @Query("SELECT * FROM diseaseentities WHERE resultId = :resultId")
-    fun getDetailDisease(resultId: String): LiveData<DiseaseEntity>
+    @Query("SELECT * FROM diseaseentities WHERE disease = :diseaseName")
+    fun getDetailDisease(diseaseName: String): LiveData<DiseaseEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertResult(disease: List<DiseaseEntity>)
