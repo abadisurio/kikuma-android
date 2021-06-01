@@ -5,24 +5,29 @@
     android:layout_height="match_parent"
     android:id="@+id/frame_confirm"
     tools:context=".ui.confirmimage.ConfirmImageActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:contentDescription="@string/description" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="gambar" />
-
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/next"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"/>
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/see_the_magic"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"/>
+    </LinearLayout>
+    <include android:id="@+id/loading" layout="@layout/layout_loading" />
 </FrameLayout>

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +22,7 @@ class ConfirmImageActivity : AppCompatActivity() {
     lateinit var activityConfirmImageBinding: ActivityConfirmImageBinding
 
     lateinit var imageUri: String
-
+    var backDisabled = false
 
     companion object {
         const val EXTRA_IMAGE_URI = "extra_image"
@@ -50,7 +51,7 @@ class ConfirmImageActivity : AppCompatActivity() {
 //            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 //            transaction.replace(R.id.content, ListResultFragment())
 //            transaction.commit()
-
+            updateUI()
             val imageStream = contentResolver.openInputStream(Uri.parse(imageUri))
             val selectedImage = BitmapFactory.decodeStream(imageStream)
             val encodedImage = encodeImage(selectedImage)
@@ -80,5 +81,16 @@ class ConfirmImageActivity : AppCompatActivity() {
         bm.compress(Bitmap.CompressFormat.JPEG, 50, baos)
         val b: ByteArray = baos.toByteArray()
         return Base64.encodeToString(b, Base64.DEFAULT)
+    }
+    private fun updateUI(){
+        activityConfirmImageBinding.loading.layoutLoading.visibility = View.VISIBLE
+        supportActionBar?.hide()
+        backDisabled = true
+    }
+
+    override fun onBackPressed() {
+        if(!backDisabled){
+            super.onBackPressed()
+        }
     }
 }
