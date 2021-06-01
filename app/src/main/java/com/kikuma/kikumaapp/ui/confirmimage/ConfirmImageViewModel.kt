@@ -42,12 +42,12 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
         const val TAG = "ConfirmImageViewModel"
     }
 
+            val historyId = MutableLiveData<String>()
     val modelResult = MutableLiveData<RawApiResponse>()
 
     val isLoading = MutableLiveData<Boolean>()
     val isSuccess = MutableLiveData(false)
 
-    val historyId = MutableLiveData<String>()
 
     val imageBase64 = MutableLiveData<String>()
 
@@ -117,12 +117,12 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
             .addOnSuccessListener { documentReference ->
                 Log.d("ini docRef success", documentReference.id)
                 documentId.value = documentReference.id
+                historyId.value = documentReference.id
                 setModelResultToFirebase(documentReference.id)
             }
             .addOnFailureListener { e ->
                 Log.w(ContentValues.TAG, "Error adding document", e)
             }
-        historyId.value = documentId.value
     }
     private fun setModelResultToFirebase(historyId: String){
         val modelBatchRef = firestoreInstance()

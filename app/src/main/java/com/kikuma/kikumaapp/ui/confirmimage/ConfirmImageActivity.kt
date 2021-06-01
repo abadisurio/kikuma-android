@@ -59,24 +59,16 @@ class ConfirmImageActivity : AppCompatActivity() {
                 viewModel.uploadImage()
                 viewModel.isSuccess.observe(this, {
                     if(it){
+                        val hisId = viewModel.historyId.value.toString()
+                        Log.d("wgwg2", it.toString())
                         val intent = Intent(this, ContainerActivity::class.java)
-                        intent.putExtra(ContainerActivity.EXTRA_HISTORY_ID, viewModel.historyId.value)
+                        intent.putExtra(ContainerActivity.EXTRA_HISTORY_ID, hisId)
                         startActivity(intent)
-
+                        finish()
                     }
                 })
             }
-//            viewModel.uploadImage()
-//
-
-
         }
-
-//        confirmImageViewModel.getModelResult().observe(this, { modelResult ->
-//            Log.d("ini hasil retrofit", modelResult.toString())
-//        })
-
-
     }
     override fun onSupportNavigateUp(): Boolean {
 //        startActivity(Intent(this, MainActivity::class.java))
