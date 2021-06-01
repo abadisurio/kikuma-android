@@ -66,7 +66,7 @@ class ListResultFragment : Fragment(){
                                 val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
 
                                 imageView.setImageBitmap(decodedByte)
-                                imageView.rotation = 90f
+//                                imageView.rotation = 90f
 
                             }
                             Status.ERROR -> {

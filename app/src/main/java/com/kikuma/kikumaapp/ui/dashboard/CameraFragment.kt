@@ -35,6 +35,7 @@ class CameraFragment : Fragment() {
     private lateinit var fragmentCameraBinding: FragmentCameraBinding
     private lateinit var preview: Preview
     private lateinit var cameraProvider: ProcessCameraProvider
+    private lateinit var photoFile: File
     private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var isRearCamera = false
 
@@ -106,7 +107,7 @@ class CameraFragment : Fragment() {
         val imageCapture = imageCapture ?: return
 
         // Create time-stamped output file to hold the image
-        val photoFile = File(
+        photoFile = File(
             outputDirectory,
             SimpleDateFormat(FILENAME_FORMAT, Locale.US
             ).format(System.currentTimeMillis()) + ".jpg")
@@ -136,6 +137,7 @@ class CameraFragment : Fragment() {
 
                     val intent = Intent(activity, ConfirmImageActivity::class.java)
                     intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri.toString())
+                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_DIR, photoFile.toString())
                     startActivity(intent)
 //                    requireActivity().finish()
 

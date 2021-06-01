@@ -8,13 +8,17 @@
     android:padding="16dp"
     tools:context=".ui.dashboard.CameraFragment">
 
-
-    <androidx.camera.view.PreviewView
-        android:id="@+id/viewFinder"
+    <LinearLayout
+        android:id="@+id/preview_container"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <androidx.camera.view.PreviewView
+            android:id="@+id/viewFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
     <ImageButton
         android:id="@+id/camera_capture_button"
         app:layout_constraintBottom_toBottomOf="parent"
