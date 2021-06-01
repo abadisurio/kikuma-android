@@ -25,6 +25,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.reflect.full.memberProperties
 
 class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewModel() {
@@ -106,7 +108,9 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
         val data = hashMapOf(
             "disease" to "Tokyo",
             "imageData" to imageBase64.value,
-            "posted" to "Saturday, 8 May 2021 13:42"
+            "posted" to System.currentTimeMillis() / 1000L
+//                    "Friday, 4 Juni 2021"
+//                    SimpleDateFormat("EEEE, d MMMM yyyy", Locale.US).format(Date())
         )
         historyRef
             .add(data)

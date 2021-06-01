@@ -12,6 +12,10 @@ import com.kikuma.kikumaapp.data.source.remote.RemoteDataSource
 import com.kikuma.kikumaapp.data.source.remote.response.*
 import com.kikuma.kikumaapp.utils.AppExecutors
 import com.kikuma.kikumaapp.vo.Resource
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -52,7 +56,7 @@ class HomeRepository private constructor(
                         response.title,
                         response.description,
                         response.imagePath,
-                        response.posted)
+                            SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
                     articleList.add(article)
                 }
 
@@ -81,7 +85,7 @@ class HomeRepository private constructor(
                             response.title,
                             response.description,
                             response.imagePath,
-                            response.posted)
+                            SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
 
                         articleList.add(article)
                     }
@@ -114,10 +118,10 @@ class HomeRepository private constructor(
                     val history = HistoryEntity(response.historyId,
                     response.disease,
                     response.imageData,
-                    response.posted)
+                    SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
                     historyList.add(history)
                 }
-
+                historyList.sortByDescending { it.posted }
                 localDataSource.insertHistory(historyList)
             }
         }.asLiveData()
@@ -145,10 +149,11 @@ class HomeRepository private constructor(
                     val history = HistoryEntity(response.historyId,
                     response.disease,
                     response.imageData,
-                    response.posted)
+                            SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
                     historyList.add(history)
                 }
                 localDataSource.deleteHistory()
+                historyList.sortByDescending { it.posted }
                 localDataSource.insertHistory(historyList)
             }
         }.asLiveData()
