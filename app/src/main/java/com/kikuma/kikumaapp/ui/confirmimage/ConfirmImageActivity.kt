@@ -8,6 +8,7 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -50,28 +51,37 @@ class ConfirmImageActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[ConfirmImageViewModel::class.java]
 
+        val edNote = activityConfirmImageBinding.edNote
+
         activityConfirmImageBinding.btnNext.setOnClickListener{
 //            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 //            transaction.replace(R.id.content, ListResultFragment())
 //            transaction.commit()
-            updateUI()
-            val imageStream = contentResolver.openInputStream(Uri.parse(imageUri))
-            val selectedImage = BitmapFactory.decodeStream(imageStream)
-            val encodedImage = encodeImage(selectedImage)
-            Log.d("wgwg2", encodedImage.toString())
-            if(encodedImage!=null){
-                viewModel.setImageBase64(encodedImage)
-                viewModel.uploadImage()
-                viewModel.isSuccess.observe(this, {
-                    if (it) {
-                        val hisId = viewModel.historyId.value.toString()
-                        val intent = Intent(this, ContainerActivity::class.java)
-                        intent.putExtra(ContainerActivity.EXTRA_HISTORY_ID, hisId)
-                        startActivity(intent)
-                        finish()
-                    }
-                })
+            Log.d("hehe", TextUtils.isEmpty(edNote.text).toString())
+            if(TextUtils.isEmpty(edNote.text)){
+                edNote.error = "Required!"
+            }else{
+                updateUI()
+                val imageStream = contentResolver.openInputStream(Uri.parse(imageUri))
+                val selectedImage = BitmapFactory.decodeStream(imageStream)
+                val encodedImage = encodeImage(selectedImage)
+                Log.d("wgwg2", encodedImage.toString())
+                if(encodedImage!=null){
+                    viewModel.setNotes(edNote.text.toString())
+                    viewModel.setImageBase64(encodedImage)
+                    viewModel.uploadImage()
+                    viewModel.isSuccess.observe(this, {
+                        if (it) {
+                            val hisId = viewModel.historyId.value.toString()
+                            val intent = Intent(this, ContainerActivity::class.java)
+                            intent.putExtra(ContainerActivity.EXTRA_HISTORY_ID, hisId)
+                            startActivity(intent)
+                            finish()
+                        }
+                    })
+                }
             }
+
         }
     }
     override fun onSupportNavigateUp(): Boolean {

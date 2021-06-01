@@ -46,10 +46,12 @@ class NearestHospitalAdapter : RecyclerView.Adapter<NearestHospitalAdapter.Hospi
 
                 Glide.with(itemView)
                     .load(hospital.imagePath)
-                    .transform(RoundedCorners(20))
+                    .transform(RoundedCorners(1))
                     .apply(
-                        RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        RequestOptions
+                            .placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error))
+                            .centerCrop()
                     .into(binding.imagePoster)
 
                 cvItemHospital.setOnClickListener {
