@@ -15,6 +15,7 @@ interface HomeDataSource {
 
     //history
     fun getAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>>
+    fun getOneHistory(historyId: String): LiveData<Resource<HistoryEntity>>
     fun refreshAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>>
     fun insertHistory(): LiveData<Boolean>
 

@@ -1,10 +1,15 @@
 package com.kikuma.kikumaapp.ui.result.list
 
+import android.R.attr.*
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,9 +18,9 @@ import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.ModelResultEntity
 import com.kikuma.kikumaapp.databinding.FragmentListResultBinding
 import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
-import com.kikuma.kikumaapp.utils.DataDummy
 import com.kikuma.kikumaapp.viewmodel.ViewModelFactory
 import com.kikuma.kikumaapp.vo.Status
+
 
 class ListResultFragment : Fragment(){
 
@@ -47,9 +52,34 @@ class ListResultFragment : Fragment(){
 
             if(historyId != null){
                 Log.d("ini historyId", historyId)
+
+                viewModel.getOneHistory(historyId).observe(viewLifecycleOwner, { result ->
+                    if (result != null) {
+                        when (result.status) {
+                            Status.LOADING -> fragmentListResultBinding.progressBar.visibility = View.VISIBLE
+                            Status.SUCCESS -> {
+
+                                val imageView = fragmentListResultBinding.imageView
+                                val imageData = result.data?.imageData
+
+                                val decodedString: ByteArray = Base64.decode(imageData, Base64.DEFAULT)
+                                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+
+                                imageView.setImageBitmap(decodedByte)
+                                imageView.rotation = 90f
+
+                            }
+                            Status.ERROR -> {
+                                fragmentListResultBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(context, "An Error Occured", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                })
+
                 viewModel.refreshListModelResult(historyId).observe(viewLifecycleOwner, { listResult ->
-                    if(listResult!=null){
-                        when(listResult.status){
+                    if (listResult != null) {
+                        when (listResult.status) {
                             Status.LOADING -> fragmentListResultBinding.progressBar.visibility = View.VISIBLE
                             Status.SUCCESS -> {
                                 Log.d("ini listResult", listResult.data.toString())

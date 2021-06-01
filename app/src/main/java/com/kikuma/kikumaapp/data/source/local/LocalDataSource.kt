@@ -24,6 +24,7 @@ class LocalDataSource private constructor(private val mHomeDao: HomeDao) {
 
     //history
     fun getAllHistory(): DataSource.Factory<Int, HistoryEntity> = mHomeDao.getAllHistory()
+    fun getOneHistory(historyId: String): LiveData<HistoryEntity> = mHomeDao.getOneHistory(historyId)
 
     fun insertHistory(history: List<HistoryEntity>) = mHomeDao.insertHistory(history)
     fun deleteHistory() = mHomeDao.deleteHistory()

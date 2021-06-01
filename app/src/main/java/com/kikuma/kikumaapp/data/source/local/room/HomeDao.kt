@@ -23,6 +23,10 @@ interface HomeDao {
     @Query("SELECT * FROM historyentities")
     fun getAllHistory(): DataSource.Factory<Int, HistoryEntity>
 
+    @Transaction
+    @Query("SELECT * FROM historyentities WHERE historyId = :historyId")
+    fun getOneHistory(historyId: String): LiveData<HistoryEntity>
+
     @Query("DELETE FROM historyentities")
     fun deleteHistory()
 

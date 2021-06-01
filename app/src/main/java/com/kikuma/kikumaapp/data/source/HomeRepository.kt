@@ -126,6 +126,33 @@ class HomeRepository private constructor(
             }
         }.asLiveData()
     }
+
+    override fun getOneHistory(historyId: String): LiveData<Resource<HistoryEntity>> {
+        return object : NetworkBoundResource<HistoryEntity, List<HistoryResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<HistoryEntity> {
+                return localDataSource.getOneHistory(historyId)
+            }
+
+            override fun shouldFetch(data: HistoryEntity?): Boolean =
+                data == null
+
+            public override fun createCall(): LiveData<ApiResponse<List<HistoryResponse>>> =
+                remoteDataSource.getAllHistory()
+
+            public override fun saveCallResult(data: List<HistoryResponse>) {
+                val historyList = ArrayList<HistoryEntity>()
+                for (response in data) {
+                    val history = HistoryEntity(response.historyId,
+                    response.disease,
+                    response.imageData,
+                    SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
+                    historyList.add(history)
+                }
+                historyList.sortByDescending { it.posted }
+                localDataSource.insertHistory(historyList)
+            }
+        }.asLiveData()
+    }
     override fun refreshAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>> {
         return object : NetworkBoundResource<PagedList<HistoryEntity>, List<HistoryResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<HistoryEntity>> {
