@@ -11,5 +11,6 @@ import com.kikuma.kikumaapp.vo.Resource
 class ListResultViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
     fun getListModelResult(historyId: String): LiveData<Resource<List<ModelResultEntity>>> = homeRepository.getModelResults(historyId)
+    fun refreshListModelResult(historyId: String): LiveData<Resource<List<ModelResultEntity>>> = homeRepository.refreshModelResults(historyId)
 //    fun setModelResult(imageBase64: String): LiveData<Resource<String>> = homeepository.setModelResult()
 }

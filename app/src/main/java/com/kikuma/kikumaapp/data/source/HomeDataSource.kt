@@ -31,6 +31,7 @@ interface HomeDataSource {
 
     fun getModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>>
     fun setModelResults(imageBase64: String): LiveData<String>
+    fun refreshModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>>
     fun insertModelResult(diseaseResponse: List<ModelResultResponse>)
 
 }

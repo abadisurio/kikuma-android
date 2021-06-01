@@ -231,7 +231,32 @@ class HomeRepository private constructor(
                             response.percentage)
                     modelResultList.add(disease)
                 }
+                modelResultList.sortByDescending { it.percentage }
+                localDataSource.insertModelResult(modelResultList)
+            }
+        }.asLiveData()
+    }
+    override fun refreshModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>> {
+        return object : NetworkBoundResource<List<ModelResultEntity>, List<ModelResultResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<ModelResultEntity>> =
+                    localDataSource.getModelResults(historyId)
 
+            override fun shouldFetch(data: List<ModelResultEntity>?): Boolean =
+                    true
+
+            public override fun createCall(): LiveData<ApiResponse<List<ModelResultResponse>>> =
+                    remoteDataSource.getModelResult()
+
+            public override fun saveCallResult(diseaseResponse: List<ModelResultResponse>) {
+                val modelResultList = ArrayList<ModelResultEntity>()
+                for (response in diseaseResponse) {
+                    val disease = ModelResultEntity(response.resultId,
+                            response.historyParent,
+                            response.disease,
+                            response.percentage)
+                    modelResultList.add(disease)
+                }
+                modelResultList.sortByDescending { it.percentage }
                 localDataSource.insertModelResult(modelResultList)
             }
         }.asLiveData()

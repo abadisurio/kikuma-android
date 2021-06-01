@@ -5,8 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.kikuma.kikumaapp.Api.ApiConfig
 import com.kikuma.kikumaapp.Api.RawApiResponse
 import com.kikuma.kikumaapp.data.source.HomeRepository
@@ -40,10 +43,13 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
     val modelResult = MutableLiveData<RawApiResponse>()
 
     val isLoading = MutableLiveData<Boolean>()
+    val isSuccess = MutableLiveData(false)
 
     val historyId = MutableLiveData<String>()
 
     val imageBase64 = MutableLiveData<String>()
+
+    private var auth: FirebaseAuth = Firebase.auth
 
     fun setImageBase64(articleId: String) {
         this.imageBase64.value = articleId
@@ -95,7 +101,7 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
         val documentId = MutableLiveData<String>()
         val historyRef = firestoreInstance()
             .collection("scan-history")
-            .document("3wjrUo7Ak7pYGrSsAFHw")
+            .document(auth.currentUser?.uid!!)
             .collection("history")
         val data = hashMapOf(
             "disease" to "Tokyo",
@@ -136,12 +142,14 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
                 )
                 val docRef = firestoreInstance()
                     .collection("scan-history")
-                    .document("3wjrUo7Ak7pYGrSsAFHw")
+                    .document(auth.currentUser?.uid!!)
                     .collection("model-result")
                     .document()
                 modelBatchRef.set(docRef, data)
             }
-            modelBatchRef.commit()
+            modelBatchRef.commit().addOnSuccessListener {
+                isSuccess.value = true
+            }
         }
 
     }

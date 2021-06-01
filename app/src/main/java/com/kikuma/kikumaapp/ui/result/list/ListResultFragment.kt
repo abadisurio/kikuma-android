@@ -47,7 +47,7 @@ class ListResultFragment : Fragment(){
 
             if(historyId != null){
                 Log.d("ini historyId", historyId)
-                viewModel.getListModelResult(historyId).observe(viewLifecycleOwner, { listResult ->
+                viewModel.refreshListModelResult(historyId).observe(viewLifecycleOwner, { listResult ->
                     if(listResult!=null){
                         when(listResult.status){
                             Status.LOADING -> fragmentListResultBinding.progressBar.visibility = View.VISIBLE
