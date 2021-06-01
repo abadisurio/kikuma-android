@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kikuma.kikumaapp.data.source.HomeRepository
 import com.kikuma.kikumaapp.di.Injection
+import com.kikuma.kikumaapp.ui.confirmimage.ConfirmImageViewModel
 import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleViewModel
 import com.kikuma.kikumaapp.ui.home.HomeViewModel
 import com.kikuma.kikumaapp.ui.hospital.NearestHospitalViewModel
@@ -46,6 +47,9 @@ class ViewModelFactory private constructor(private val mHomeRepository: HomeRepo
             }
             modelClass.isAssignableFrom(NearestHospitalViewModel::class.java) -> {
                 return NearestHospitalViewModel(mHomeRepository) as T
+            }
+            modelClass.isAssignableFrom(ConfirmImageViewModel::class.java) -> {
+                return ConfirmImageViewModel(mHomeRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

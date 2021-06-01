@@ -110,9 +110,9 @@ class JsonHelper(private val context: Context) {
                 val id = result.getString("resultId")
                 val disease = result.getString("disease")
                 val description = result.getString("description")
-                val percentage = result.getString("percentage")
+                val imagePath = result.getString("imagePath")
 
-                val diseaseResponse = DiseaseResponse(id, disease, description, percentage)
+                val diseaseResponse = DiseaseResponse(id, disease, description, imagePath)
                 list.add(diseaseResponse)
             }
         } catch (e: JSONException) {
@@ -136,9 +136,34 @@ class JsonHelper(private val context: Context) {
                     val resultId = resultDisease.getString("resultId")
                     val disease = resultDisease.getString("disease")
                     val description = resultDisease.getString("description")
+                    val imagePath = resultDisease.getString("imagePath")
+
+                    val diseaseResponse = DiseaseResponse(resultId, disease, description, imagePath)
+                    list.add(diseaseResponse)
+                }
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return list
+    }
+    fun loadModelResult(resultId: String): List<ModelResultResponse> {
+        val fileName = String.format("ModelResultResponses.json", resultId)
+        val list = ArrayList<ModelResultResponse>()
+        try {
+            val result = parsingFileToString(fileName)
+            if (result != null) {
+                val responseObject = JSONObject(result)
+                val listArray = responseObject.getJSONArray("result")
+                for (i in 0 until listArray.length()) {
+                    val resultDisease = listArray.getJSONObject(i)
+
+                    val resultId = resultDisease.getString("resultId")
+                    val historyParent = resultDisease.getString("historyParent")
+                    val disease = resultDisease.getString("disease")
                     val percentage = resultDisease.getString("percentage")
 
-                    val diseaseResponse = DiseaseResponse(resultId, disease, description, percentage)
+                    val diseaseResponse = ModelResultResponse(resultId, historyParent, disease, percentage)
                     list.add(diseaseResponse)
                 }
             }

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.kikuma.kikumaapp.R
+import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity
+import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
 import com.kikuma.kikumaapp.ui.result.list.ListResultFragment
 
 class ContainerActivity : AppCompatActivity() {
@@ -18,14 +20,26 @@ class ContainerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_container)
 
         val mFragmentManager = supportFragmentManager
-        val mHomeFragment = ListResultFragment()
+        val mContainerFragment = ListResultFragment()
         val fragment = mFragmentManager.findFragmentByTag(ListResultFragment::class.java.simpleName)
         if (fragment !is ListResultFragment) {
             Log.d("MyFlexibleFragment", "Fragment Name :" + ListResultFragment::class.java.simpleName)
-            mFragmentManager
-                    .beginTransaction()
-                    .add(R.id.frame_container, mHomeFragment, ListResultFragment::class.java.simpleName)
-                    .commit()
+            val extras = intent.extras
+            if(extras != null){
+                val historyId = extras.getString(EXTRA_HISTORY_ID)
+                if(historyId!=null){
+                    Log.d("cek historyId", historyId)
+                    val mBundle = Bundle()
+                    mBundle.putString(ListResultFragment.EXTRA_HISTORY_ID, historyId)
+                    mContainerFragment.arguments = mBundle
+
+                    mFragmentManager
+                            .beginTransaction()
+                            .add(R.id.frame_container, mContainerFragment, ListResultFragment::class.java.simpleName)
+                            .commit()
+                }
+            }
+
         }
     }
 }

@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class DiseaseResponse(
-        var diseaseId: String,
+data class ModelResultResponse2(
+        var resultId: String,
+        var historyParent: String,
         var disease: String,
-        var description: String,
-        var imagePath: String
+        var percentage: String,
 ): Parcelable

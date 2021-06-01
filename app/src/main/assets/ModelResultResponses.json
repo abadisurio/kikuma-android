@@ -1,0 +1,22 @@
+{
+  "result": [
+    {
+      "resultId": "r1",
+      "historyParent": "h1",
+      "disease": "Cacar Air",
+      "percentage": "80%"
+    },
+    {
+      "resultId": "r2",
+      "historyParent": "h2",
+      "disease": "Campak",
+      "percentage": "87%"
+    },
+    {
+      "resultId": "r3",
+      "historyParent": "h1",
+      "disease": "Kudis",
+      "percentage": "90%"
+    }
+  ]
+}

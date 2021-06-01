@@ -23,9 +23,9 @@ import com.kikuma.kikumaapp.vo.Status
 class DiseaseResultFragment : Fragment() {
 
     companion object {
-        const val EXTRA_RESULT = "extra_result"
+//        const val EXTRA_RESULT = "extra_result"
         const val EXTRA_DISEASE = "extra_disease"
-        const val EXTRA_HISTORY_ID = "extra_history_id"
+//        const val EXTRA_HISTORY_ID = "extra_history_id"
     }
 
     private lateinit var diseaseResultBinding: DiseaseResultBinding
@@ -50,12 +50,11 @@ class DiseaseResultFragment : Fragment() {
         //val extras = intent.extras
         val bundle = this.arguments
         if (bundle != null) {
-            val resultId = bundle.getString(EXTRA_RESULT)
-            val forDisease = bundle.getString(EXTRA_DISEASE)
-            if (resultId != null && forDisease != null) {
-                viewModel.setResultDisease(resultId, forDisease)
+            val diseaseName = bundle.getString(EXTRA_DISEASE)
+            if (diseaseName != null) {
+                viewModel.setResultDisease(diseaseName, diseaseName)
 
-                viewModel.getResult.observe(viewLifecycleOwner, { result ->
+                viewModel.getDisease.observe(viewLifecycleOwner, { result ->
                     if (result != null) {
                         when (result.status) {
                             Status.LOADING -> diseaseResultBinding.progressBar.visibility = View.VISIBLE

@@ -1,7 +1,7 @@
 package com.kikuma.kikumaapp.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.kikuma.kikumaapp.data.NetworkBoundResource
@@ -12,6 +12,10 @@ import com.kikuma.kikumaapp.data.source.remote.RemoteDataSource
 import com.kikuma.kikumaapp.data.source.remote.response.*
 import com.kikuma.kikumaapp.utils.AppExecutors
 import com.kikuma.kikumaapp.vo.Resource
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -52,7 +56,7 @@ class HomeRepository private constructor(
                         response.title,
                         response.description,
                         response.imagePath,
-                        response.posted)
+                            SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
                     articleList.add(article)
                 }
 
@@ -81,7 +85,7 @@ class HomeRepository private constructor(
                             response.title,
                             response.description,
                             response.imagePath,
-                            response.posted)
+                            SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
 
                         articleList.add(article)
                     }
@@ -114,13 +118,76 @@ class HomeRepository private constructor(
                     val history = HistoryEntity(response.historyId,
                     response.disease,
                     response.imageData,
-                    response.posted)
+                    SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
                     historyList.add(history)
                 }
-
+                historyList.sortByDescending { it.posted }
                 localDataSource.insertHistory(historyList)
             }
         }.asLiveData()
+    }
+
+    override fun getOneHistory(historyId: String): LiveData<Resource<HistoryEntity>> {
+        return object : NetworkBoundResource<HistoryEntity, List<HistoryResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<HistoryEntity> {
+                return localDataSource.getOneHistory(historyId)
+            }
+
+            override fun shouldFetch(data: HistoryEntity?): Boolean =
+                data == null
+
+            public override fun createCall(): LiveData<ApiResponse<List<HistoryResponse>>> =
+                remoteDataSource.getAllHistory()
+
+            public override fun saveCallResult(data: List<HistoryResponse>) {
+                val historyList = ArrayList<HistoryEntity>()
+                for (response in data) {
+                    val history = HistoryEntity(response.historyId,
+                    response.disease,
+                    response.imageData,
+                    SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
+                    historyList.add(history)
+                }
+                historyList.sortByDescending { it.posted }
+                localDataSource.insertHistory(historyList)
+            }
+        }.asLiveData()
+    }
+    override fun refreshAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>> {
+        return object : NetworkBoundResource<PagedList<HistoryEntity>, List<HistoryResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<PagedList<HistoryEntity>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllHistory(), config).build()
+            }
+
+            override fun shouldFetch(data: PagedList<HistoryEntity>?): Boolean =
+                true
+
+            public override fun createCall(): LiveData<ApiResponse<List<HistoryResponse>>> =
+                remoteDataSource.getAllHistory()
+
+            public override fun saveCallResult(data: List<HistoryResponse>) {
+                val historyList = ArrayList<HistoryEntity>()
+                for (response in data) {
+                    val history = HistoryEntity(response.historyId,
+                    response.disease,
+                    response.imageData,
+                            SimpleDateFormat("EEEE, d MMMM yyyy hh:mm", Locale.US).format(Date(response.posted.toLong()*1000)))
+                    historyList.add(history)
+                }
+                localDataSource.deleteHistory()
+                historyList.sortByDescending { it.posted }
+                localDataSource.insertHistory(historyList)
+            }
+        }.asLiveData()
+    }
+
+    override fun insertHistory(): LiveData<Boolean> {
+        TODO("Not yet implemented")
     }
 
     override fun getAllResult(): LiveData<Resource<List<DiseaseEntity>>> {
@@ -134,13 +201,13 @@ class HomeRepository private constructor(
             public override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
                     remoteDataSource.getAllResult()
 
-            public override fun saveCallResult(diseaseResponse: List<DiseaseResponse>) {
+            public override fun saveCallResult(data: List<DiseaseResponse>) {
                 val diseaseList = ArrayList<DiseaseEntity>()
-                for (response in diseaseResponse) {
-                    val disease = DiseaseEntity(response.resultId,
+                for (response in data) {
+                    val disease = DiseaseEntity(response.diseaseId,
                             response.disease,
                             response.description,
-                            response.percentage)
+                            response.imagePath)
                     diseaseList.add(disease)
                 }
 
@@ -149,30 +216,101 @@ class HomeRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getDetailResult(resultId: String): LiveData<Resource<DiseaseEntity>> {
+    override fun getDetailDisease(diseaseId: String): LiveData<Resource<DiseaseEntity>> {
+        Log.d("ini diseaseId2", diseaseId)
         return object : NetworkBoundResource<DiseaseEntity, List<DiseaseResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<DiseaseEntity> =
-                    localDataSource.getDetailResult(resultId)
+                    localDataSource.getDetailDisease(diseaseId)
 
-            override fun shouldFetch(diseaseEntity: DiseaseEntity?): Boolean =
-                    diseaseEntity == null
+            override fun shouldFetch(data: DiseaseEntity?): Boolean =
+                    data == null
 
             override fun createCall(): LiveData<ApiResponse<List<DiseaseResponse>>> =
-                    remoteDataSource.getDetailResult(resultId)
+                    remoteDataSource.getDetailDisease(diseaseId)
 
-            override fun saveCallResult(diseaseResponse: List<DiseaseResponse>) {
+            override fun saveCallResult(data: List<DiseaseResponse>) {
                 val diseaseList = ArrayList<DiseaseEntity>()
-                for (response in diseaseResponse) {
-                    val disease = DiseaseEntity(response.resultId,
+                for (response in data) {
+                    val disease = DiseaseEntity(response.diseaseId,
                             response.disease,
                             response.description,
-                            response.percentage)
+                            response.imagePath)
                     diseaseList.add(disease)
                 }
                 localDataSource.insertResult(diseaseList)
             }
         }.asLiveData()
     }
+
+
+    override fun getModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>> {
+        return object : NetworkBoundResource<List<ModelResultEntity>, List<ModelResultResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<ModelResultEntity>> =
+                    localDataSource.getModelResults(historyId)
+
+            override fun shouldFetch(data: List<ModelResultEntity>?): Boolean =
+                    data == null || data.isEmpty()
+
+            public override fun createCall(): LiveData<ApiResponse<List<ModelResultResponse>>> =
+                    remoteDataSource.getModelResult()
+
+            public override fun saveCallResult(diseaseResponse: List<ModelResultResponse>) {
+                val modelResultList = ArrayList<ModelResultEntity>()
+                for (response in diseaseResponse) {
+                    val disease = ModelResultEntity(response.resultId,
+                            response.historyParent,
+                            response.disease,
+                            response.percentage)
+                    modelResultList.add(disease)
+                }
+                modelResultList.sortByDescending { it.percentage }
+                localDataSource.insertModelResult(modelResultList)
+            }
+        }.asLiveData()
+    }
+    override fun refreshModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>> {
+        return object : NetworkBoundResource<List<ModelResultEntity>, List<ModelResultResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<ModelResultEntity>> =
+                    localDataSource.getModelResults(historyId)
+
+            override fun shouldFetch(data: List<ModelResultEntity>?): Boolean =
+                    true
+
+            public override fun createCall(): LiveData<ApiResponse<List<ModelResultResponse>>> =
+                    remoteDataSource.getModelResult()
+
+            public override fun saveCallResult(diseaseResponse: List<ModelResultResponse>) {
+                val modelResultList = ArrayList<ModelResultEntity>()
+                for (response in diseaseResponse) {
+                    val disease = ModelResultEntity(response.resultId,
+                            response.historyParent,
+                            response.disease,
+                            response.percentage)
+                    modelResultList.add(disease)
+                }
+                modelResultList.sortByDescending { it.percentage }
+                localDataSource.insertModelResult(modelResultList)
+            }
+        }.asLiveData()
+    }
+
+    override fun setModelResults(imageBase64: String): LiveData<String> {
+        Log.d("ini diseaseId2", imageBase64)
+        return remoteDataSource.setModelResult(imageBase64)
+    }
+
+    override fun insertModelResult(diseaseResponse: List<ModelResultResponse>) {
+        val modelResultList = ArrayList<ModelResultEntity>()
+        for (response in diseaseResponse) {
+            val disease = ModelResultEntity(response.resultId,
+                response.historyParent,
+                response.disease,
+                response.percentage)
+            modelResultList.add(disease)
+        }
+        localDataSource.insertModelResult(modelResultList)
+    }
+
 
     override fun getTipsForDisease(forDisease: String): LiveData<Resource<List<TipsEntity>>> {
         return object : NetworkBoundResource<List<TipsEntity>, List<TipsResponse>>(appExecutors) {

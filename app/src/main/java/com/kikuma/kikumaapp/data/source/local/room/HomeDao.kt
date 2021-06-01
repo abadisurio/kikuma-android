@@ -23,6 +23,13 @@ interface HomeDao {
     @Query("SELECT * FROM historyentities")
     fun getAllHistory(): DataSource.Factory<Int, HistoryEntity>
 
+    @Transaction
+    @Query("SELECT * FROM historyentities WHERE historyId = :historyId")
+    fun getOneHistory(historyId: String): LiveData<HistoryEntity>
+
+    @Query("DELETE FROM historyentities")
+    fun deleteHistory()
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertHistory(movies: List<HistoryEntity>)
 
@@ -41,8 +48,8 @@ interface HomeDao {
     fun getAllResultDisease(): LiveData<List<DiseaseEntity>>
 
     @Transaction
-    @Query("SELECT * FROM diseaseentities WHERE resultId = :resultId")
-    fun getDetailResult(resultId: String): LiveData<DiseaseEntity>
+    @Query("SELECT * FROM diseaseentities WHERE disease = :diseaseName")
+    fun getDetailDisease(diseaseName: String): LiveData<DiseaseEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertResult(disease: List<DiseaseEntity>)
@@ -63,4 +70,11 @@ interface HomeDao {
 
     @Update
     fun updateTips(tips: TipsEntity)
+
+    @Transaction
+    @Query("SELECT * FROM modelresultentities WHERE historyParent = :historyId")
+    fun getModelResults(historyId: String): LiveData<List<ModelResultEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertModelResult(modelResultList: List<ModelResultEntity>)
 }

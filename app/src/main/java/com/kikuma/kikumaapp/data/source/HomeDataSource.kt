@@ -3,6 +3,7 @@ package com.kikuma.kikumaapp.data.source
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.kikuma.kikumaapp.data.source.local.entity.*
+import com.kikuma.kikumaapp.data.source.remote.response.ModelResultResponse
 import com.kikuma.kikumaapp.vo.Resource
 
 interface HomeDataSource {
@@ -14,6 +15,9 @@ interface HomeDataSource {
 
     //history
     fun getAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>>
+    fun getOneHistory(historyId: String): LiveData<Resource<HistoryEntity>>
+    fun refreshAllHistory(): LiveData<Resource<PagedList<HistoryEntity>>>
+    fun insertHistory(): LiveData<Boolean>
 
     //clinic
     fun getAllHospital(): LiveData<Resource<List<HospitalEntity>>>
@@ -21,9 +25,14 @@ interface HomeDataSource {
     //result
     fun getAllResult(): LiveData<Resource<List<DiseaseEntity>>>
 
-    fun getDetailResult(resultId: String): LiveData<Resource<DiseaseEntity>>
+    fun getDetailDisease(diseaseId: String): LiveData<Resource<DiseaseEntity>>
 
     //tips
     fun getTipsForDisease(forDisease: String): LiveData<Resource<List<TipsEntity>>>
+
+    fun getModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>>
+    fun setModelResults(imageBase64: String): LiveData<String>
+    fun refreshModelResults(historyId: String): LiveData<Resource<List<ModelResultEntity>>>
+    fun insertModelResult(diseaseResponse: List<ModelResultResponse>)
 
 }

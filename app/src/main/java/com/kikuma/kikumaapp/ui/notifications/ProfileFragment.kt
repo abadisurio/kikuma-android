@@ -46,7 +46,7 @@ class ProfileFragment : Fragment() {
         val profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
         val profileAdapter = ProfileAdapter()
-        profileViewModel.getAllHistory().observe(viewLifecycleOwner, { history ->
+        profileViewModel.refreshAllHistory().observe(viewLifecycleOwner, { history ->
             if (history != null) {
                 when (history.status) {
                     Status.LOADING -> fragmentProfileBinding.progressBar.visibility = View.VISIBLE
