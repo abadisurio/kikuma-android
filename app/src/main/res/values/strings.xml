@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">KikumaApp</string>
+    <string name="app_name">Kikuma</string>
     <string name="title_home">Home</string>
     <string name="title_camera">Camera</string>
     <string name="title_profile">Profile</string>
