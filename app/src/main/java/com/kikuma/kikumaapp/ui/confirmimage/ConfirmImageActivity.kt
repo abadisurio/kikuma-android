@@ -1,6 +1,5 @@
 package com.kikuma.kikumaapp.ui.confirmimage
 
-import android.R.attr.bitmap
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

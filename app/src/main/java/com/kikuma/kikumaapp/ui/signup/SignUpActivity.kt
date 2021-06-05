@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -45,42 +46,52 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun startSignUp() {
-        hideKeyboard(activitySignUpBinding.root)
-        activitySignUpBinding.loading.layoutLoading.visibility = View.VISIBLE
 
-        val emailField = activitySignUpBinding.edEmail.text.toString()
-        val passwordField = activitySignUpBinding.edPassword.text.toString()
-        val nameField = activitySignUpBinding.edName.text.toString()
+        val emailField = activitySignUpBinding.edEmail
+        val passwordField = activitySignUpBinding.edPassword
+        val nameField = activitySignUpBinding.edName
 
-        auth.createUserWithEmailAndPassword(emailField, passwordField)
-            .addOnCompleteListener(this) {
-                if (it.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
-                    val user: FirebaseUser? = auth.currentUser
-                    updateUI(user)
+        if(
+            TextUtils.isEmpty(emailField.text) ||
+            TextUtils.isEmpty(passwordField.text) ||
+            TextUtils.isEmpty(nameField.text)
+        ){
+            emailField.error = "Required!" 
+            passwordField.error = "Required!"
+            nameField.error = "Required!"
+        }else{
+            hideKeyboard(activitySignUpBinding.root)
+            activitySignUpBinding.loading.layoutLoading.visibility = View.VISIBLE
+            auth.createUserWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
+                .addOnCompleteListener(this) {
+                    if (it.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success")
+                        val user: FirebaseUser? = auth.currentUser
+                        updateUI(user)
 
-                    val profileUpdate = UserProfileChangeRequest
-                            .Builder()
-                            .setDisplayName(nameField)
-                            .build()
-                    user?.updateProfile(profileUpdate)?.addOnCompleteListener {updateName ->
-                        if(updateName.isSuccessful){
-                            startActivity(Intent(this, MainActivity::class.java))
-                            finish()
+                        val profileUpdate = UserProfileChangeRequest
+                                .Builder()
+                                .setDisplayName(nameField.text.toString())
+                                .build()
+                        user?.updateProfile(profileUpdate)?.addOnCompleteListener {updateName ->
+                            if(updateName.isSuccessful){
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finish()
+                            }
                         }
-                    }
 
-                }else{
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", it.exception)
-                    val reason = it.exception?.message
-                    Toast.makeText(this, "Authentication failed. $reason",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                    activitySignUpBinding.loading.layoutLoading.visibility = View.GONE
+                    }else{
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", it.exception)
+                        val reason = it.exception?.message
+                        Toast.makeText(this, "Authentication failed. $reason",
+                            Toast.LENGTH_SHORT).show()
+                        updateUI(null)
+                        activitySignUpBinding.loading.layoutLoading.visibility = View.GONE
+                    }
                 }
-            }
+        }
     }
 
     private fun updateUI(user: FirebaseUser?) {
