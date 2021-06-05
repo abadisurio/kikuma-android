@@ -64,8 +64,9 @@ class ConfirmImageActivity : AppCompatActivity() {
                 val imageStream = contentResolver.openInputStream(Uri.parse(imageUri))
                 val selectedImage = BitmapFactory.decodeStream(imageStream)
                 val encodedImage = encodeImage(selectedImage)
-                Log.d("wgwg2", encodedImage.toString())
+//                Log.d("wgwg2", encodedImage.toString())
                 if(encodedImage!=null){
+//                    Log.d("wgwg2", edNote.text.toString())
                     viewModel.setNotes(edNote.text.toString())
                     viewModel.setImageBase64(encodedImage)
                     viewModel.uploadImage()

@@ -237,14 +237,71 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     //tips
     fun getTipsForDisease(forDisease: String): LiveData<ApiResponse<List<TipsResponse>>> {
         val resultTips = MutableLiveData<ApiResponse<List<TipsResponse>>>()
-        resultTips.value = ApiResponse.success(jsonHelper.loadTips(forDisease))
+//        resultTips.value = ApiResponse.success(jsonHelper.loadTips(forDisease))
+//        return resultTips
+
+        val tipsRef = firestoreInstance()
+            .collection("tips")
+        tipsRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("ini tips", " => " + task.result)
+                    val documents = task.result?.documents
+                    if(documents != null){
+                        val tipsList = ArrayList<TipsResponse>()
+                        for (response in documents) {
+                            Log.d("ini poster", response.id + " => " + response.data?.get("imageData"))
+                            val document = TipsResponse(
+                                response.id,
+                                response.data?.get("resultId").toString(),
+                                response.data?.get("tips").toString(),
+                                response.data?.get("forDisease").toString(),
+                            )
+                            tipsList.add(document)
+                        }
+                        resultTips.value = ApiResponse.success(tipsList)
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.exception)
+                }
+            }
         return resultTips
+
     }
 
     //hospital
     fun getAllHospital(): LiveData<ApiResponse<List<HospitalResponse>>> {
         val resultHospital = MutableLiveData<ApiResponse<List<HospitalResponse>>>()
         resultHospital.value = ApiResponse.success(jsonHelper.loadHospital())
+//        return resultHospital
+        val hospitalRef = firestoreInstance().collection("hospitals")
+        hospitalRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("wkwk", " => " + task.result)
+                    val documents = task.result?.documents
+                    if(documents != null){
+                        val hospitalList = ArrayList<HospitalResponse>()
+                        for (response in documents) {
+                            Log.d("ini poster", response.id + " => " + response.data?.get("imagePath"))
+                            val document = HospitalResponse(
+                                response.data?.get("hospitalId").toString(),
+                                response.data?.get("hospital").toString(),
+                                response.data?.get("address").toString(),
+                                response.data?.get("rate").toString().toDouble(),
+                                response.data?.get("price").toString(),
+                                response.data?.get("imagePath").toString(),
+                            )
+                            hospitalList.add(document)
+                        }
+                        resultHospital.value = ApiResponse.success(hospitalList)
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.exception)
+                }
+        }
         return resultHospital
     }
+
+
 }

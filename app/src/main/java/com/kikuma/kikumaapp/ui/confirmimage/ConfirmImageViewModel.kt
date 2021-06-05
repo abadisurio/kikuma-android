@@ -111,7 +111,7 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
             .document(auth.currentUser?.uid!!)
             .collection("history")
         val data = hashMapOf(
-            "disease" to note,
+            "disease" to note.value,
             "imageData" to imageBase64.value,
             "posted" to System.currentTimeMillis() / 1000L
 //                    "Friday, 4 Juni 2021"

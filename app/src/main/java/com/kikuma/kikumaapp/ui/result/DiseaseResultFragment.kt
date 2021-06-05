@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.data.source.local.entity.DiseaseEntity
 import com.kikuma.kikumaapp.databinding.ActivityDiseaseResultBinding
@@ -114,6 +117,14 @@ class DiseaseResultFragment : Fragment() {
     private fun populateResult(diseaseEntity: DiseaseEntity) {
         diseaseResultBinding.tvDiseaseName.text = diseaseEntity.disease
         diseaseResultBinding.tvDescription.text = diseaseEntity.description
+
+        Glide.with(this)
+            .load(diseaseEntity.imagePath)
+            .transform(RoundedCorners(1))
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error))
+            .into(diseaseResultBinding.imageView)
 
         diseaseResultBinding.btnHospital.setOnClickListener {
             val mNearHospitalFragment = NearestHospitalFragment()
