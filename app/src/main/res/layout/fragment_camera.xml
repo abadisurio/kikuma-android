@@ -32,7 +32,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/camera_trigger"/>
     <ImageButton
-        android:visibility="gone"
         android:id="@+id/camera_explore_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
