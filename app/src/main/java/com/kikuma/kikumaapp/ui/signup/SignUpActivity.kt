@@ -33,6 +33,10 @@ class SignUpActivity : AppCompatActivity() {
             startSignUp()
         }
 
+        activitySignUpBinding.btnSignin.setOnClickListener {
+            onBackPressed()
+        }
+
         auth = Firebase.auth
         setContentView(activitySignUpBinding.root)
 
