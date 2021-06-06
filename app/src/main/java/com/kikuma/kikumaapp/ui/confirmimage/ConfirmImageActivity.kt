@@ -22,7 +22,7 @@ class ConfirmImageActivity : AppCompatActivity() {
     lateinit var activityConfirmImageBinding: ActivityConfirmImageBinding
 
     lateinit var imageUri: String
-    lateinit var imageDir: String
+//    lateinit var imageDir: String
     var backDisabled = false
 
     companion object {
@@ -43,7 +43,8 @@ class ConfirmImageActivity : AppCompatActivity() {
         if(extras != null){
             val imageView = activityConfirmImageBinding.imageView
             imageUri = extras.getString(EXTRA_IMAGE_URI).toString()
-            imageDir = extras.getString(EXTRA_IMAGE_DIR).toString()
+//            imageDir = extras.getString(EXTRA_IMAGE_DIR).toString()
+//            Log.d("imageDir", imageDir)
             Log.d("wkwk", imageUri)
             imageView.setImageURI(Uri.parse(imageUri))
         }
@@ -89,24 +90,29 @@ class ConfirmImageActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
-    private fun encodeImage(bm: Bitmap): String? {
+    private fun encodeImage(bm: Bitmap): String {
+        val inputStream = contentResolver.openInputStream(Uri.parse(imageUri))
+        var encoded = ""
+        if(inputStream != null){
+            val ei = ExifInterface(inputStream)
 
-        val ei = ExifInterface(imageDir)
-        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_UNDEFINED)
+            val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED)
 
-        val rotatedBitmap: Bitmap = when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bm, 90f)
-            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bm, 180f)
-            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bm, 270f)
-            ExifInterface.ORIENTATION_NORMAL -> bm
-            else -> bm
+            val rotatedBitmap: Bitmap = when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bm, 90f)
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bm, 180f)
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bm, 270f)
+                ExifInterface.ORIENTATION_NORMAL -> bm
+                else -> bm
+            }
+
+            val baos = ByteArrayOutputStream()
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+            val b: ByteArray = baos.toByteArray()
+            encoded  = Base64.encodeToString(b, Base64.DEFAULT)
         }
-
-        val baos = ByteArrayOutputStream()
-        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
-        val b: ByteArray = baos.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
+        return  encoded
     }
     private fun updateUI(){
         activityConfirmImageBinding.loading.layoutLoading.visibility = View.VISIBLE
