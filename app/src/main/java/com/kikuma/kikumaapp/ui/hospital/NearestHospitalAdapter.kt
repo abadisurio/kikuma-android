@@ -1,6 +1,7 @@
 package com.kikuma.kikumaapp.ui.hospital
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -55,9 +56,17 @@ class NearestHospitalAdapter : RecyclerView.Adapter<NearestHospitalAdapter.Hospi
                     .into(binding.imagePoster)
 
                 cvItemHospital.setOnClickListener {
-                    val intent = Intent(itemView.context, HospitalMapsActivity::class.java)
-                    //intent.putExtra(DiseaseResultActivity.EXTRA_HISTORY_ID, history.historyId)
-                    itemView.context.startActivity(intent)
+
+                    // Create a Uri from an intent string. Use the result to create an Intent.
+                    val gmmIntentUri = Uri.parse("geo:0,0?q=${hospital.hospital}")
+
+                    // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    // Make the Intent explicit by setting the Google Maps package
+                    mapIntent.setPackage("com.google.android.apps.maps")
+
+                    // Attempt to start an activity that can handle the Intent
+                    itemView.context.startActivity(mapIntent)
                 }
             }
         }
