@@ -61,7 +61,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
                             val document = ArticleResponse(
                                 response.id,
                                 response.data?.get("title").toString(),
-                                response.data?.get("description").toString(),
+                                response.data?.get("description").toString().replace("\\n", "\n"),
                                 response.data?.get("imagePath").toString(),
                                 response.data?.get("posted").toString(),
                             )
