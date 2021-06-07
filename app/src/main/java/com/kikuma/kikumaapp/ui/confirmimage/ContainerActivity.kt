@@ -4,20 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.kikuma.kikumaapp.R
-import com.kikuma.kikumaapp.ui.detailarticle.DetailArticleInfoActivity
-import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
 import com.kikuma.kikumaapp.ui.result.list.ListResultFragment
 
 class ContainerActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_RESULT = "extra_result"
         const val EXTRA_HISTORY_ID = "extra_history_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = "Result"
 
         val mFragmentManager = supportFragmentManager
         val mContainerFragment = ListResultFragment()
@@ -42,4 +43,10 @@ class ContainerActivity : AppCompatActivity() {
 
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 }

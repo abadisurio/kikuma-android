@@ -32,7 +32,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/camera_trigger"/>
     <ImageButton
-        android:visibility="gone"
         android:id="@+id/camera_explore_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -53,7 +52,7 @@
         android:background="@android:color/transparent"
         android:elevation="2dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_baseline_flip_camera"
+        android:src="@drawable/camera_flip"
         app:layout_constraintTop_toTopOf="@+id/camera_capture_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

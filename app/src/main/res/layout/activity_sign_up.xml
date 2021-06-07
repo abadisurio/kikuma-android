@@ -80,7 +80,7 @@
                 android:layout_height="46dp"
                 android:autofillHints="@string/email"
                 android:layout_marginTop="5dp"
-                android:paddingStart="16dp"
+                android:paddingHorizontal="16dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="textEmailAddress"
                 app:layout_constraintStart_toStartOf="@+id/tv_name"
@@ -108,7 +108,7 @@
                 android:background="@drawable/edit_text_background"
                 android:inputType="textPassword"
                 android:layout_marginTop="5dp"
-                android:paddingStart="16dp"
+                android:paddingHorizontal="16dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_password"
                 tools:ignore="LabelFor" />
@@ -135,12 +135,14 @@
                 android:fontFamily="@font/lato_regular"
                 android:text="@string/account_1"
                 android:textSize="13sp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="@+id/btn_signup"
                 app:layout_constraintHorizontal_bias="0.381"
                 app:layout_constraintStart_toStartOf="@+id/btn_signup"
                 app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
             <TextView
+                android:id="@+id/btn_signin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/signin"

@@ -2,11 +2,13 @@ package com.kikuma.kikumaapp.ui.dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -14,18 +16,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.kikuma.kikumaapp.R
 import com.kikuma.kikumaapp.databinding.FragmentCameraBinding
 import com.kikuma.kikumaapp.ui.confirmimage.ConfirmImageActivity
-import com.kikuma.kikumaapp.ui.result.DiseaseResultFragment
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+
 
 class CameraFragment : Fragment() {
     private var imageCapture: ImageCapture? = null
@@ -53,9 +54,27 @@ class CameraFragment : Fragment() {
                     startCamera()
                 } else {
                     Log.d(TAG, "Permission not granted")
-                    requireActivity().finish()
                 }
             }
+
+    private val getImageFromFile =
+        registerForActivityResult(ActivityResultContracts.GetContent()){
+            if(it != null){
+                Toast.makeText(requireActivity(), "pressed", Toast.LENGTH_SHORT).show()
+
+                mFileUri = it
+                val msg = "Photo capture succeeded: $it"
+                Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, msg)
+                Log.d("filepathwkwk", it.toString())
+
+                val intent = Intent(activity, ConfirmImageActivity::class.java)
+                intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, it.toString())
+                startActivity(intent)
+//                requireActivity().finish()
+
+            }
+        }
 
     companion object {
         private const val TAG = "CameraXBasic"
@@ -65,9 +84,9 @@ class CameraFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 //        val root = inflater.inflate(R.layout.fragment_camera, container, false)
 
@@ -78,8 +97,7 @@ class CameraFragment : Fragment() {
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            requestMultiplePermissions.launch( REQUIRED_PERMISSIONS )
-
+            requestMultiplePermissions.launch(REQUIRED_PERMISSIONS)
         }
 
         // Set up the listener for take photo button
@@ -90,6 +108,11 @@ class CameraFragment : Fragment() {
         fragmentCameraBinding.cameraFlipButton.setOnClickListener {
             flipCamera()
         }
+
+        fragmentCameraBinding.cameraExploreButton.setOnClickListener {
+            getImageFromFile.launch("image/*")
+        }
+
 
         outputDirectory = getOutputDirectory()
 
@@ -109,8 +132,10 @@ class CameraFragment : Fragment() {
         // Create time-stamped output file to hold the image
         photoFile = File(
             outputDirectory,
-            SimpleDateFormat(FILENAME_FORMAT, Locale.US
-            ).format(System.currentTimeMillis()) + ".jpg")
+            SimpleDateFormat(
+                FILENAME_FORMAT, Locale.US
+            ).format(System.currentTimeMillis()) + ".jpg"
+        )
 
         // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -121,7 +146,9 @@ class CameraFragment : Fragment() {
         // Set up image capture listener, which is triggered after photo has
         // been taken
         imageCapture.takePicture(
-            outputOptions, ContextCompat.getMainExecutor(requireContext()), object : ImageCapture.OnImageSavedCallback {
+            outputOptions,
+            ContextCompat.getMainExecutor(requireContext()),
+            object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                 }
@@ -137,7 +164,7 @@ class CameraFragment : Fragment() {
 
                     val intent = Intent(activity, ConfirmImageActivity::class.java)
                     intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_URI, savedUri.toString())
-                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_DIR, photoFile.toString())
+//                    intent.putExtra(ConfirmImageActivity.EXTRA_IMAGE_DIR, photoFile.toString())
                     startActivity(intent)
 //                    requireActivity().finish()
 
@@ -178,19 +205,22 @@ class CameraFragment : Fragment() {
             try {
 
 
-                Toast.makeText(requireActivity(),
-                        "DI SINI BUKAN",
-                        Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireActivity(),
+                    "DI SINI BUKAN",
+                    Toast.LENGTH_SHORT
+                ).show()
 
                 // Unbind use cases before rebinding
                 cameraProvider.unbindAll()
 
                 // Bind use cases to camera
                 cameraLifecycle = cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture)
+                    this, cameraSelector, preview, imageCapture
+                )
                 setupZoomAndTapToFocus(cameraLifecycle, viewFinder)
 
-            } catch(exc: Exception) {
+            } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
 
@@ -201,7 +231,8 @@ class CameraFragment : Fragment() {
 
     fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            requireContext(), it) == PackageManager.PERMISSION_GRANTED
+            requireContext(), it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun getOutputDirectory(): File {
@@ -223,7 +254,7 @@ class CameraFragment : Fragment() {
         }
         val scaleGestureDetector = ScaleGestureDetector(context, listener)
 
-        viewFinder.setOnTouchListener { view: View, motionEvent: MotionEvent ->
+        viewFinder.setOnTouchListener { _: View, motionEvent: MotionEvent ->
             scaleGestureDetector.onTouchEvent(motionEvent)
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -260,4 +291,5 @@ class CameraFragment : Fragment() {
         super.onResume()
         startCamera()
     }
+
 }

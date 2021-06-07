@@ -17,23 +17,23 @@ class IntroActivity :  AppIntro2() {
         // Call addSlide passing your Fragments.
         // You can use AppIntroFragment to use a pre-built fragment
         addSlide(AppIntroFragment.newInstance(
-                title = "Welcome...",
-                description = "This is the first slide of the example",
-                imageDrawable = R.drawable.loading,
+                title = "Get to know more",
+                description = "Early detection is one of the preventive measures for the skin symptoms to avoid them from getting worse",
+                imageDrawable = R.drawable.intro_1,
                 backgroundColor = Color.WHITE,
                 titleColor = Color.BLACK, descriptionColor = Color.BLACK
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "...Let's get started!",
-                description = "This is the last slide, I won't annoy you more :)",
-                imageDrawable = R.drawable.loading,
+                title = "Kikuma",
+                description = "provide the latest condition regarding the state of your facial skin based on the percentage of the type of  acne disease",
+                imageDrawable = R.drawable.intro_2,
                 backgroundColor = Color.WHITE,
                 titleColor = Color.BLACK, descriptionColor = Color.BLACK
         ))
         addSlide(AppIntroFragment.newInstance(
-                title = "...Let's get started!",
-                description = "This is the last slide, I won't annoy you more :)",
-                imageDrawable = R.drawable.loading,
+                title = "Let's get started!",
+                description = "Presents daily articles about tips for treating and preventing face skin diseases",
+                imageDrawable = R.drawable.intro_3,
                 backgroundColor = Color.WHITE,
                 titleColor = Color.BLACK, descriptionColor = Color.BLACK
         ))

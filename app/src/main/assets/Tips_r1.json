@@ -4,31 +4,31 @@
       "tipsId": "r1t1",
       "resultId": "r1",
       "tips": "Hindari Menggaruk Ruam",
-      "forDisease": "Jerawat"
+      "forDisease": "Acne Comedonal"
     },
     {
       "tipsId": "r1t2",
       "resultId": "r1",
-      "tips": "Berikan Obat Penurun Panas Demam",
-      "forDisease": "Cacar Air"
+      "tips": "Mengonsumsi Suplemen Kesehatan",
+      "forDisease": "Acne Vulgaris"
     },
     {
       "tipsId": "r1t3",
       "resultId": "r1",
       "tips": "Mandi Air Dingin",
-      "forDisease": "Cacar Air"
+      "forDisease": "Acne Vulgaris"
     },
     {
       "tipsId": "r1t4",
       "resultId": "r1",
       "tips": "Istirahat di Rumah",
-      "forDisease": "Campak"
+      "forDisease": "Acne Comedonal"
     },
     {
       "tipsId": "r1t5",
       "resultId": "r1",
       "tips": "Rutin Menjaga Kulit dan Tubuh Tetap Terhidrasi",
-      "forDisease": "Kudis"
+      "forDisease": "Acne Vulgaris"
     }
   ]
 }

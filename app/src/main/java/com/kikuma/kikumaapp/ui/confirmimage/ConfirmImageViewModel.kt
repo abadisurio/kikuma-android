@@ -42,7 +42,8 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
         const val TAG = "ConfirmImageViewModel"
     }
 
-            val historyId = MutableLiveData<String>()
+    val historyId = MutableLiveData<String>()
+    val note = MutableLiveData<String>()
     val modelResult = MutableLiveData<RawApiResponse>()
 
     val isLoading = MutableLiveData<Boolean>()
@@ -55,6 +56,10 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
 
     fun setImageBase64(articleId: String) {
         this.imageBase64.value = articleId
+    }
+
+    fun setNotes(note: String){
+        this.note.value = note
     }
 
     fun uploadImage(){
@@ -106,7 +111,7 @@ class ConfirmImageViewModel(private val homeRepository: HomeRepository): ViewMod
             .document(auth.currentUser?.uid!!)
             .collection("history")
         val data = hashMapOf(
-            "disease" to "Tokyo",
+            "disease" to note.value,
             "imageData" to imageBase64.value,
             "posted" to System.currentTimeMillis() / 1000L
 //                    "Friday, 4 Juni 2021"
